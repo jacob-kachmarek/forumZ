@@ -1,26 +1,40 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
+const { Schema, model } = mongoose;
 const bcrypt = require('bcrypt');
-const Order = require('./Order');
 
 const userSchema = new Schema({
     username: {
         type: String,
         required: true,
-        trim: true
-    },
-    email: {
-        type: String,
-        required: true,
-        trim: true
+        trim: true,
+        unique: true
     },
     password: {
         type: String,
         required: true,
         minlength: 5
     },
-    orders: [Order.schema]
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    forums: {
+        type: Schema.Types.ObjectId,
+        ref: 'Forum'
+    },
+    posts: {
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+    },
+    comments: {
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+    },
+    favoriteForums: {
+        type: Schema.Types.ObjectId,
+        ref: 'Forum'
+    }
 });
 
 userSchema.pre('save', async function (next) {

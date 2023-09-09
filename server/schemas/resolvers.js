@@ -14,6 +14,7 @@ const resolvers = {
                 .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments'} } })
                 .populate({ path: 'posts', populate: { path: 'comments'} })
                 .populate({ path: 'comments'})
+
         }
     },
     Mutation: {
@@ -23,11 +24,9 @@ const resolvers = {
             console.log(user)
             const token = signToken(user);
             console.log(token)
-
             return { token, user };
         },
         addForum: async (parent, { title, description, userID }, context) => {
-            // console.log(context.user);
             const forum = await Forum.create({
                 title,
                 description,

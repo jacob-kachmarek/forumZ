@@ -22,14 +22,14 @@ type Forum {
     _id: ID
     title: String
     description: String
-    createdBy: [User]
+    createdBy: User
     posts: [Post]
     createdAt: String
 }
 type Comment {
     _id: ID
     text: String
-    createdBy: [User]
+    createdBy: User
     replies: [Reply]
     createdAt: String
     likes: Int
@@ -37,7 +37,7 @@ type Comment {
 type Reply {
     _id: ID
     text: String
-    createdBy: [User]
+    createdBy: User
     createdAt: String
     likes: Int
 }

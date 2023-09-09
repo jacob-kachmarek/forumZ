@@ -5,17 +5,15 @@ const resolvers = {
     Query: {
         getSingleUser: async (parent, args, context) => {
             return User.findOne({ username: args.username })
-                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments', populate: { path: 'favoriteForums' } } } })
-                .populate({ path: 'posts', populate: { path: 'comments', populate: { path: 'favoriteForums' } } })
-                .populate({ path: 'comments', populate: { path: 'favoriteForums' } })
-                .populate('favoriteForums');
+                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments'} } })
+                .populate({ path: 'posts', populate: { path: 'comments'} })
+                .populate({ path: 'comments'})
         },
         getUsers: async (parent, args, context) => {
             return User.find()
-                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments', populate: { path: 'favoriteForums' } } } })
-                .populate({ path: 'posts', populate: { path: 'comments', populate: { path: 'favoriteForums' } } })
-                .populate({ path: 'comments', populate: { path: 'favoriteForums' } })
-                .populate('favoriteForums');
+                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments'} } })
+                .populate({ path: 'posts', populate: { path: 'comments'} })
+                .populate({ path: 'comments'})
         }
     },
     Mutation: {
@@ -59,26 +57,24 @@ const resolvers = {
                 { $push: { posts: post._id } }
             );
             return post;
+        },
+        addComment: async (parent, { text, userID, postID }, context) => {
+            const comment = await Comment.create({
+                text,
+                createdBy: userID
+            });
+            await User.findOneAndUpdate(
+                { _id: userID },
+                { $addToSet: { comments: comment._id } }
+            )
+            await Post.findOneAndUpdate(
+                { _id: postID },
+                { $addToSet: { comments: comment._id } }
+            )
+            return comment;
         }
-        // addComment: async (parent, { text, userID, postID }, context) => {
-        //     const comment = await Comment.create({
-        //         text,
-        //         createdBy: userID
-        //     });
-        //     await User.findOneAndUpdate(
-        //         { _id: userID },
-        //         { $addToSet: { comments: comment._id } }
-        //     )
-        //     await Post.findOneAndUpdate(
-        //         { _id: postID },
-        //         { $addToSet: { comments: comment._id } }
-        //     )
-        // }
     }
 }
 
 module.exports = resolvers;
 
-64fbb525472c17d3e5834d54    //userid
-
-64fbb5cd472c17d3e5834d57    //forumid

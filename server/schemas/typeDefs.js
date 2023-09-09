@@ -14,7 +14,7 @@ type Post {
     title: String
     description: String
     image: String
-    createdBy: [User]
+    createdBy: User
     likes: Int
     comments: [Comment]
 }
@@ -52,10 +52,7 @@ type Query {
  type Mutation {
     addUser(username: String!, password: String!): Auth
     addForum(title: String!, description: String!, userID: ID!): Forum
-
-
-
-
+    addPost(title: String!, description: String! userID: ID!): Post
  }
 `
 module.exports = typeDefs;
@@ -69,8 +66,8 @@ module.exports = typeDefs;
 
 // addPost(title: String!, description: String!): Post
 // login(email: String!, password: String!): Auth
-// addComment(text: String): Comment
 // addReply(text: String): Reply
+// addComment(text: String!, userID: ID!, postID: ID!): Comment
 
 // deleteForum(forumId:ID!):Forum
 // deletePost(postId:ID!): Post

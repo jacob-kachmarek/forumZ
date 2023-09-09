@@ -27,6 +27,20 @@ const resolvers = {
             console.log(token)
 
             return { token, user };
+        },
+        addForum: async (parent, { title, description, userID }, context) => {
+            // console.log(context.user);
+            const forum = await Forum.create({
+                title,
+                description,
+                createdBy: userID,
+            });
+            console.log(forum._id)
+            await User.findOneAndUpdate(
+                { _id: userID },
+                { $addToSet: { forums: [forum._id] } }
+            );
+            return forum;
         }
     }
 }

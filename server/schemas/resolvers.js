@@ -128,7 +128,39 @@ const resolvers = {
                 {new: true}
             );
             return comment;
-        }
+        },
+        updateReply: async (parent, { text, replyID, commentID }, context) => {
+            if (text.length === 0) {
+              return null;
+            }
+          
+            try {
+              const comment = await Comment.findOne({ _id: commentID });
+          
+              if (!comment) {
+                return null; 
+              }
+              const updatedComment = comment.toObject();
+              const updatedReplies = updatedComment.replies.map((reply) => {
+                if (reply._id.toString() === replyID) {
+                  return { ...reply, text: text };
+                }
+                return reply;
+              });
+              updatedComment.replies = updatedReplies;
+              const result = await Comment.findOneAndUpdate(
+                { _id: commentID },
+                updatedComment,
+                { new: true }
+              );
+          
+              return result;
+            } catch (error) {
+              console.error(error);
+              throw error;
+            }
+          }
+          
     }
 }
 

@@ -52,7 +52,7 @@ type Query {
  type Mutation {
     addUser(username: String!, password: String!): Auth
     addForum(title: String!, description: String!, userID: ID!): Forum
-    addPost(title: String!, description: String! userID: ID!): Post
+    addPost(title: String!, description: String! userID: ID! forumID: ID!): Post
  }
 `
 module.exports = typeDefs;

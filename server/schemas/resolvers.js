@@ -43,25 +43,23 @@ const resolvers = {
             return forum;
         },
 
-        // This kind of works, updates the database but the query is strange, also explicitly codes what forum to add to.
-        // Didn't want to push it not working so i commented out my work feel free to use delete change etc.
 
-        // addPost: async (parent, { title, description, userID }, context) => {
-        //     const post = await Post.create({
-        //         title,
-        //         description,
-        //         createdBy: userID
-        //     });
-        //     await User.findOneAndUpdate(
-        //         { _id: userID },
-        //         { $addToSet: { posts: post._id } }
-        //     );
-        //     await Forum.findOneAndUpdate(
-        //         { _id: "64fb9f2b90bf09a705a3ff26" },
-        //         { $addToSet: { posts: post._id } }
-        //     );
-        //     return post;
-        // }
+        addPost: async (parent, { title, description, userID, forumID }, context) => {
+            const post = await Post.create({
+                title,
+                description,
+                createdBy: userID
+            });
+            await User.findOneAndUpdate(
+                { _id: userID },
+                { $push: { posts: post._id } }
+            );
+            await Forum.findOneAndUpdate(
+                { _id: forumID },
+                { $push: { posts: post._id } }
+            );
+            return post;
+        }
         // addComment: async (parent, { text, userID, postID }, context) => {
         //     const comment = await Comment.create({
         //         text,
@@ -80,3 +78,7 @@ const resolvers = {
 }
 
 module.exports = resolvers;
+
+64fbb525472c17d3e5834d54    //userid
+
+64fbb5cd472c17d3e5834d57    //forumid

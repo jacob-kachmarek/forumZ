@@ -62,6 +62,7 @@ type Query {
     deleteForum(forumID: ID!): Forum
     deletePost(postID: ID!): Post
     deleteComment(commentID: ID!): Comment
+    deleteReply(replyID:ID!, commentID: ID!): Reply
  }
 `
 module.exports = typeDefs;

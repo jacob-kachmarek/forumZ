@@ -170,6 +170,14 @@ const resolvers = {
                 {_id: commentID}
             );
             return comment;
+        },
+        deleteReply: async (parent, {commentID, replyID}, context) => {
+            const comment = await Comment.findOneAndUpdate(
+                {_id: commentID},
+                { $pull: {replies: {_id: replyID } } },
+                {new: true}
+            );
+            return comment;
         }
     }
 }

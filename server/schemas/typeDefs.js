@@ -60,6 +60,7 @@ type Query {
     updateComment(text: String, commentID: ID!): Comment
     updateReply(text: String, replyID: ID!, commentID: ID!): Reply
     deleteForum(forumID: ID!): Forum
+    deletePost(postID: ID!): Post
  }
 `
 module.exports = typeDefs;

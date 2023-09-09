@@ -158,6 +158,12 @@ const resolvers = {
                 {_id: forumID}
             );
             return forum;
+        },
+        deletePost: async (parent, {postID}, context) =>{
+            const post = await Post.findByIdAndDelete(
+                {_id: postID}
+            );
+            return post;
         }
 
     }

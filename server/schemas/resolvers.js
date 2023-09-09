@@ -164,8 +164,13 @@ const resolvers = {
                 {_id: postID}
             );
             return post;
+        },
+        deleteComment: async (parent, {commentID}, context) =>{
+            const comment = await Comment.findByIdAndDelete(
+                {_id: commentID}
+            );
+            return comment;
         }
-
     }
 }
 

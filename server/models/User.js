@@ -19,22 +19,30 @@ const userSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    forums: {
-        type: Schema.Types.ObjectId,
-        ref: 'Forum'
-    },
-    posts: {
-        type: Schema.Types.ObjectId,
-        ref: 'Post'
-    },
-    comments: {
-        type: Schema.Types.ObjectId,
-        ref: 'Comment'
-    },
-    favoriteForums: {
-        type: Schema.Types.ObjectId,
-        ref: 'Forum'
-    }
+    forums: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Forum'
+        }
+    ],
+    posts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Post'
+        }
+    ],
+    comments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Comment'
+        }
+    ],
+    favoriteForums: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Forum'
+        }
+    ]
 });
 
 userSchema.pre('save', async function (next) {

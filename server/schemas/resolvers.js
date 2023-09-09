@@ -5,34 +5,34 @@ const resolvers = {
     Query: {
         getSingleUser: async (parent, args, context) => {
             return User.findOne({ username: args.username })
-                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments'} } })
-                .populate({ path: 'posts', populate: { path: 'comments'} })
-                .populate({ path: 'comments'})
+                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments' } } })
+                .populate({ path: 'posts', populate: { path: 'comments' } })
+                .populate({ path: 'comments' })
         },
         getUsers: async (parent, args, context) => {
             return User.find()
-                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments'} } })
-                .populate({ path: 'posts', populate: { path: 'comments'} })
-                .populate({ path: 'comments'})
+                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments' } } })
+                .populate({ path: 'posts', populate: { path: 'comments' } })
+                .populate({ path: 'comments' })
 
         }
     },
     Mutation: {
-        login: async (parent, { email, password }) => {
-            const user = await User.findOne({ email });
-      
+        login: async (parent, { username, password }) => {
+            const user = await User.findOne({ username });
+
             if (!user) {
-              throw AuthenticationError;
+                throw AuthenticationError;
             }
-      
+
             const correctPw = await user.isCorrectPassword(password);
-      
+
             if (!correctPw) {
-              throw AuthenticationError;
+                throw AuthenticationError;
             }
-      
+
             const token = signToken(user);
-      
+
             return { token, user };
         },
         addUser: async (parent, { username, password }, context) => {
@@ -89,32 +89,32 @@ const resolvers = {
         },
         addReply: async (parent, { text, commentID }, context) => {
             const reply = await Comment.findOneAndUpdate(
-                {_id: commentID},
-                { $push:  { replies: {text} }},
-                {new: true}
+                { _id: commentID },
+                { $push: { replies: { text } } },
+                { new: true }
             )
             return reply;
         },
         updateForum: async (parent, { title, description, forumID }, context) => {
             const update = {};
             if (title) {
-              update.title = title;
+                update.title = title;
             }
             if (description) {
-              update.description = description;
+                update.description = description;
             }
             if (Object.keys(update).length === 0) {
-              return null;
+                return null;
             }
             const forum = await Forum.findOneAndUpdate(
-              { _id: forumID },
-              update,
-              { new: true }
+                { _id: forumID },
+                update,
+                { new: true }
             );
-          
+
             return forum;
         },
-        updatePost: async (parent, {title, description, postID}, context) =>{
+        updatePost: async (parent, { title, description, postID }, context) => {
             const update = {};
             if (title) {
                 update.title = title;
@@ -127,31 +127,31 @@ const resolvers = {
                 return null;
             }
             const post = await Post.findOneAndUpdate(
-                {_id: postID},
+                { _id: postID },
                 update,
-                {new: true}
+                { new: true }
             );
 
             return post;
         },
-        updateComment: async (parent, {text, commentID}, context) =>{
-            if (text.length == 0){
+        updateComment: async (parent, { text, commentID }, context) => {
+            if (text.length == 0) {
                 return null;
             }
             const comment = await Comment.findOneAndUpdate(
-                {_id: commentID},
-                {text: text},
-                {new: true}
+                { _id: commentID },
+                { text: text },
+                { new: true }
             );
             return comment;
         },
         updateReply: async (parent, { text, replyID, commentID }, context) => {
             if (text.length === 0) {
-              return null;
+                return null;
             }
             const comment = await Comment.findOne({ _id: commentID });
             if (!comment) {
-            return null; 
+                return null;
             }
             const updatedComment = comment.toObject();
             const updatedReplies = updatedComment.replies.map((reply) => {
@@ -166,32 +166,32 @@ const resolvers = {
                 updatedComment,
                 { new: true }
             );
-        
+
             return result;
         },
-        deleteForum: async (parent, {forumID}, context) =>{
+        deleteForum: async (parent, { forumID }, context) => {
             const forum = await Forum.findByIdAndDelete(
-                {_id: forumID}
+                { _id: forumID }
             );
             return forum;
         },
-        deletePost: async (parent, {postID}, context) =>{
+        deletePost: async (parent, { postID }, context) => {
             const post = await Post.findByIdAndDelete(
-                {_id: postID}
+                { _id: postID }
             );
             return post;
         },
-        deleteComment: async (parent, {commentID}, context) =>{
+        deleteComment: async (parent, { commentID }, context) => {
             const comment = await Comment.findByIdAndDelete(
-                {_id: commentID}
+                { _id: commentID }
             );
             return comment;
         },
-        deleteReply: async (parent, {commentID, replyID}, context) => {
+        deleteReply: async (parent, { commentID, replyID }, context) => {
             const comment = await Comment.findOneAndUpdate(
-                {_id: commentID},
-                { $pull: {replies: {_id: replyID } } },
-                {new: true}
+                { _id: commentID },
+                { $pull: { replies: { _id: replyID } } },
+                { new: true }
             );
             return comment;
         }

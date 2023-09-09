@@ -51,6 +51,7 @@ type Query {
 }
  type Mutation {
     addUser(username: String!, password: String!): Auth
+    login(username: String!, password: String!): Auth
     addForum(title: String!, description: String!, userID: ID!): Forum
     addPost(title: String!, description: String!, userID: ID! forumID: ID!): Post
     addComment(text: String!, userID: ID!, postID: ID!): Comment

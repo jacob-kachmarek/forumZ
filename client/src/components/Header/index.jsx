@@ -1,9 +1,15 @@
 import Navbar from '../Navbar'
- export default function Header() {
+// import { Link } from 'react-router-dom';
+// import Auth from '../../utils/auth';
+
+
+
+export default function Header() {
     return (
-        <>
-            <h1>Header</h1>
+        <div>
             <Navbar/>
-        </>
+        </div>
     )
 }
+
+    

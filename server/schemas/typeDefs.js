@@ -51,6 +51,9 @@ type Query {
 }
  type Mutation {
     addUser(username: String!, password: String!): Auth
+    addForum(title: String!, description: String!, userID: ID!): Forum
+
+
  }
 `
 module.exports = typeDefs;
@@ -61,3 +64,18 @@ module.exports = typeDefs;
 
 // type Mutation {
 // }
+
+// addPost(title: String!, description: String!): Post
+// login(email: String!, password: String!): Auth
+// addComment(text: String): Comment
+// addReply(text: String): Reply
+
+// deleteForum(forumId:ID!):Forum
+// deletePost(postId:ID!): Post
+// deleteComment(commentID:ID!): Comment
+// deleteReply(replyID:ID!): Reply
+
+// updateForum(title: String description: String): Forum
+// updatePost(title: String, description: String): Post
+// updateComment(text: String): Comment
+// updateReply(text: String): Reply

@@ -1,6 +1,6 @@
 import {gql} from '@apollo/client';
 
-export const QUERY_USER = gql`
+export const GET_USER_FORUMS = gql`
 query getSingleUser($username: String!) {
     getSingleUser(username: $username) {
       username
@@ -41,7 +41,7 @@ query getSingleUser($username: String!) {
   }
 `;
 
-export const QUERY_USERS = gql`
+export const GET_ALL = gql`
 query getUsers {
     getUsers {
       username

@@ -115,10 +115,20 @@ const resolvers = {
                 update,
                 {new: true}
             );
-            
-            return post;
-        }
 
+            return post;
+        },
+        updateComment: async (parent, {text, commentID}, context) =>{
+            if (text.length == 0){
+                return null;
+            }
+            const comment = await Comment.findOneAndUpdate(
+                {_id: commentID},
+                {text: text},
+                {new: true}
+            );
+            return comment;
+        }
     }
 }
 

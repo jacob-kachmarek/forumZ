@@ -57,6 +57,7 @@ type Query {
     addReply(text: String! commentID: ID!): Reply
     updateForum(title: String, description: String, forumID: ID!): Forum
     updatePost(title: String, description: String, postID: ID!): Post
+    updateComment(text: String, commentID: ID!): Comment
  }
 `
 module.exports = typeDefs;

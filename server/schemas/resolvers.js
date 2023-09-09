@@ -81,19 +81,15 @@ const resolvers = {
         },
         updateForum: async (parent, { title, description, forumID }, context) => {
             const update = {};
-
             if (title) {
               update.title = title;
             }
-          
             if (description) {
               update.description = description;
             }
-
             if (Object.keys(update).length === 0) {
               return null;
             }
-          
             const forum = await Forum.findOneAndUpdate(
               { _id: forumID },
               update,
@@ -102,7 +98,26 @@ const resolvers = {
           
             return forum;
         },
-          
+        updatePost: async (parent, {title, description, postID}, context) =>{
+            const update = {};
+            if (title) {
+                update.title = title;
+            }
+            if (description) {
+                update.description = description;
+            }
+
+            if (Object.keys(update).length === 0) {
+                return null;
+            }
+            const post = await Post.findOneAndUpdate(
+                {_id: postID},
+                update,
+                {new: true}
+            );
+            
+            return post;
+        }
 
     }
 }

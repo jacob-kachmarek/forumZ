@@ -12,7 +12,7 @@ const resolvers = {
         },
         getUsers: async (parent, args, context) => {
             return User.find()
-                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments', populate: { path: 'favoriteForums' } } } })
+                .populate({ path: 'forums', model: 'Forum', populate: { path: 'posts', populate: { path: 'comments', populate: { path: 'favoriteForums' } } } })
                 .populate({ path: 'posts', populate: { path: 'comments', populate: { path: 'favoriteForums' } } })
                 .populate({ path: 'comments', populate: { path: 'favoriteForums' } })
                 .populate('favoriteForums');

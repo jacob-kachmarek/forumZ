@@ -40,8 +40,6 @@ const resolvers = {
             );
             return forum;
         },
-
-
         addPost: async (parent, { title, description, userID, forumID }, context) => {
             const post = await Post.create({
                 title,
@@ -72,6 +70,14 @@ const resolvers = {
                 { $addToSet: { comments: comment._id } }
             )
             return comment;
+        },
+        addReply: async (parent, { text, commentID }, context) => {
+            const reply = await Comment.findOneAndUpdate(
+                {_id: commentID},
+                { $push:  { replies: {text} }},
+                {new: true}
+            )
+            return reply;
         }
     }
 }

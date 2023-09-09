@@ -54,21 +54,17 @@ type Query {
     addForum(title: String!, description: String!, userID: ID!): Forum
     addPost(title: String!, description: String! userID: ID! forumID: ID!): Post
     addComment(text: String!, userID: ID!, postID: ID!): Comment
+    addReply(text: String! commentID: ID!): Reply
  }
 `
 module.exports = typeDefs;
 
-// getAllUsers: [User]
-// getAllForums: [Forum]
-// }
 
-// type Mutation {
-// }
 
 // addPost(title: String!, description: String!): Post
 // login(email: String!, password: String!): Auth
-// addReply(text: String): Reply
-// addComment(text: String!, userID: ID!, postID: ID!): Comment
+// addReply(text: String! ): Reply
+
 
 // deleteForum(forumId:ID!):Forum
 // deletePost(postId:ID!): Post

@@ -133,34 +133,33 @@ const resolvers = {
             if (text.length === 0) {
               return null;
             }
-          
-            try {
-              const comment = await Comment.findOne({ _id: commentID });
-          
-              if (!comment) {
-                return null; 
-              }
-              const updatedComment = comment.toObject();
-              const updatedReplies = updatedComment.replies.map((reply) => {
+            const comment = await Comment.findOne({ _id: commentID });
+            if (!comment) {
+            return null; 
+            }
+            const updatedComment = comment.toObject();
+            const updatedReplies = updatedComment.replies.map((reply) => {
                 if (reply._id.toString() === replyID) {
-                  return { ...reply, text: text };
+                    return { ...reply, text: text };
                 }
                 return reply;
-              });
-              updatedComment.replies = updatedReplies;
-              const result = await Comment.findOneAndUpdate(
+            });
+            updatedComment.replies = updatedReplies;
+            const result = await Comment.findOneAndUpdate(
                 { _id: commentID },
                 updatedComment,
                 { new: true }
-              );
-          
-              return result;
-            } catch (error) {
-              console.error(error);
-              throw error;
-            }
-          }
-          
+            );
+        
+            return result;
+        },
+        deleteForum: async (parent, {forumID}, context) =>{
+            const forum = await Forum.findByIdAndDelete(
+                {_id: forumID}
+            );
+            return forum;
+        }
+
     }
 }
 

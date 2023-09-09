@@ -59,6 +59,7 @@ type Query {
     updatePost(title: String, description: String, postID: ID!): Post
     updateComment(text: String, commentID: ID!): Comment
     updateReply(text: String, replyID: ID!, commentID: ID!): Reply
+    deleteForum(forumID: ID!): Forum
  }
 `
 module.exports = typeDefs;
@@ -73,7 +74,7 @@ module.exports = typeDefs;
 // deleteForum(forumId:ID!):Forum
 // deletePost(postId:ID!): Post
 // deleteComment(commentID:ID!): Comment
-// deleteReply(replyID:ID!): Reply
+// deleteReply(replyID:ID!, commentID: ID!): Reply
 
 // updateForum(title: String description: String): Forum
 // updatePost(title: String, description: String): Post

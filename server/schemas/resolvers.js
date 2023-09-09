@@ -5,31 +5,45 @@ const resolvers = {
     Query: {
         getSingleUser: async (parent, args, context) => {
             return User.findOne({ username: args.username })
-                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments', populate: { path: 'favoriteForums' } } } })
-                .populate({ path: 'posts', populate: { path: 'comments', populate: { path: 'favoriteForums' } } })
-                .populate({ path: 'comments', populate: { path: 'favoriteForums' } })
-                .populate('favoriteForums');
+                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments'} } })
+                .populate({ path: 'posts', populate: { path: 'comments'} })
+                .populate({ path: 'comments'})
         },
         getUsers: async (parent, args, context) => {
             return User.find()
-                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments', populate: { path: 'favoriteForums' } } } })
-                .populate({ path: 'posts', populate: { path: 'comments', populate: { path: 'favoriteForums' } } })
-                .populate({ path: 'comments', populate: { path: 'favoriteForums' } })
-                .populate('favoriteForums');
+                .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments'} } })
+                .populate({ path: 'posts', populate: { path: 'comments'} })
+                .populate({ path: 'comments'})
+
         }
     },
     Mutation: {
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+      
+            if (!user) {
+              throw AuthenticationError;
+            }
+      
+            const correctPw = await user.isCorrectPassword(password);
+      
+            if (!correctPw) {
+              throw AuthenticationError;
+            }
+      
+            const token = signToken(user);
+      
+            return { token, user };
+        },
         addUser: async (parent, { username, password }, context) => {
             console.log(username, password)
             const user = await User.create({ username, password });
             console.log(user)
             const token = signToken(user);
             console.log(token)
-
             return { token, user };
         },
         addForum: async (parent, { title, description, userID }, context) => {
-            // console.log(context.user);
             const forum = await Forum.create({
                 title,
                 description,
@@ -42,41 +56,147 @@ const resolvers = {
             );
             return forum;
         },
+        addPost: async (parent, { title, description, userID, forumID }, context) => {
+            const post = await Post.create({
+                title,
+                description,
+                createdBy: userID
+            });
+            await User.findOneAndUpdate(
+                { _id: userID },
+                { $push: { posts: post._id } }
+            );
+            await Forum.findOneAndUpdate(
+                { _id: forumID },
+                { $push: { posts: post._id } }
+            );
+            return post;
+        },
+        addComment: async (parent, { text, userID, postID }, context) => {
+            const comment = await Comment.create({
+                text,
+                createdBy: userID
+            });
+            await User.findOneAndUpdate(
+                { _id: userID },
+                { $addToSet: { comments: comment._id } }
+            )
+            await Post.findOneAndUpdate(
+                { _id: postID },
+                { $addToSet: { comments: comment._id } }
+            )
+            return comment;
+        },
+        addReply: async (parent, { text, commentID }, context) => {
+            const reply = await Comment.findOneAndUpdate(
+                {_id: commentID},
+                { $push:  { replies: {text} }},
+                {new: true}
+            )
+            return reply;
+        },
+        updateForum: async (parent, { title, description, forumID }, context) => {
+            const update = {};
+            if (title) {
+              update.title = title;
+            }
+            if (description) {
+              update.description = description;
+            }
+            if (Object.keys(update).length === 0) {
+              return null;
+            }
+            const forum = await Forum.findOneAndUpdate(
+              { _id: forumID },
+              update,
+              { new: true }
+            );
+          
+            return forum;
+        },
+        updatePost: async (parent, {title, description, postID}, context) =>{
+            const update = {};
+            if (title) {
+                update.title = title;
+            }
+            if (description) {
+                update.description = description;
+            }
 
-        // This kind of works, updates the database but the query is strange, also explicitly codes what forum to add to.
-        // Didn't want to push it not working so i commented out my work feel free to use delete change etc.
+            if (Object.keys(update).length === 0) {
+                return null;
+            }
+            const post = await Post.findOneAndUpdate(
+                {_id: postID},
+                update,
+                {new: true}
+            );
 
-        // addPost: async (parent, { title, description, userID }, context) => {
-        //     const post = await Post.create({
-        //         title,
-        //         description,
-        //         createdBy: userID
-        //     });
-        //     await User.findOneAndUpdate(
-        //         { _id: userID },
-        //         { $addToSet: { posts: post._id } }
-        //     );
-        //     await Forum.findOneAndUpdate(
-        //         { _id: "64fb9f2b90bf09a705a3ff26" },
-        //         { $addToSet: { posts: post._id } }
-        //     );
-        //     return post;
-        // }
-        // addComment: async (parent, { text, userID, postID }, context) => {
-        //     const comment = await Comment.create({
-        //         text,
-        //         createdBy: userID
-        //     });
-        //     await User.findOneAndUpdate(
-        //         { _id: userID },
-        //         { $addToSet: { comments: comment._id } }
-        //     )
-        //     await Post.findOneAndUpdate(
-        //         { _id: postID },
-        //         { $addToSet: { comments: comment._id } }
-        //     )
-        // }
+            return post;
+        },
+        updateComment: async (parent, {text, commentID}, context) =>{
+            if (text.length == 0){
+                return null;
+            }
+            const comment = await Comment.findOneAndUpdate(
+                {_id: commentID},
+                {text: text},
+                {new: true}
+            );
+            return comment;
+        },
+        updateReply: async (parent, { text, replyID, commentID }, context) => {
+            if (text.length === 0) {
+              return null;
+            }
+            const comment = await Comment.findOne({ _id: commentID });
+            if (!comment) {
+            return null; 
+            }
+            const updatedComment = comment.toObject();
+            const updatedReplies = updatedComment.replies.map((reply) => {
+                if (reply._id.toString() === replyID) {
+                    return { ...reply, text: text };
+                }
+                return reply;
+            });
+            updatedComment.replies = updatedReplies;
+            const result = await Comment.findOneAndUpdate(
+                { _id: commentID },
+                updatedComment,
+                { new: true }
+            );
+        
+            return result;
+        },
+        deleteForum: async (parent, {forumID}, context) =>{
+            const forum = await Forum.findByIdAndDelete(
+                {_id: forumID}
+            );
+            return forum;
+        },
+        deletePost: async (parent, {postID}, context) =>{
+            const post = await Post.findByIdAndDelete(
+                {_id: postID}
+            );
+            return post;
+        },
+        deleteComment: async (parent, {commentID}, context) =>{
+            const comment = await Comment.findByIdAndDelete(
+                {_id: commentID}
+            );
+            return comment;
+        },
+        deleteReply: async (parent, {commentID, replyID}, context) => {
+            const comment = await Comment.findOneAndUpdate(
+                {_id: commentID},
+                { $pull: {replies: {_id: replyID } } },
+                {new: true}
+            );
+            return comment;
+        }
     }
 }
 
 module.exports = resolvers;
+

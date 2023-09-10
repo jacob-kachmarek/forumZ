@@ -1,0 +1,87 @@
+/* Navbar Styles */
+.navbar {
+  background-color: #000000;
+  padding: 20px 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.logo {
+  color: black;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: white;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-links li {
+  margin-right: 40px;
+}
+
+.activeLink {
+  text-decoration: none;
+  color: #c394ee;
+  font-size: 18px;
+  font-weight:600;
+}
+
+.inactiveLink {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight:600;
+}
+
+.activeLink:hover,
+.inactiveLink:hover{
+  transition: color 0.3s ease-in;
+}
+
+.logout-button {
+  background-color: #c394ee;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logout-button:hover{
+  background-color: black;
+  transition: background-color 0.3s ease-in;
+}
+
+/* Media Queries */
+/* Media Queries */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    margin-top: 20px;
+  }
+
+  .nav-links li {
+    margin-right: 0; /* Remove right margin to decrease spacing */
+    margin-bottom: 10px;
+    margin-left: 20px;
+  }
+}

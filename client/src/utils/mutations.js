@@ -32,7 +32,6 @@ export const ADD_FORUM = gql`
       description
       createdBy {
         _id
-        username
       }
       createdAt
     }
@@ -73,7 +72,6 @@ export const ADD_COMMENT = gql`
         text
         createdBy {
           _id
-          username
         }
         createdAt
         likes

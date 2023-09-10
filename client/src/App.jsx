@@ -34,6 +34,7 @@ function App() {
         <Navbar />
         <Outlet />
     </ApolloProvider>
+    
   );
 }
 

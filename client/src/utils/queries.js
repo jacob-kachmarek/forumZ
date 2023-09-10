@@ -95,3 +95,17 @@ query GetForums {
     }
 }
 `;
+
+export const GET_FORUM_POSTS = gql`
+    query getForumPosts($forumID: ID!) {
+        getPostsByForum(forumID: $forumID) {
+            _id
+            title
+            description
+            createdBy {
+                username
+            }
+            createdAt
+        }
+    }
+`;

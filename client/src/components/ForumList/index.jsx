@@ -2,6 +2,27 @@ import { useQuery } from '@apollo/client';
 import { GET_FORUMS } from '../../utils/queries';
 import { Link } from 'react-router-dom'; 
 
+const cardStyle = {
+    border: '3px solid #000000',
+    marginBottom: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '10px',
+    borderRadius: '5px',
+    backgroundColor: '#f0f0f0',
+};
+
+const titleStyle = {
+    fontSize: '16px',
+    fontWeight: 'bold',
+    marginBottom: '5px',
+};
+
+const descriptionStyle = {
+    fontSize: '14px',
+    color: '#333333',
+};
+
 function ForumList() {
     const { data, loading, error } = useQuery(GET_FORUMS);
 
@@ -18,18 +39,24 @@ function ForumList() {
         }
 
     return (
-        <div>
+        <>
             {data.getForums.map(forum => (
                 <div key={forum._id}>
+                    <div style={cardStyle}>
+
+                    <div style={titleStyle}>
                     <Link to={`/forum/${forum._id}`}>
                         <h2>{forum.title}</h2>
                     </Link>
-                    <p>{forum.description}</p>
-                    <p>Created At: {formatCreatedAt(forum.createdAt)}</p>
-                    <p>Created By: {forum.createdBy.username}</p>
+                    </div>
+
+                    <div style={descriptionStyle}>{forum.description}</div>
+                    <div style={descriptionStyle}>Created At: {formatCreatedAt(forum.createdAt)}</div>
+                    <div style={descriptionStyle}>Created By: {forum.createdBy.username}</div>
                 </div>
+            </div>
             ))}
-        </div>
+        </>
     );
 }
 

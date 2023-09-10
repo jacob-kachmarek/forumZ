@@ -20,11 +20,6 @@ export default function Navbar() {
         </Link>
 
         <ul className='nav-links'>
-          <li>
-            <Link className={currentPage === '/' ? 'activeLink' : 'inactiveLink'} to='/'>
-              Home
-            </Link>
-          </li>
           {!loggedIn && (
             <>
               <li>

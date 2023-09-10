@@ -1,50 +1,33 @@
 import { Link, useLocation } from 'react-router-dom';
 import Auth from '../../utils/auth';
+import './navbar.css';
 
+const loggedIn = true; // delete this eventually
 
 export default function Navbar () {
-    const currentPage = useLocation().pathname;
+   const currentPage = useLocation().pathname;
+
+   const handleLogout = (e) =>{
+      e.preventDefault();
+      Auth.logout();
+   }
+
     return(
-        
-      <div className='d-flex justify-content-center navbar navbar-expand-lg navbar-light bg-light m-80'>
-         
-      <ul className='nav d-flex justify-content-between m-80'>
-
-      <li className='nav-item'>
-      <li className='nav-item'>
-         <Link
-            to="/"
-            className={`nav-link ${currentPage === '/' ? 'nav-link active' : 'nav-link'}`}
-         >
-            Home
-         </Link>
-         </li>
-
-         <Link
-            to="/login"
-            className={`nav-link ${currentPage === '/login' ? 'nav-link active' : 'nav-link'}`}
-         >
-            Login
-         </Link>
-         </li>
-
-         <li className='nav-item'>
-         <Link
-            to="/signup"
-            className={`nav-link ${currentPage === '/signup' ? 'nav-link active' : 'nav-link'}`}
-         >
-            Signup
-         </Link>
-         </li>
-
-
-
-
-
-      </ul>
-
-   </div>
-    )
+      <>
+         {loggedIn ? (        // change to Auth.loggedIn() eventually;
+            <div>
+               {(currentPage === "/") ? (<Link className='activeLink' to="/" > Home </Link>) : (<Link className='inactiveLink' to="/" > Home </Link>)}
+               <button onClick={handleLogout}> Logout </button>
+            </div>
+         ) : (
+            <div>
+               {(currentPage === "/") ? (<Link className='activeLink' to="/" > Home </Link>) : (<Link className='inactiveLink' to="/" > Home </Link>)}
+               {(currentPage === "/login") ? (<Link className='activeLink' to="/login" > Login </Link>) : (<Link className='inactiveLink' to="/login" > Login </Link>)}
+               {(currentPage === "/signup") ? (<Link className='activeLink' to="/signup" > Signup </Link>) : (<Link className='inactiveLink' to="/signup" > Signup </Link>)}
+            </div>
+         )}
+      </>
+    );
 }
     
     

@@ -1,0 +1,27 @@
+/* navbar.css */
+.activeLink {
+  background-color: #007bff; /* Active link background color */
+  color: #fff; /* Active link text color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  border-radius: 5px; /* Rounded corners for active link */
+  margin-right: 10px; /* Adjust spacing between links */
+}
+
+.inactiveLink {
+  color: #333; /* Inactive link text color */
+  margin-right: 10px; /* Adjust spacing between links */
+  text-decoration: none; /* Remove underline from links */
+}
+
+button {
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  border: none; /* Remove button border */
+  border-radius: 5px; /* Rounded corners for button */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+button:hover {
+  background-color: #0056b3; /* Button background color on hover */
+}

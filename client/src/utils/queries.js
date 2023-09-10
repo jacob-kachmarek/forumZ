@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client';
+import { gql } from '@apollo/client';
 
 export const GET_USER_FORUMS = gql`
 query getSingleUser($username: String!) {
@@ -80,4 +80,18 @@ query getUsers {
       }
     }
   }
-`
+`;
+
+export const GET_FORUMS = gql`
+query GetForums {
+    getForums {
+        _id
+        title
+        description
+        createdAt
+        createdBy {
+            username
+        }
+    }
+}
+`;

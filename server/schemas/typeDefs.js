@@ -48,6 +48,7 @@ type Auth {
 type Query {
     getSingleUser(username: String!): User
     getUsers: [User]
+    getForums: [Forum]
 }
  type Mutation {
     addUser(username: String!, password: String!): Auth

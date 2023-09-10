@@ -8,6 +8,16 @@ function ForumList() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
+        // Helper function to format date
+        function formatCreatedAt(unixTimestamp) {
+            const date = new Date(unixTimestamp * 1000);
+            if (!isNaN(date.getTime())) {
+                return date.toLocaleString();
+            }
+            return "Invalid Date";
+        }
+        
+
     return (
         <div>
             {data.getForums.map(forum => (
@@ -16,7 +26,7 @@ function ForumList() {
                         <h2>{forum.title}</h2>
                     </Link>
                     <p>{forum.description}</p>
-                    <p>Created At: {forum.createdAt}</p>
+                    <p>Created At: {formatCreatedAt(forum.createdAt)}</p>
                     <p>Created By: {forum.createdBy.username}</p>
                 </div>
             ))}

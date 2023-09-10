@@ -1,7 +1,9 @@
+import ForumList from '../components/ForumList';
+
 export default function Home() {
     return (
         <>
-            <h1>Home</h1>
+            <ForumList />
         </>
     )
 }

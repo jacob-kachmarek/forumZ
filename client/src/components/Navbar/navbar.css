@@ -1,17 +1,89 @@
-.activeLink, .inactiveLink {
-  text-decoration: none;
-  font-size: 20px;
-  padding: 20px;
-  background-color: red;
-  margin-bottom: 50px;
+/* Navbar Styles */
+.navbar {
+  background-color: #000000;
+  padding: 20px 0;
 }
 
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-button {
-  background-color: #007bff; 
+.logo {
+  color: black;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: white;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.nav-links li {
+  margin-right: 20px;
+}
+
+.activeLink {
+  text-decoration: none;
   color: #fff;
+}
+
+.inactiveLink {
+  text-decoration: none;
+  color: #30ac5d;
+}
+
+.login-button {
+  background-color: #fff;
+  color: #007bff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.logout-button {
+  background-color: #fff;
+  color: #007bff;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
+}
+
+.logout-button:hover,
+.login-button:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    margin-top: 20px;
+  }
+
+  .nav-links li {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }

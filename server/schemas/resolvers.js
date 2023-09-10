@@ -18,8 +18,10 @@ const resolvers = {
         },
         getForums: async () => {
             return Forum.find().populate('createdBy');
-        }
-        
+        },
+        getPostsByForum: async (parent, { forumID }) => {
+            return await Post.find({ forum: forumID }).populate('createdBy');
+          }
     },
     Mutation: {
         login: async (parent, { username, password }) => {
@@ -60,10 +62,11 @@ const resolvers = {
             );
             return forum;
         },
-        addPost: async (parent, { title, description, userID, forumID }, context) => {
+        addPost: async (parent, { title, description, image, userID, forumID }, context) => {
             const post = await Post.create({
                 title,
                 description,
+                image,
                 createdBy: userID
             });
             await User.findOneAndUpdate(
@@ -75,7 +78,7 @@ const resolvers = {
                 { $push: { posts: post._id } }
             );
             return post;
-        },
+        },        
         addComment: async (parent, { text, userID, postID }, context) => {
             const comment = await Comment.create({
                 text,

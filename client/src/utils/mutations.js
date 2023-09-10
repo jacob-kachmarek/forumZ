@@ -40,25 +40,20 @@ export const ADD_FORUM = gql`
 `;
 
 export const ADD_POST = gql`
-  mutation addPost($title: String!, $description: String!, $userID: ID!, $forumID: ID!) {
-    addPost(title: $title, description: $description, userID: $userID, forumID: $forumID) {
+mutation AddPost($title: String!, $description: String!, $image: String, $userID: ID!, $forumID: ID!) {
+    addPost(
+      title: $title,
+      description: $description,
+      image: $image,
+      userID: $userID,
+      forumID: $forumID
+    ) {
       _id
       title
       description
+      image
       createdBy {
         _id
-        username
-      }
-      likes
-      comments {
-        _id
-        text
-        createdBy {
-          _id
-          username
-        }
-        createdAt
-        likes
       }
     }
   }

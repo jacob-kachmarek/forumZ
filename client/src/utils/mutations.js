@@ -13,7 +13,7 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_USER = gql`
-  mutation addUser($username: String!, $password: String!) {
+  mutation ($username: String!, $password: String!) {
     addUser(username: $username, password: $password) {
       token
       user {
@@ -33,11 +33,6 @@ export const ADD_FORUM = gql`
       createdBy {
         _id
         username
-      }
-      posts {
-        _id
-        title
-        description
       }
       createdAt
     }

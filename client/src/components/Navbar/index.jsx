@@ -6,7 +6,7 @@ export default function Navbar () {
     const currentPage = useLocation().pathname;
     return(
         
-      <div className='d-flex justify-content-center navbar navbar-expand-lg navbar-light bg-light m-80'>
+      <div className='d-flex justify-content-center navbar navbar-expand-lg navbar-light bg-light'>
          
       <ul className='nav d-flex justify-content-between m-80'>
 

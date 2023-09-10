@@ -15,7 +15,11 @@ const resolvers = {
                 .populate({ path: 'posts', populate: { path: 'comments' } })
                 .populate({ path: 'comments' })
 
+        },
+        getForums: async () => {
+            return Forum.find().populate('createdBy');
         }
+        
     },
     Mutation: {
         login: async (parent, { username, password }) => {

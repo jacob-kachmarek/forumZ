@@ -80,7 +80,7 @@ query getUsers {
       }
     }
   }
-`;
+  `;
 
 export const GET_FORUMS = gql`
 query GetForums {

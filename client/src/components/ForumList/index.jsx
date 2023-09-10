@@ -16,7 +16,6 @@ function ForumList() {
             }
             return "Invalid Date";
         }
-        
 
     return (
         <div>

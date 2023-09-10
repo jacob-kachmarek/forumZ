@@ -1,53 +1,47 @@
 import { Link, useLocation } from 'react-router-dom';
 import Auth from '../../utils/auth';
+import './navbar.css';
 
 export default function Navbar() {
    const currentPage = useLocation().pathname;
 
+   const handleLogout = (e) => {
+      e.preventDefault();
+      Auth.logout();
+      location.reload();
+
+   };
    return (
-      <div className='d-flex justify-content-center navbar navbar-expand-lg navbar-light bg-light m-80'>
 
-         <ul className='nav d-flex justify-content-between m-80'>
-            <li className='nav-item'>
-               <Link
-                  to="/"
-                  className={`nav-link ${currentPage === '/' ? 'nav-link active' : 'nav-link'}`}
-               >
-                  Home
-               </Link>
-            </li>
+      <nav className='navbar'>
+         <div className='container'>
+            <Link to='/' className='logo'>
+               forumZ
+            </Link>
 
-            {Auth.loggedIn() ? (
-               <li className='nav-item'>
-                  <a
-                     href="/"
-                     onClick={Auth.logout}
-                     className={`nav-link ${currentPage === '/logout' ? 'nav-link active' : 'nav-link'}`}
-                  >
-                     Log out
-                  </a>
-               </li>
-            ) : (
-               <>
-                  <li className='nav-item'>
-                     <Link
-                        to="/login"
-                        className={`nav-link ${currentPage === '/login' ? 'nav-link active' : 'nav-link'}`}
-                     >
-                        Login
-                     </Link>
+            <ul className='nav-links'>
+               {Auth.loggedIn() ? (
+                  <li>
+                     <button className='logout-button' onClick={handleLogout}>
+                        Logout
+                     </button>
                   </li>
-                  <li className='nav-item'>
-                     <Link
-                        to="/signup"
-                        className={`nav-link ${currentPage === '/signup' ? 'nav-link active' : 'nav-link'}`}
-                     >
-                        Signup
-                     </Link>
-                  </li>
-               </>
-            )}
-         </ul>
-      </div>
+               ) : (
+                  <>
+                     <li>
+                        <Link className={currentPage === '/login' ? 'activeLink' : 'inactiveLink'} to='/login'>
+                           Login
+                        </Link>
+                     </li>
+                     <li>
+                        <Link className={currentPage === '/signup' ? 'activeLink' : 'inactiveLink'} to='/signup'>
+                           Signup
+                        </Link>
+                     </li>
+                  </>
+               )}
+            </ul>
+         </div>
+      </nav >
    );
 }

@@ -42,11 +42,8 @@ const resolvers = {
             return { token, user };
         },
         addUser: async (parent, { username, password }, context) => {
-            console.log(username, password)
             const user = await User.create({ username, password });
-            console.log(user)
             const token = signToken(user);
-            console.log(token)
             return { token, user };
         },
         addForum: async (parent, { title, description, userID }, context) => {

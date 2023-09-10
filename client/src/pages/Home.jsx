@@ -1,28 +1,53 @@
 import './Home.css';
 import '../utils/auth';
+import { Link } from 'react-router-dom';
 
 const loggedIn = false; // change later // change to Auth.loggedIn() eventually;
 
 export default function Home() {
-    
-    if (!loggedIn){
-        return (
-            <h1>Not logged in home</h1>
-        );
-    }
-    
     return (
         <>
-            <h1>Logged In home</h1>
+            <div className='leftPanel'>
+                <div>
+                    <div className='card'>
+                        <div className='title'>Title</div>
+                        <div className='description'>Description goes here for every forum</div>
+                    </div>
+                </div>
+                <div>
+                    <div className='card'>
+                        <div className='title'>Title</div>
+                        <div className='description'>Description goes here for every forum</div>
+                    </div>
+                </div>
+                <div>
+                    <div className='card'>
+                        <div className='title'>Title</div>
+                        <div className='description'>Description goes here for every forum</div>
+                    </div>
+                </div>
+                <div>
+                    <div className='card'>
+                        <div className='title'>Title</div>
+                        <div className='description'>Description goes here for every forum</div>
+                    </div>
+                </div>
+                <div>
+                    <div className='card'>
+                        <div className='title'>Title</div>
+                        <div className='description'>Description goes here for every forum</div>
+                    </div>
+                </div>
+            </div>
         </>
-    )
+    );
 }
 
 
 // NOT logged In 
-    // render all forums 
-    // search for one
+    // render all forums in left side menu with searchbar
+    // center text with description of what forums is
 
 // Logged IN 
-    // render all forums by User
+    // render all forums for specific User
     // allow creation of a new forum 

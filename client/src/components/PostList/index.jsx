@@ -17,7 +17,6 @@ function PostList() {
 
     console.log("data:", data);
 
-
     return (
         <>
             <div>
@@ -33,7 +32,7 @@ function PostList() {
                             <p>{post.description}</p>
                             <p>By: {post.createdBy.username}</p>
                             <p>Likes: {post.likes}</p>
-                            <p>Posted on: {formatCreatedAt(post.createdAt)}</p>
+                            <p>Posted on: {post.createdAt}</p>
                             <p>Image: {post.image}</p>
                         </div>
                     ))

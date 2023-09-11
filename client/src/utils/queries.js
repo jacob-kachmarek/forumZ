@@ -115,3 +115,16 @@ export const GET_FORUM_POSTS = gql`
       }
     }
 `;
+
+export const Get_Comments = gql`
+    query getComments($postId: ID!) {
+        getCommentsByPost(postID: $postId) {
+          _id
+          comments {
+            _id
+            text
+            
+          }
+      }
+    }
+`;

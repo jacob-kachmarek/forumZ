@@ -51,6 +51,7 @@ type Query {
     getUsers: [User]
     getForums: [Forum]
     getPostsByForum(forumID: ID!): [Forum]
+    getCommentsByPost(postId: ID!): [Post]
 }
  type Mutation {
     addUser(username: String!, password: String!): Auth

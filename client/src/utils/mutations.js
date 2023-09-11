@@ -72,7 +72,6 @@ export const ADD_COMMENT = gql`
         text
         createdBy {
           _id
-          username
         }
         createdAt
         likes

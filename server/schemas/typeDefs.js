@@ -50,7 +50,7 @@ type Query {
     getSingleUser(username: String!): User
     getUsers: [User]
     getForums: [Forum]
-    getPostsByForum(forumID: ID!): [Post]!
+    getPostsByForum(forumID: ID!): [Forum]
 }
  type Mutation {
     addUser(username: String!, password: String!): Auth
@@ -70,19 +70,3 @@ type Query {
  }
 `
 module.exports = typeDefs;
-
-
-
-// addPost(title: String!, description: String!): Post
-// login(email: String!, password: String!): Auth
-// addReply(text: String! ): Reply
-
-
-// deleteForum(forumId:ID!):Forum
-// deletePost(postId:ID!): Post
-// deleteComment(commentID:ID!): Comment
-// deleteReply(replyID:ID!, commentID: ID!): Reply
-
-// updateForum(title: String description: String): Forum
-// updatePost(title: String, description: String): Post
-// updateReply(text: String): Reply

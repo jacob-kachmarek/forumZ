@@ -20,7 +20,7 @@ const resolvers = {
             return Forum.find().populate('createdBy');
         },
         getPostsByForum: async (parent, { forumID }) => {
-            return await Post.find({ forum: forumID }).populate('createdBy');
+            return await Forum.find({ _id: forumID }).populate('posts').populate("createdBy");
           }
     },
     Mutation: {

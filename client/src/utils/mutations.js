@@ -32,7 +32,6 @@ export const ADD_FORUM = gql`
       description
       createdBy {
         _id
-        username
       }
       createdAt
     }

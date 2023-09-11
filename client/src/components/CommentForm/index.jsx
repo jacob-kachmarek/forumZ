@@ -37,7 +37,7 @@ export default function CommentForm() {
     return (
         <div>
             <form onSubmit={handleFormSubmit}>
-                <label>Add a comment!</label>
+                <label>Add comment!</label>
                 <input 
                     type="text"
                     name="text"

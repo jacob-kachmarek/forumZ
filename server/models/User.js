@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const formatDate = require('../utils/formatDate');
 
 const { Schema, model } = mongoose;
 const bcrypt = require('bcrypt');
@@ -17,7 +18,8 @@ const userSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        get: (timestamp) => formatDate(timestamp)
     },
     forums: [
         {

@@ -96,16 +96,73 @@ query GetForums {
 }
 `;
 
-export const GET_FORUM_POSTS = gql`
-    query getForumPosts($forumID: ID!) {
-        getPostsByForum(forumID: $forumID) {
-            _id
-            title
-            description
-            createdBy {
-                username
-            }
-            createdAt
-        }
+export const GET_SINGLE_FORUM = gql`
+query Query($forumId: ID!) {
+  getSingleForum(forumId: $forumId) {
+    _id
+    title
+    description
+    createdAt
+    createdBy {
+      username
     }
+    posts {
+      title
+    }
+  }
+}
+`
+
+export const GET_FORUM_POSTS = gql`
+    query getForumPosts($forumId: ID!) {
+      getPostsByForum(forumId: $forumId) {
+        _id
+        posts {
+          _id
+          createdAt
+          description
+          image
+          likes
+          title
+          createdBy {
+            _id
+            username
+          }
+        }
+      }
+    }
+`;
+
+export const GET_COMMENTS = gql`
+query GetCommentsByPost($postId: ID!) {
+  getCommentsByPost(postId: $postId) {
+    _id
+    title
+    description
+    likes
+    image
+    createdAt
+    createdBy {
+      username
+    }
+    comments {
+      _id
+      text
+      likes
+      createdAt
+      createdBy {
+        username
+      }
+      replies {
+        _id
+        text
+        likes
+        createdAt
+        createdBy {
+          username
+        }
+      }
+    }
+  }
+}
 `;

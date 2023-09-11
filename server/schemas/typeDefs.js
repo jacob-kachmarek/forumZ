@@ -50,39 +50,25 @@ type Query {
     getSingleUser(username: String!): User
     getUsers: [User]
     getForums: [Forum]
-    getPostsByForum(forumID: ID!): [Post]!
+    getPostsByForum(forumId: ID!): [Forum]
+    getCommentsByPost(postId: ID!): [Post]
+    getSingleForum(forumId: ID!): Forum
 }
  type Mutation {
     addUser(username: String!, password: String!): Auth
     login(username: String!, password: String!): Auth
     addForum(title: String!, description: String!, userID: ID!): Forum
-    addPost(title: String!, description: String!, image: String, userID: ID!, forumID: ID!): Post
+    addPost(title: String!, description: String!, image: String, userID: ID!, forumId: ID!): Post
     addComment(text: String!, userID: ID!, postID: ID!): Comment
     addReply(text: String! commentID: ID!): Reply
-    updateForum(title: String, description: String, forumID: ID!): Forum
+    updateForum(title: String, description: String, forumId: ID!): Forum
     updatePost(title: String, description: String, postID: ID!): Post
     updateComment(text: String, commentID: ID!): Comment
     updateReply(text: String, replyID: ID!, commentID: ID!): Reply
-    deleteForum(forumID: ID!): Forum
+    deleteForum(forumId: ID!): Forum
     deletePost(postID: ID!): Post
     deleteComment(commentID: ID!): Comment
     deleteReply(replyID:ID!, commentID: ID!): Reply
  }
 `
 module.exports = typeDefs;
-
-
-
-// addPost(title: String!, description: String!): Post
-// login(email: String!, password: String!): Auth
-// addReply(text: String! ): Reply
-
-
-// deleteForum(forumId:ID!):Forum
-// deletePost(postId:ID!): Post
-// deleteComment(commentID:ID!): Comment
-// deleteReply(replyID:ID!, commentID: ID!): Reply
-
-// updateForum(title: String description: String): Forum
-// updatePost(title: String, description: String): Post
-// updateReply(text: String): Reply

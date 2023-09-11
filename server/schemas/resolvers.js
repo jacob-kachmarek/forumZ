@@ -16,12 +16,18 @@ const resolvers = {
                 .populate({ path: 'comments' })
 
         },
+        getSingleForum: async (parent, { forumId }, context) => {
+            return Forum.findOne({ _id: forumId }).populate('createdBy');
+        },
         getForums: async () => {
             return Forum.find().populate('createdBy');
         },
-        getPostsByForum: async (parent, { forumID }) => {
-            return await Post.find({ forum: forumID }).populate('createdBy');
-          }
+        getPostsByForum: async (parent, { forumId }) => {
+            return await Forum.find({ _id: forumId }).populate({ path: 'posts', populate: { path: 'createdBy' } }).populate('createdBy');
+        },
+        getCommentsByPost: async (parent, { postId }) => {
+            return await Post.find({ _id: postId }).populate('comments').populate('createdBy');
+        }
     },
     Mutation: {
         login: async (parent, { username, password }) => {
@@ -59,7 +65,7 @@ const resolvers = {
             );
             return forum;
         },
-        addPost: async (parent, { title, description, image, userID, forumID }, context) => {
+        addPost: async (parent, { title, description, image, userID, forumId }, context) => {
             const post = await Post.create({
                 title,
                 description,
@@ -71,11 +77,11 @@ const resolvers = {
                 { $push: { posts: post._id } }
             );
             await Forum.findOneAndUpdate(
-                { _id: forumID },
+                { _id: forumId },
                 { $push: { posts: post._id } }
             );
             return post;
-        },        
+        },
         addComment: async (parent, { text, userID, postID }, context) => {
             const comment = await Comment.create({
                 text,
@@ -99,7 +105,7 @@ const resolvers = {
             )
             return reply;
         },
-        updateForum: async (parent, { title, description, forumID }, context) => {
+        updateForum: async (parent, { title, description, forumId }, context) => {
             const update = {};
             if (title) {
                 update.title = title;
@@ -173,9 +179,9 @@ const resolvers = {
 
             return result;
         },
-        deleteForum: async (parent, { forumID }, context) => {
+        deleteForum: async (parent, { forumId }, context) => {
             const forum = await Forum.findByIdAndDelete(
-                { _id: forumID }
+                { _id: forumId }
             );
             return forum;
         },

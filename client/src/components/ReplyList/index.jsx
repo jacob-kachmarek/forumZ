@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 const ReplyList = () => {
 
-    // forumId, postId,  not sure if i need this with commentId
+    // {forumId, postId}  not sure if i need this with commentId
     const { commentId } = useParams();
     const { loading, error, data } = useQuery(GET_REPLIES, {
         variables: { commentId: commentId },

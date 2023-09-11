@@ -96,6 +96,23 @@ query GetForums {
 }
 `;
 
+export const GET_SINGLE_FORUM = gql`
+query Query($forumId: ID!) {
+  getSingleForum(forumId: $forumId) {
+    _id
+    title
+    description
+    createdAt
+    createdBy {
+      username
+    }
+    posts {
+      title
+    }
+  }
+}
+`
+
 export const GET_FORUM_POSTS = gql`
     query getForumPosts($forumId: ID!) {
       getPostsByForum(forumId: $forumId) {

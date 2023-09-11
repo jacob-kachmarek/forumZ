@@ -39,13 +39,13 @@ export const ADD_FORUM = gql`
 `;
 
 export const ADD_POST = gql`
-mutation AddPost($title: String!, $description: String!, $image: String, $userID: ID!, $forumID: ID!) {
+mutation AddPost($title: String!, $description: String!, $image: String, $userID: ID!, $forumId: ID!) {
     addPost(
       title: $title,
       description: $description,
       image: $image,
       userID: $userID,
-      forumID: $forumID
+      forumId: $forumId
     ) {
       _id
       title
@@ -98,8 +98,8 @@ export const ADD_REPLY = gql`
 `;
 
 export const UPDATE_FORUM = gql`
-  mutation updateForum($title: String, $description: String, $forumID: ID!) {
-    updateForum(title: $title, description: $description, forumID: $forumID) {
+  mutation updateForum($title: String, $description: String, $forumId: ID!) {
+    updateForum(title: $title, description: $description, forumId: $forumId) {
       _id
       title
       description
@@ -136,8 +136,8 @@ export const UPDATE_REPLY = gql`
 `;
 
 export const DELETE_FORUM = gql`
-  mutation deleteForum($forumID: ID!) {
-    deleteForum(forumID: $forumID) {
+  mutation deleteForum($forumId: ID!) {
+    deleteForum(forumId: $forumId) {
       _id
     }
   }

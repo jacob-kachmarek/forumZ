@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         element: <Signup />
       },
       {
-        path: '/forum/:forumID',
+        path: '/forum/:forumId',
         element: <Forum/>
       },
       {

@@ -1,22 +1,10 @@
-.containerMain{
-    display: flex;
-    height: 100%;
-}
-.leftPanel{
-    flex: 1;
-    padding: 20px;
-    color: white;
-    border-right: 2px solid black;
-}
 .heading{
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 10px;
 }
-.intro{
-    flex: 5;
-    padding: 20px;
-}
+
+
 .para{
     font-size: 18px;
     line-height: 1.5;

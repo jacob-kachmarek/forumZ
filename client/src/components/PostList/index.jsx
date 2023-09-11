@@ -35,7 +35,7 @@ function PostList() {
             
             {data && data.getPostsByForum && data.getPostsByForum[0].posts.map(post => ( // Safely access the posts
                 <div key={post._id}>
-                    <Link to={`/forum/${forumId}/post/${post.id}`}>
+                    <Link to={`/forum/${forumId}/post/${post._id}`}>
                         <h2>{post.title}</h2>
                     </Link>
                     <p>{post.description}</p>

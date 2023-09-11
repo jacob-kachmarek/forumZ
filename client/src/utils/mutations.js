@@ -83,8 +83,8 @@ export const ADD_COMMENT = gql`
 `;
 
 export const ADD_REPLY = gql`
-  mutation addReply($text: String!, $commentID: ID!) {
-    addReply(text: $text, commentID: $commentID) {
+  mutation addReply($text: String!, $commentId: ID!) {
+    addReply(text: $text, commentId: $commentId) {
       _id
       text
       createdBy {
@@ -118,8 +118,8 @@ export const UPDATE_POST = gql`
 `;
 
 export const UPDATE_COMMENT = gql`
-  mutation updateComment($text: String, $commentID: ID!) {
-    updateComment(text: $text, commentID: $commentID) {
+  mutation updateComment($text: String, $commentId: ID!) {
+    updateComment(text: $text, commentId: $commentId) {
       _id
       text
     }
@@ -127,8 +127,8 @@ export const UPDATE_COMMENT = gql`
 `;
 
 export const UPDATE_REPLY = gql`
-  mutation updateReply($text: String, $replyID: ID!, $commentID: ID!) {
-    updateReply(text: $text, replyID: $replyID, commentID: $commentID) {
+  mutation updateReply($text: String, $replyID: ID!, $commentId: ID!) {
+    updateReply(text: $text, replyID: $replyID, commentId: $commentId) {
       _id
       text
     }
@@ -152,16 +152,16 @@ export const DELETE_POST = gql`
 `;
 
 export const DELETE_COMMENT = gql`
-  mutation deleteComment($commentID: ID!) {
-    deleteComment(commentID: $commentID) {
+  mutation deleteComment($commentId: ID!) {
+    deleteComment(commentId: $commentId) {
       _id
     }
   }
 `;
 
 export const DELETE_REPLY = gql`
-  mutation deleteReply($commentID: ID!, $replyID: ID!) {
-    deleteReply(commentID: $commentID, replyID: $replyID) {
+  mutation deleteReply($commentId: ID!, $replyID: ID!) {
+    deleteReply(commentId: $commentId, replyID: $replyID) {
       _id
     }
   }

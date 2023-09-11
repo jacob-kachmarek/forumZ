@@ -1,5 +1,8 @@
 import CommentList from "../components/CommentList/index.jsx"
 import CommentForm from '../components/CommentForm/index.jsx';
+import ReplyList from "../components/ReplyList/index.jsx"
+
+
 
 export default function Post() {
     return (
@@ -9,6 +12,7 @@ export default function Post() {
             <div>
                 <CommentForm />
             </div>
+            <ReplyList />
         </>
     )
 }

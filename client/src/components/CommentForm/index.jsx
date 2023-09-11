@@ -30,7 +30,7 @@ export default function CommentForm() {
         } catch (err) {
             console.log(err);
         }
-        // window.location.reload();
+        window.location.reload();
         setText("");
     }
 

@@ -62,11 +62,11 @@ type Query {
     addComment(text: String!, userID: ID!, postId: ID!): Comment
     addReply(text: String! commentID: ID!): Reply
     updateForum(title: String, description: String, forumId: ID!): Forum
-    updatePost(title: String, description: String, postID: ID!): Post
+    updatePost(title: String, description: String, postId: ID!): Post
     updateComment(text: String, commentID: ID!): Comment
     updateReply(text: String, replyID: ID!, commentID: ID!): Reply
     deleteForum(forumId: ID!): Forum
-    deletePost(postID: ID!): Post
+    deletePost(postId: ID!): Post
     deleteComment(commentID: ID!): Comment
     deleteReply(replyID:ID!, commentID: ID!): Reply
  }

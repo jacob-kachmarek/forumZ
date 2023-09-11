@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { GET_FORUM_POSTS } from '../../utils/queries';
 import { Link } from 'react-router-dom';
-import CommentForm from '../CommentForm/index.jsx';
+
 
 function PostList() {
     const { forumId, postId } = useParams();
@@ -48,9 +48,6 @@ function PostList() {
                         </div>
                     ))
                 )}
-            </div>
-            <div>
-                <CommentForm postId={postId}/>
             </div>
         </>
     );

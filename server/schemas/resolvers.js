@@ -16,6 +16,9 @@ const resolvers = {
                 .populate({ path: 'comments' })
 
         },
+        getSingleForum: async (parent, { forumId }, context) => {
+            return Forum.findOne({ _id: forumId }).populate('createdBy');
+        },
         getForums: async () => {
             return Forum.find().populate('createdBy');
         },

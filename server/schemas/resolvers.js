@@ -27,7 +27,14 @@ const resolvers = {
         },
         getCommentsByPost: async (parent, { postId }) => {
             return await Post.find({ _id: postId }).populate('comments').populate('createdBy');
-        }
+        },
+          getRepliesByComment: async (parent, { commentId }) => {
+            const comment = await Comment.findById(commentId).populate('replies');
+            if (!comment) {
+              throw new Error('Comment not found');
+            }
+            return comment.replies;
+          }
     },
     Mutation: {
         login: async (parent, { username, password }) => {

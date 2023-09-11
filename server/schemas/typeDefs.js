@@ -53,6 +53,7 @@ type Query {
     getPostsByForum(forumId: ID!): [Forum]
     getCommentsByPost(postId: ID!): [Post]
     getSingleForum(forumId: ID!): Forum
+    getRepliesByComment(commentId: ID!):[Comment]
 }
  type Mutation {
     addUser(username: String!, password: String!): Auth

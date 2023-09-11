@@ -59,8 +59,8 @@ mutation AddPost($title: String!, $description: String!, $image: String, $userID
 `;
 
 export const ADD_COMMENT = gql`
-  mutation addComment($text: String!, $userID: ID!, $postID: ID!) {
-    addComment(text: $text, userID: $userID, postID: $postID) {
+  mutation addComment($text: String!, $userID: ID!, $postId: ID!) {
+    addComment(text: $text, userID: $userID, postId: $postId) {
       _id
       text
       createdBy {
@@ -108,8 +108,8 @@ export const UPDATE_FORUM = gql`
 `;
 
 export const UPDATE_POST = gql`
-  mutation updatePost($title: String, $description: String, $postID: ID!) {
-    updatePost(title: $title, description: $description, postID: $postID) {
+  mutation updatePost($title: String, $description: String, $postId: ID!) {
+    updatePost(title: $title, description: $description, postId: $postId) {
       _id
       title
       description
@@ -144,8 +144,8 @@ export const DELETE_FORUM = gql`
 `;
 
 export const DELETE_POST = gql`
-  mutation deletePost($postID: ID!) {
-    deletePost(postID: $postID) {
+  mutation deletePost($postId: ID!) {
+    deletePost(postId: $postId) {
       _id
     }
   }

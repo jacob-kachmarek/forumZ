@@ -26,7 +26,7 @@ const resolvers = {
             return await Forum.find({ _id: forumId }).populate({ path: 'posts', populate: { path: 'createdBy' } }).populate('createdBy');
         },
         getCommentsByPost: async (parent, { postId }) => {
-            return await Post.find({ _id: postId }).populate('comments').populate('createdBy');
+            return await Post.find({ _id: postId }).populate({ path: 'comments', populate: { path: 'createdBy' } }).populate('createdBy');
         }
     },
     Mutation: {

@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { GET_COMMENTS } from '../../utils/queries';
+import Auth from '../../utils/auth.js';
 
 function CommentList() {
     const { postId, forumId } = useParams();
@@ -14,19 +15,35 @@ function CommentList() {
     if (error) return <p>Error: {error.message}</p>;
     console.log("data:", data);
 
-    return (
+    if (Auth.loggedIn()) {
+        return (
+            <div>
+                <h2>Comments</h2>
+                {console.log(data.getCommentsByPost[0].comments)}
+                {data.getCommentsByPost[0].comments.map(comment => (
+                    <div key={comment._id}>
+                        <h3>{comment.text}</h3>
+                        <p>Posted By: {comment.createdBy.username}</p> 
+                        <p>Likes: {comment.likes}
+                            <button style={{ border: 'none', padding: '0' }}>👍</button>
+                        </p>
+                    </div>
+                ))}
+            </div>
+        );
+    } else return (
         <div>
             <h2>Comments</h2>
             {console.log(data.getCommentsByPost[0].comments)}
             {data.getCommentsByPost[0].comments.map(comment => (
                 <div key={comment._id}>
                     <h3>{comment.text}</h3>
-                    <p>Posted By: {comment.createdBy.username}</p>
+                    <p>Posted By: {comment.createdBy.username}</p> 
                     <p>Likes: {comment.likes}</p>
                 </div>
-            ))}
-        </div>
-    );
+                ))}
+            </div>
+    )
 }
 
 export default CommentList;

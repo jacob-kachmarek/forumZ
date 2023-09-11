@@ -61,6 +61,7 @@ type Query {
     addForum(title: String!, description: String!, userID: ID!): Forum
     addPost(title: String!, description: String!, image: String, userID: ID!, forumId: ID!): Post
     addComment(text: String!, userID: ID!, postId: ID!): Comment
+    likeComment(commentId: ID!): Comment
     addReply(text: String! commentId: ID!): Reply
     updateForum(title: String, description: String, forumId: ID!): Forum
     updatePost(title: String, description: String, postId: ID!): Post

@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-import { GET_FORUM_POSTS } from '../../utils/queries';
+import { GET_FORUM_POSTS } from '../../../utils/queries';
 import { Link } from 'react-router-dom';
 
 

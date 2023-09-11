@@ -9,8 +9,8 @@ import Login from './pages/Login';
 import ErrorPage from './pages/ErrorPage';
 import Forum from './pages/Forum.jsx';
 import Post from './pages/Post.jsx';
-import Comment from './components/CommentList'
-import Reply from './components/PostList'
+import Comment from './components/Comments/CommentList'
+import Reply from './components/Replies/ReplyList'
 
 
 

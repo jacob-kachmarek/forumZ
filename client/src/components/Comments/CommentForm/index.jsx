@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { ADD_COMMENT } from '../../utils/mutations';
-import Auth from '../../utils/auth';
+import { ADD_COMMENT } from '../../../utils/mutations';
+import Auth from '../../../utils/auth';
 import { useParams } from 'react-router-dom';
 
 export default function CommentForm() {

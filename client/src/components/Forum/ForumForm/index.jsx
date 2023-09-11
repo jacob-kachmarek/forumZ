@@ -1,8 +1,8 @@
 import './forumForm.css';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { ADD_FORUM } from '../../utils/mutations';
-import Auth from '../../utils/auth';
+import { ADD_FORUM } from '../../../utils/mutations';
+import Auth from '../../../utils/auth';
 
 export default function ForumForm() {
     const [title, setTitle] = useState('');

@@ -26,6 +26,7 @@ const resolvers = {
             return await Forum.find({ _id: forumId }).populate({ path: 'posts', populate: { path: 'createdBy' } }).populate('createdBy');
         },
         getCommentsByPost: async (parent, { postId }) => {
+
             return await Post.find({ _id: postId }).populate('comments').populate('createdBy');
         },
           getRepliesByComment: async (parent, { commentId }) => {
@@ -35,6 +36,10 @@ const resolvers = {
             }
             return comment.replies;
           }
+
+            return await Post.find({ _id: postId }).populate({ path: 'comments', populate: { path: 'createdBy' } }).populate('createdBy');
+        }
+
     },
     Mutation: {
         login: async (parent, { username, password }) => {
@@ -89,7 +94,7 @@ const resolvers = {
             );
             return post;
         },
-        addComment: async (parent, { text, userID, postID }, context) => {
+        addComment: async (parent, { text, userID, postId }, context) => {
             const comment = await Comment.create({
                 text,
                 createdBy: userID
@@ -99,7 +104,7 @@ const resolvers = {
                 { $addToSet: { comments: comment._id } }
             )
             await Post.findOneAndUpdate(
-                { _id: postID },
+                { _id: postId },
                 { $addToSet: { comments: comment._id } }
             )
             return comment;
@@ -131,7 +136,7 @@ const resolvers = {
 
             return forum;
         },
-        updatePost: async (parent, { title, description, postID }, context) => {
+        updatePost: async (parent, { title, description, postId }, context) => {
             const update = {};
             if (title) {
                 update.title = title;
@@ -144,7 +149,7 @@ const resolvers = {
                 return null;
             }
             const post = await Post.findOneAndUpdate(
-                { _id: postID },
+                { _id: postId },
                 update,
                 { new: true }
             );
@@ -192,9 +197,9 @@ const resolvers = {
             );
             return forum;
         },
-        deletePost: async (parent, { postID }, context) => {
+        deletePost: async (parent, { postId }, context) => {
             const post = await Post.findByIdAndDelete(
-                { _id: postID }
+                { _id: postId }
             );
             return post;
         },

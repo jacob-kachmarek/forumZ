@@ -97,16 +97,22 @@ query GetForums {
 `;
 
 export const GET_FORUM_POSTS = gql`
-    query getForumPosts($forumID: ID!) {
-        getPostsByForum(forumID: $forumID) {
+    query getForumPosts($forumId: ID!) {
+      getPostsByForum(forumID: $forumId) {
+        _id
+        posts {
+          _id
+          createdAt
+          description
+          image
+          likes
+          title
+          createdBy {
             _id
-            title
-            description
-            createdBy {
-                username
-            }
-            createdAt
+            username
+          }
         }
+      }
     }
 `;
 

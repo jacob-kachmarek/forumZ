@@ -20,7 +20,7 @@ const resolvers = {
             return Forum.find().populate('createdBy');
         },
         getPostsByForum: async (parent, { forumID }) => {
-            return await Forum.find({ _id: forumID }).populate('createdBy');
+            return await Forum.find({ _id: forumID }).populate('posts').populate("createdBy");
         },
         getCommentsByPost: async (parent, { postId }) => {
             return await Post.find({ _id: postId }).populate('comments').populate('createdBy');

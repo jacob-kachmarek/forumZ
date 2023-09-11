@@ -26,7 +26,7 @@ export default function CommentForm() {
                     userID: Auth.getProfile().data._id,
                 },
             });
-            console.log(text, Auth.getProfile().data._id );
+            console.log(data, text, Auth.getProfile().data._id );
         } catch (err) {
             console.log(err);
         }

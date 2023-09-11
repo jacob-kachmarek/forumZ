@@ -18,7 +18,7 @@ function CommentList() {
 
     return (
         <div>
-            <h2>Comments</h2>
+            <h2>Comments here</h2>
             {console.log(data.getCommentsByPost[0].comments)}
             {data.getCommentsByPost[0].comments.map(comment => (
                 <div key={comment._id}>

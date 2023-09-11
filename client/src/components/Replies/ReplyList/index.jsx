@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_REPLIES } from "../../utils/queries";
+import { GET_REPLIES } from "../../../utils/queries";
 import { useParams } from 'react-router-dom';
 
 const ReplyList = () => {

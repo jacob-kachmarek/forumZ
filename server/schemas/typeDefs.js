@@ -59,7 +59,7 @@ type Query {
     login(username: String!, password: String!): Auth
     addForum(title: String!, description: String!, userID: ID!): Forum
     addPost(title: String!, description: String!, image: String, userID: ID!, forumId: ID!): Post
-    addComment(text: String!, userID: ID!, postID: ID!): Comment
+    addComment(text: String!, userID: ID!, postId: ID!): Comment
     addReply(text: String! commentID: ID!): Reply
     updateForum(title: String, description: String, forumId: ID!): Forum
     updatePost(title: String, description: String, postID: ID!): Post

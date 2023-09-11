@@ -92,7 +92,7 @@ const resolvers = {
                 { $addToSet: { comments: comment._id } }
             )
             await Post.findOneAndUpdate(
-                { _id: postID },
+                { _id: postId },
                 { $addToSet: { comments: comment._id } }
             )
             return comment;

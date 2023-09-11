@@ -14,16 +14,6 @@ function PostList() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
-
-    // Helper function to format date
-    function formatCreatedAt(unixTimestamp) {
-        const date = new Date(unixTimestamp * 1000);
-        if (!isNaN(date.getTime())) {
-            return date.toLocaleString();
-        }
-        return "Invalid Date";
-    }
-
     console.log("data:", data);
 
 
@@ -41,7 +31,7 @@ function PostList() {
                         <p>{post.description}</p>
                         <p>By: {post.createdBy.username}</p>
                         <p>Likes: {post.likes}</p>
-                        <p>Posted on: {formatCreatedAt(post.createdAt)}</p>
+                        <p>Posted on: {post.createdAt}</p>
                         <p>Image: {post.image}</p>
                     </div>
                 ))

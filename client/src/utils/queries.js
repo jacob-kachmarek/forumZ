@@ -166,3 +166,23 @@ query GetCommentsByPost($postId: ID!) {
   }
 }
 `;
+
+export const GET_REPLIES = gql`
+query GetRepliesByComment($postId: ID!) {
+  getRepliesByComment(postId: $postId) {
+    _id
+    comments {
+      _id
+      replies {
+        _id
+        text
+        likes
+        createdAt
+        createdBy {
+          username
+        }
+      }
+    }
+  }
+}
+`;

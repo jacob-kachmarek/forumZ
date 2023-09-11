@@ -12,17 +12,6 @@ function CommentList() {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
-
-
-        // Helper function to format date
-        // function formatCreatedAt(unixTimestamp) {
-        //     const date = new Date(unixTimestamp * 1000);
-        //     if (!isNaN(date.getTime())) {
-        //         return date.toLocaleString();
-        //     }
-        //     return "Invalid Date";
-        // }
-
     console.log("data:", data);
 
     return (

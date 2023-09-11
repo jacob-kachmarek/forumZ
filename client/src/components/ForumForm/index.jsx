@@ -30,6 +30,7 @@ export default function ForumForm() {
                   userID: Auth.getProfile().data._id,
                 },
               });
+            console.log(data);
         } catch (err) {
           console.error(err);
         }

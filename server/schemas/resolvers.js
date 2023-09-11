@@ -27,7 +27,12 @@ const resolvers = {
         },
         getCommentsByPost: async (parent, { postId }) => {
             return await Post.find({ _id: postId }).populate({ path: 'comments', populate: { path: 'createdBy' } }).populate('createdBy');
+        },
+        getRepliesByComment: async (parent, { postId }) => {
+            return await Post.find({ _id: postId }).populate({ path: 'comments', populate: { path: 'replies', populate:{path: 'createdBy'} } }).populate('createdBy');
         }
+
+       
     },
     Mutation: {
         login: async (parent, { username, password }) => {
@@ -82,7 +87,7 @@ const resolvers = {
             );
             return post;
         },
-        addComment: async (parent, { text, userID, postID }, context) => {
+        addComment: async (parent, { text, userID, postId }, context) => {
             const comment = await Comment.create({
                 text,
                 createdBy: userID
@@ -92,14 +97,14 @@ const resolvers = {
                 { $addToSet: { comments: comment._id } }
             )
             await Post.findOneAndUpdate(
-                { _id: postID },
+                { _id: postId },
                 { $addToSet: { comments: comment._id } }
             )
             return comment;
         },
-        addReply: async (parent, { text, commentID }, context) => {
+        addReply: async (parent, { text, commentId }, context) => {
             const reply = await Comment.findOneAndUpdate(
-                { _id: commentID },
+                { _id: commentId },
                 { $push: { replies: { text } } },
                 { new: true }
             )
@@ -124,7 +129,7 @@ const resolvers = {
 
             return forum;
         },
-        updatePost: async (parent, { title, description, postID }, context) => {
+        updatePost: async (parent, { title, description, postId }, context) => {
             const update = {};
             if (title) {
                 update.title = title;
@@ -137,29 +142,29 @@ const resolvers = {
                 return null;
             }
             const post = await Post.findOneAndUpdate(
-                { _id: postID },
+                { _id: postId },
                 update,
                 { new: true }
             );
 
             return post;
         },
-        updateComment: async (parent, { text, commentID }, context) => {
+        updateComment: async (parent, { text, commentId }, context) => {
             if (text.length == 0) {
                 return null;
             }
             const comment = await Comment.findOneAndUpdate(
-                { _id: commentID },
+                { _id: commentId },
                 { text: text },
                 { new: true }
             );
             return comment;
         },
-        updateReply: async (parent, { text, replyID, commentID }, context) => {
+        updateReply: async (parent, { text, replyID, commentId }, context) => {
             if (text.length === 0) {
                 return null;
             }
-            const comment = await Comment.findOne({ _id: commentID });
+            const comment = await Comment.findOne({ _id: commentId });
             if (!comment) {
                 return null;
             }
@@ -172,7 +177,7 @@ const resolvers = {
             });
             updatedComment.replies = updatedReplies;
             const result = await Comment.findOneAndUpdate(
-                { _id: commentID },
+                { _id: commentId },
                 updatedComment,
                 { new: true }
             );
@@ -185,21 +190,21 @@ const resolvers = {
             );
             return forum;
         },
-        deletePost: async (parent, { postID }, context) => {
+        deletePost: async (parent, { postId }, context) => {
             const post = await Post.findByIdAndDelete(
-                { _id: postID }
+                { _id: postId }
             );
             return post;
         },
-        deleteComment: async (parent, { commentID }, context) => {
+        deleteComment: async (parent, { commentId }, context) => {
             const comment = await Comment.findByIdAndDelete(
-                { _id: commentID }
+                { _id: commentId }
             );
             return comment;
         },
-        deleteReply: async (parent, { commentID, replyID }, context) => {
+        deleteReply: async (parent, { commentId, replyID }, context) => {
             const comment = await Comment.findOneAndUpdate(
-                { _id: commentID },
+                { _id: commentId },
                 { $pull: { replies: { _id: replyID } } },
                 { new: true }
             );
@@ -209,4 +214,3 @@ const resolvers = {
 }
 
 module.exports = resolvers;
-

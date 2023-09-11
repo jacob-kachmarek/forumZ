@@ -53,22 +53,23 @@ type Query {
     getPostsByForum(forumId: ID!): [Forum]
     getCommentsByPost(postId: ID!): [Post]
     getSingleForum(forumId: ID!): Forum
+    getRepliesByComment(postId: ID!):[Post]
 }
  type Mutation {
     addUser(username: String!, password: String!): Auth
     login(username: String!, password: String!): Auth
     addForum(title: String!, description: String!, userID: ID!): Forum
     addPost(title: String!, description: String!, image: String, userID: ID!, forumId: ID!): Post
-    addComment(text: String!, userID: ID!, postID: ID!): Comment
-    addReply(text: String! commentID: ID!): Reply
+    addComment(text: String!, userID: ID!, postId: ID!): Comment
+    addReply(text: String! commentId: ID!): Reply
     updateForum(title: String, description: String, forumId: ID!): Forum
-    updatePost(title: String, description: String, postID: ID!): Post
-    updateComment(text: String, commentID: ID!): Comment
-    updateReply(text: String, replyID: ID!, commentID: ID!): Reply
+    updatePost(title: String, description: String, postId: ID!): Post
+    updateComment(text: String, commentId: ID!): Comment
+    updateReply(text: String, replyID: ID!, commentId: ID!): Reply
     deleteForum(forumId: ID!): Forum
-    deletePost(postID: ID!): Post
-    deleteComment(commentID: ID!): Comment
-    deleteReply(replyID:ID!, commentID: ID!): Reply
+    deletePost(postId: ID!): Post
+    deleteComment(commentId: ID!): Comment
+    deleteReply(replyID:ID!, commentId: ID!): Reply
  }
 `
 module.exports = typeDefs;

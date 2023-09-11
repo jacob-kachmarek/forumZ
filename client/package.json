@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.15",
+    "bootstrap": "^5.3.1",
     "graphql": "^16.6.0",
     "happy-dom": "^9.20.3",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
     "react-pro-sidebar": "^1.1.0-alpha.1",
     "react-router-dom": "^6.11.2"

@@ -98,7 +98,7 @@ query GetForums {
 
 export const GET_FORUM_POSTS = gql`
     query getForumPosts($forumId: ID!) {
-      getPostsByForum(forumID: $forumId) {
+      getPostsByForum(forumId: $forumId) {
         _id
         posts {
           _id

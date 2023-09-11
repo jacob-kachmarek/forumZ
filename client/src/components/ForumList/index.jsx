@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { GET_FORUMS } from '../../utils/queries';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 const cardStyle = {
     border: '3px solid #000000',
@@ -29,32 +29,23 @@ function ForumList() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
-        // Helper function to format date
-        function formatCreatedAt(unixTimestamp) {
-            const date = new Date(unixTimestamp * 1000);
-            if (!isNaN(date.getTime())) {
-                return date.toLocaleString();
-            }
-            return "Invalid Date";
-        }
-
     return (
         <>
             {data.getForums.map(forum => (
                 <div key={forum._id}>
                     <div style={cardStyle}>
 
-                    <div style={titleStyle}>
-                    <Link to={`/forum/${forum._id}`}>
-                        <h2>{forum.title}</h2>
-                    </Link>
-                    </div>
+                        <div style={titleStyle}>
+                            <Link to={`/forum/${forum._id}`}>
+                                <h2>{forum.title}</h2>
+                            </Link>
+                        </div>
 
-                    <div style={descriptionStyle}>{forum.description}</div>
-                    <div style={descriptionStyle}>Created At: {formatCreatedAt(forum.createdAt)}</div>
-                    <div style={descriptionStyle}>Created By: {forum.createdBy.username}</div>
+                        <div style={descriptionStyle}>{forum.description}</div>
+                        <div style={descriptionStyle}>Created At: {forum.createdAt}</div>
+                        <div style={descriptionStyle}>Created By: {forum.createdBy.username}</div>
+                    </div>
                 </div>
-            </div>
             ))}
         </>
     );

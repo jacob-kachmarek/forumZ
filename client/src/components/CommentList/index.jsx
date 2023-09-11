@@ -16,7 +16,7 @@ function CommentList() {
 
         // Helper function to format date
         // function formatCreatedAt(unixTimestamp) {
-        //     const date = new Date(unixTimestamp * 1000);
+        //     const date = new Date(unixTimestamp);
         //     if (!isNaN(date.getTime())) {
         //         return date.toLocaleString();
         //     }

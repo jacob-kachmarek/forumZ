@@ -8,7 +8,7 @@ export default function Navbar() {
    const handleLogout = (e) => {
       e.preventDefault();
       Auth.logout();
-      location.reload();
+      window.location.reload();
 
    };
    return (

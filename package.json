@@ -1,5 +1,5 @@
 {
-  "name": "mern-shopping",
+  "name": "forumZ",
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
@@ -17,6 +17,8 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
-    "bootstrap": "^5.3.1"
+    "bootstrap": "^5.3.1",
+    "install": "^0.13.0",
+    "npm": "^10.1.0"
   }
 }

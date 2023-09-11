@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { GET_FORUM_POSTS } from '../../utils/queries';
+import { Link } from 'react-router-dom';
 
 function PostList() {
     const { forumId } = useParams();
@@ -34,7 +35,9 @@ function PostList() {
             
             {data && data.getPostsByForum && data.getPostsByForum[0].posts.map(post => ( // Safely access the posts
                 <div key={post._id}>
-                    <h2>{post.title}</h2>
+                    <Link to={`/forum/${forumId}/post/${post.id}`}>
+                        <h2>{post.title}</h2>
+                    </Link>
                     <p>{post.description}</p>
                     {console.log("post.createdBy.username:", post.createdBy.username)}
                     <p>By: {post.createdBy.username}</p>

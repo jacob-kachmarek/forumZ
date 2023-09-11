@@ -116,15 +116,36 @@ export const GET_FORUM_POSTS = gql`
     }
 `;
 
-export const Get_Comments = gql`
-    query getComments($postId: ID!) {
-        getCommentsByPost(postID: $postId) {
-          _id
-          comments {
-            _id
-            text
-            
-          }
+export const GET_COMMENTS = gql`
+query GetCommentsByPost($postId: ID!) {
+  getCommentsByPost(postId: $postId) {
+    _id
+    title
+    description
+    likes
+    image
+    createdAt
+    createdBy {
+      username
+    }
+    comments {
+      _id
+      text
+      likes
+      createdAt
+      createdBy {
+        username
+      }
+      replies {
+        _id
+        text
+        likes
+        createdAt
+        createdBy {
+          username
+        }
       }
     }
+  }
+}
 `;

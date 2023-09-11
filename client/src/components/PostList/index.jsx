@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 function PostList() {
-    const { forumId, postId } = useParams();
+    const { forumId } = useParams();
     console.log("forumId:", forumId);
 
     const { loading, error, data } = useQuery(GET_FORUM_POSTS, {

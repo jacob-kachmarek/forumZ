@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-import { GET_COMMENTS } from '../../utils/queries';
+import { GET_COMMENTS } from '../../../utils/queries';
 
 function CommentList() {
     const { postId, forumId } = useParams();

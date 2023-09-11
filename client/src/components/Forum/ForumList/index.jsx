@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { GET_FORUMS } from '../../utils/queries';
+import { GET_FORUMS } from '../../../utils/queries';
 import { Link } from 'react-router-dom'; 
 
 const cardStyle = {

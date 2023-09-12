@@ -33,6 +33,15 @@ class AuthService {
     return localStorage.getItem('id_token');
   }
 
+  getUserID() {
+    const token = this.getToken();
+    if (token) {
+      const decoded = decode(token);
+      return decoded.data._id;
+    }
+    return null; // Return null if no token or no 'userId' field in the token
+  }
+
   login(idToken) {
     localStorage.setItem('id_token', idToken);
     window.location.assign('/');

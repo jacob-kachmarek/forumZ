@@ -69,7 +69,7 @@ function CommentList({postId}) {
         }
     };
     
-    if (data.getCommentsByPost.length === 0) {
+    if (data.getCommentsByPost[0].comments.length === 0) {
         return (
             <>
                 <h2>No comments yet! Add the first one?</h2>

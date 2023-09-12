@@ -36,7 +36,6 @@ export default function CommentForm() {
     if(Auth.loggedIn()) {
         return (
             <div>
-                <h4>Add a comment!</h4>
                 <form onSubmit={handleFormSubmit}>
                     <label>Comment</label>
                     <input 

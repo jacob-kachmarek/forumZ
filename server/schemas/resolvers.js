@@ -228,12 +228,6 @@ const resolvers = {
                 if (!comment) {
                     throw new Error('Comment not found');
                 }
-
-                // Check if the user making the request is the owner of the comment (or has the necessary permissions)
-                // if (comment.createdBy.toString() !== context.user.id) {
-                //     throw new Error('You do not have permission to delete this comment');
-                // }
-
                 // Delete the comment
                 await comment.deleteOne(
                     { _id: commentId },

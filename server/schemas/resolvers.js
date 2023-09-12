@@ -28,8 +28,8 @@ const resolvers = {
         getCommentsByPost: async (parent, { postId }) => {
             return await Post.find({ _id: postId }).populate({ path: 'comments', populate: { path: 'createdBy' } }).populate('createdBy');
         },
-        getRepliesByComment: async (parent, { postId }) => {
-            return await Post.find({ _id: postId }).populate({ path: 'comments', populate: { path: 'replies', populate: { path: 'createdBy' } } }).populate('createdBy');
+        getRepliesByComment: async (parent, { commentId }) => {
+            return await Comment.find({ _id: commentId }).populate({ path: 'replies', populate: { path: 'createdBy' } }).populate('createdBy');
         }
 
 

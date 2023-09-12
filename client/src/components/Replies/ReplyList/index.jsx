@@ -16,7 +16,7 @@ const ReplyList = () => {
 
     const replies = data.getRepliesByComment[0].comments[0].replies;
 
-    console.log('replyText', data.getRepliesByComment[0].comments[0].replies[0].text)
+    // console.log('replyText', data.getRepliesByComment[0].comments[0].replies[0].text)
 
 
     return (

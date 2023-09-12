@@ -143,6 +143,7 @@ query GetCommentsByPost($postId: ID!) {
     image
     createdAt
     createdBy {
+      _id
       username
     }
     comments {
@@ -151,6 +152,7 @@ query GetCommentsByPost($postId: ID!) {
       likes
       createdAt
       createdBy {
+        _id
         username
       }
       replies {
@@ -159,6 +161,7 @@ query GetCommentsByPost($postId: ID!) {
         likes
         createdAt
         createdBy {
+          _id
           username
         }
       }

@@ -14,7 +14,16 @@ function CommentList({postId}) {
         variables: { postId: postId },
     });
 
-    const [likedComments, setLikedComments] = useState([]);
+    const getLikedCommentsFromLocalStorage = () => {
+        const likedCommentsJSON = localStorage.getItem('likedComments');
+        return likedCommentsJSON ? JSON.parse(likedCommentsJSON) : [];
+      };
+    
+    const updateLikedCommentsInLocalStorage = (likedCommentsArray) => {
+        localStorage.setItem('likedComments', JSON.stringify(likedCommentsArray));
+      };
+
+    const [likedComments, setLikedComments] = useState(getLikedCommentsFromLocalStorage());
 
     const [likeComment] = useMutation(LIKE_COMMENT);
     const [deleteComment] = useMutation(DELETE_COMMENT); // Import DELETE_COMMENT mutation
@@ -22,16 +31,20 @@ function CommentList({postId}) {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
+
+
     const handleLikeClick = async (commentId) => {
         if (Auth.loggedIn() && !likedComments.includes(commentId)) {
-            try {
-                await likeComment({ variables: { commentId } });
-                setLikedComments([...likedComments, commentId]);
-            } catch (error) {
-                console.error("Error liking comment:", error);
-            }
+          try {
+            await likeComment({ variables: { commentId } });
+            const updatedLikedComments = [...likedComments, commentId];
+            setLikedComments(updatedLikedComments);
+            updateLikedCommentsInLocalStorage(updatedLikedComments); // Store liked comment IDs in local storage
+          } catch (error) {
+            console.error("Error liking comment:", error);
+          }
         }
-    };
+      };
 
     const handleDeleteClick = async (commentId) => {
         if (Auth.loggedIn()) {

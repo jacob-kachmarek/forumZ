@@ -3,9 +3,6 @@ import Auth from '../utils/auth';
 import './Home.css';
 import ForumForm from '../components/Forum/ForumForm';
 
-
-
-
 export default function Home() {
     if (!Auth.loggedIn()){
         return (
@@ -32,14 +29,9 @@ export default function Home() {
         );
     }
 
-    else{       //logged In = true
+    else{
         return (
             <div>
-              <div style={{padding: '30px'}}>
-                <p>welcome back,</p>
-                <h1 style={{position: 'relative', left:'90px'}}>{Auth.getProfile().data.username}</h1>
-              </div>
-
               <div style={{display: 'flex', justifyContent: 'space-around'}}>
                 <div style={{marginLeft: '20px'}}>
                     <ForumForm />

@@ -54,12 +54,10 @@ function ForumList() {
                     <div style={descriptionStyle}>{forum.description}</div>
                     <div style={descriptionStyle}>Created At: {forum.createdAt}</div>
                     <div style={descriptionStyle}>Created By: {forum.createdBy.username}</div>
-                    {/* <div style={{color: "black"}}>{Auth.getProfile().data._id}</div>
-                    <div style={{color: "black"}}>{forum.createdBy._id}</div> */}
-                    {(USERID() === forum.createdBy._id) ?  <ForumDelete forumId={forum._id} /> : null}
-                    {/* <ForumDelete forumId={forum._id} /> */}
+                    {(USERID() === forum.createdBy._id) ?  
+                    <ForumDelete forumId={forum._id} /> 
+                    : null}
 
-                     {/*<DeleteButtonComponent forumId={forum._id}/> */} {/*CHANGE HERE TO DELETE (we also need an if statement to see if this is the user's forum)*/}
                 </div>
             </div>
             ))}

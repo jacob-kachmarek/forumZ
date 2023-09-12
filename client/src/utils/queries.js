@@ -172,8 +172,8 @@ query GetCommentsByPost($postId: ID!) {
 `;
 
 export const GET_REPLIES = gql`
-query GetRepliesByComment($postId: ID!) {
-  getRepliesByComment(postId: $postId) {
+query GetRepliesByComment($commentId: ID!) {
+  getRepliesByComment(commentId: $commentId) {
     _id
     comments {
       _id

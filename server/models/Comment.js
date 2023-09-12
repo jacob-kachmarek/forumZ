@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+import formatDate from '../utils/formatDate';
 
 const { Schema } = mongoose;
 
@@ -32,6 +33,7 @@ const commentSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+        get: (timestamp) => formatDate(timestamp)
     },
     likes: {
         type: Number,

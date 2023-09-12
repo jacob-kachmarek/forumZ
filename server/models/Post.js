@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+import formatDate from '../utils/formatDate';
 
 const { Schema, model } = mongoose;
 
@@ -25,7 +26,8 @@ const postSchema = new Schema({
     },
     comments: [{
         type: Schema.Types.ObjectId,
-        ref: "Comment"
+        ref: "Comment",
+        get: (timestamp) => formatDate(timestamp)
     }],
     createdAt: {
         type: Date,

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_POST } from '../../../utils/mutations';
+import { GET_FORUM_POSTS } from '../../../utils/queries';  // Import this query for refetch
 import Auth from '../../../utils/auth';
 import { Image } from 'cloudinary-react';
 
@@ -9,14 +10,16 @@ export default function PostForm({ forumId }) {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
-  const [addPost, { error }] = useMutation(ADD_POST);
+  
+  // Add refetchQueries for automatic data refresh
+  const [addPost, { error }] = useMutation(ADD_POST, {
+    refetchQueries: [{ query: GET_FORUM_POSTS, variables: { forumId } }],
+  });
 
   const supportedFileTypes = ['image/jpg', 'image/jpeg', 'image/png', 'video/mp4'];
 
   const handleMediaUpload = async (e) => {
     const file = e.target.files[0];
-
-    // Validate file type
     if (!supportedFileTypes.includes(file.type)) {
       alert("File type not supported. Please upload a JPG, JPEG, PNG, or MP4 file.");
       return;
@@ -45,8 +48,7 @@ export default function PostForm({ forumId }) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    const { data } = await addPost({
+    await addPost({
       variables: {
         title,
         description,
@@ -56,6 +58,7 @@ export default function PostForm({ forumId }) {
       },
     });
 
+    // Reset form
     setTitle('');
     setDescription('');
     setImage(null);
@@ -66,13 +69,11 @@ export default function PostForm({ forumId }) {
       <form onSubmit={handleFormSubmit}>
         <label>Title:</label>
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-
         <label>Description:</label>
         <textarea value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
-
         <label>Media:</label>
         <input type="file" onChange={handleMediaUpload} />
-
+        
         {/* Media Preview */}
         { imageLoading ? (
           <p>Loading...</p>
@@ -89,7 +90,7 @@ export default function PostForm({ forumId }) {
 
         <button type="submit">Add Post</button>
       </form>
-
+      
       { error && <p>{error.message}</p> }
     </div>
   );

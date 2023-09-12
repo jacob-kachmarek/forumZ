@@ -7,8 +7,6 @@ import ForumForm from '../components/Forum/ForumForm';
 
 
 export default function Home() {
-
-
     if (!Auth.loggedIn()){
         return (
           <div>
@@ -38,7 +36,8 @@ export default function Home() {
         return (
             <div>
               <div style={{padding: '30px'}}>
-                <h1>Welcome back, User </h1>    {/* {Auth.getProfile().data.username} */}
+                <p>welcome back,</p>
+                <h1 style={{position: 'relative', left:'90px'}}>{Auth.getProfile().data.username}</h1>
               </div>
 
               <div style={{display: 'flex', justifyContent: 'space-around'}}>

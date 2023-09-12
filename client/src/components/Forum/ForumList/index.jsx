@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { GET_FORUMS } from '../../utils/queries';
+import { GET_FORUMS } from '../../../utils/queries';
 import { Link } from 'react-router-dom'; 
 
 const cardStyle = {
@@ -29,15 +29,6 @@ function ForumList() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
-        // Helper function to format date
-        function formatCreatedAt(unixTimestamp) {
-            const date = new Date(unixTimestamp * 1000);
-            if (!isNaN(date.getTime())) {
-                return date.toLocaleString();
-            }
-            return "Invalid Date";
-        }
-
     return (
         <>
             {data.getForums.map(forum => (
@@ -51,7 +42,7 @@ function ForumList() {
                     </div>
 
                     <div style={descriptionStyle}>{forum.description}</div>
-                    <div style={descriptionStyle}>Created At: {formatCreatedAt(forum.createdAt)}</div>
+                    <div style={descriptionStyle}>Created At: {forum.createdAt}</div>
                     <div style={descriptionStyle}>Created By: {forum.createdBy.username}</div>
                 </div>
             </div>

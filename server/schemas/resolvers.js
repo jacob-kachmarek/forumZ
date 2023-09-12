@@ -29,10 +29,10 @@ const resolvers = {
             return await Post.find({ _id: postId }).populate({ path: 'comments', populate: { path: 'createdBy' } }).populate('createdBy');
         },
         getRepliesByComment: async (parent, { postId }) => {
-            return await Post.find({ _id: postId }).populate({ path: 'comments', populate: { path: 'replies', populate:{path: 'createdBy'} } }).populate('createdBy');
+            return await Post.find({ _id: postId }).populate({ path: 'comments', populate: { path: 'replies', populate: { path: 'createdBy' } } }).populate('createdBy');
         }
 
-       
+
     },
     Mutation: {
         login: async (parent, { username, password }) => {
@@ -159,6 +159,29 @@ const resolvers = {
                 { new: true }
             );
             return comment;
+        },
+        likeComment: async (parent, { commentId }, context) => {
+            // Check if the user is authenticated
+            if (!context.user) {
+                throw new AuthenticationError('You must be logged in to like a comment.');
+            }
+
+            try {
+                // Find the comment by its _id and increment the likes field
+                const updatedComment = await Comment.findOneAndUpdate(
+                    { _id: commentId },
+                    { $inc: { likes: 1 } },
+                    { new: true } // Return the updated comment
+                );
+
+                if (!updatedComment) {
+                    throw new Error('Comment not found');
+                }
+
+                return updatedComment;
+            } catch (error) {
+                throw new Error(`Error liking the comment: ${error.message}`);
+            }
         },
         updateReply: async (parent, { text, replyID, commentId }, context) => {
             if (text.length === 0) {

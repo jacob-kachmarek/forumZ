@@ -1,7 +1,7 @@
-import ForumList from '../components/ForumList';
+import ForumList from '../components/Forum/ForumList';
 import Auth from '../utils/auth';
 import './Home.css';
-import ForumForm from '../components/ForumForm';
+import ForumForm from '../components/Forum/ForumForm';
 
 
 

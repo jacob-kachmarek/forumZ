@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { ADD_COMMENT } from '../../utils/mutations';
-import Auth from '../../utils/auth';
+import { ADD_COMMENT } from '../../../utils/mutations';
+import Auth from '../../../utils/auth';
 import { useParams } from 'react-router-dom';
 
 export default function CommentForm() {
@@ -33,22 +33,29 @@ export default function CommentForm() {
         window.location.reload();
         setText("");
     }
-
-    return (
-        <div>
-            <h4>Add a comment!</h4>
-            <form onSubmit={handleFormSubmit}>
-                <label>Title</label>
-                <input 
-                    type="text"
-                    name="text"
-                    value={text}
-                    onChange={handleChange}
-                />
-                <button type="submit">
-                    add
-                </button>
-            </form>
-        </div>
-    )
+    if(Auth.loggedIn()) {
+        return (
+            <div>
+                <h4>Add a comment!</h4>
+                <form onSubmit={handleFormSubmit}>
+                    <label>Comment</label>
+                    <input 
+                        type="text"
+                        name="text"
+                        value={text}
+                        onChange={handleChange}
+                    />
+                    <button type="submit">
+                        add
+                    </button>
+                </form>
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <p>Please<a href='/login'>login</a> to add comments!</p>
+            </div>
+        )
+    }
 }

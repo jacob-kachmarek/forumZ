@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from "@apollo/client";
 import PostList from '../components/Posts/PostList/index.jsx';
 import { GET_SINGLE_FORUM } from "../utils/queries";
+import PostForm from '../components/Posts/PostForm/index.jsx';
 
 export default function Forum() {
     const { forumId } = useParams();
@@ -18,6 +19,7 @@ export default function Forum() {
     return (
         <>
             <h1>Forum: {data.getSingleForum.title}</h1>
+            <PostForm forumId={forumId} />
             <PostList forumId={forumId} />
         </>
     );

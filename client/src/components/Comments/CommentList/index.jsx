@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { GET_COMMENTS } from '../../../utils/queries'; // Import DELETE_COMMENT mutation
 import { LIKE_COMMENT, DELETE_COMMENT } from '../../../utils/mutations';
 import Auth from '../../../utils/auth';
+import ReplyList from '../../Replies/ReplyList';
+import ReplyForm from '../../Replies/ReplyForm';
 
 function CommentList() {
     const { postId, forumId } = useParams();
@@ -88,6 +90,8 @@ function CommentList() {
                                 )}
                             </div>
                         )}
+                <ReplyList commentId={comment._id} />
+                <ReplyForm />
                     </div>
                 ))}
             </div>

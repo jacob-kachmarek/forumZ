@@ -1,15 +1,19 @@
+
 import { useQuery } from "@apollo/client";
 import { GET_REPLIES } from "../../../utils/queries";
 import { useParams } from 'react-router-dom';
+import ReplyDelete from "../ReplyDelete";
 
-const ReplyList = () => {
+
+const ReplyList = ({commentId}) => {
 
     // {forumId, postId}  not sure if i need this with commentId
-    const { postId, commentId} = useParams();
+    const { postId} = useParams();
     console.log("comment parameter",postId)
     const { loading, error, data } = useQuery(GET_REPLIES, {
-        variables: { postId: postId, commentId:commentId },
+        variables: { postId, commentId },
     });
+  
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -19,6 +23,7 @@ const ReplyList = () => {
     // console.log('replyText', data.getRepliesByComment[0].comments[0].replies[0].text)
 
 
+
     return (
         <div>
             <h3>Replies</h3>
@@ -26,6 +31,10 @@ const ReplyList = () => {
                 <div key={reply._id}>
                     <p>{reply.text}</p>
                     {/* <p>Created by: {reply.createdBy.username}</p> */}
+                    {/* <deleteReply commentId={commentId} replyId={reply._id}  />
+                     */}
+                     <div>{commentId} {reply._id}  </div>
+                     <ReplyDelete commentId={commentId} replyId={reply._id} />
                 </div>
             ))}
         </div>

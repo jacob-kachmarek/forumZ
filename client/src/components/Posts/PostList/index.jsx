@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 function PostList() {
   const { forumId } = useParams();
-  console.log("forumId:", forumId);
 
   const { loading, error, data } = useQuery(GET_FORUM_POSTS, {
       variables: { forumId },
@@ -13,7 +12,17 @@ function PostList() {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  console.log("data:", data);
+
+  // Function to determine the media type
+  const getMediaType = (url) => {
+    if(url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png')) {
+      return 'image';
+    }
+    if(url.endsWith('.mp4')) {
+      return 'video';
+    }
+    return 'unknown';
+  }
 
   return (
     <>
@@ -31,8 +40,19 @@ function PostList() {
               <p>By: {post.createdBy.username}</p>
               <p>Likes: {post.likes}</p>
               <p>Posted on: {post.createdAt}</p>
-              {/* Check if the image field exists before trying to render it */}
-              {post.image && <img src={`${post.image}?format=auto`} alt={post.title} />}
+              {
+                post.image && getMediaType(post.image) === 'image' && (
+                  <img src={`${post.image}?format=auto`} alt={post.title} width="300"/>
+                )
+              }
+              {
+                post.image && getMediaType(post.image) === 'video' && (
+                  <video width="300" controls>
+                    <source src={post.image} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                )
+              }
             </div>
           ))
         )}

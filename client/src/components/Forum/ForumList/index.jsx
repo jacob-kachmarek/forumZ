@@ -1,6 +1,8 @@
 import { useQuery } from '@apollo/client';
 import { GET_FORUMS } from '../../../utils/queries';
 import { Link } from 'react-router-dom'; 
+import ForumDelete from '../ForumDelete';
+import Auth from '../../../utils/auth';
 
 const cardStyle = {
     border: '3px solid #000000',
@@ -26,6 +28,14 @@ const descriptionStyle = {
 function ForumList() {
     const { data, loading, error } = useQuery(GET_FORUMS);
 
+    const USERID = () =>{
+        try{
+            return Auth.getProfile().data._id;
+        } catch{
+            return 999;
+        }
+    }
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
@@ -44,6 +54,12 @@ function ForumList() {
                     <div style={descriptionStyle}>{forum.description}</div>
                     <div style={descriptionStyle}>Created At: {forum.createdAt}</div>
                     <div style={descriptionStyle}>Created By: {forum.createdBy.username}</div>
+                    {/* <div style={{color: "black"}}>{Auth.getProfile().data._id}</div>
+                    <div style={{color: "black"}}>{forum.createdBy._id}</div> */}
+                    {(USERID() === forum.createdBy._id) ?  <ForumDelete forumId={forum._id} /> : null}
+                    {/* <ForumDelete forumId={forum._id} /> */}
+
+                     {/*<DeleteButtonComponent forumId={forum._id}/> */} {/*CHANGE HERE TO DELETE (we also need an if statement to see if this is the user's forum)*/}
                 </div>
             </div>
             ))}

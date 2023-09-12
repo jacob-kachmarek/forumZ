@@ -90,6 +90,7 @@ query GetForums {
         description
         createdAt
         createdBy {
+            _id
             username
         }
     }

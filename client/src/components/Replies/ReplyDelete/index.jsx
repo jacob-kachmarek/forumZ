@@ -1,19 +1,24 @@
 import { useMutation } from "@apollo/client";
 import { DELETE_REPLY } from "../../../utils/mutations";
+import { GET_REPLIES } from "../../../utils/queries";
 
 
 
 
-export default function ReplyDelete (commentId, replyId){
-    const[removeReply, {deleteError}] = useMutation(DELETE_REPLY);
-    const handleDeleteReply = async () => {
+export default function ReplyDelete ({commentId, replyId}){
+    console.log('commentID', commentId)
+    console.log('replyID', replyId)
+    const[deleteReply, {deleteError}] = useMutation(DELETE_REPLY) 
+    
+    const handleDeleteReply = async (e) => {
+        e.preventDefault()
         try{
         console.log('commentID', commentId)
         console.log('replyID', replyId)
-        const{data}= await removeReply({
+        const{data}= await deleteReply({
             variables: {
-                 commentId,
-                 replyId 
+                replyId, 
+                 commentId
             },
         });
     } catch (err) {

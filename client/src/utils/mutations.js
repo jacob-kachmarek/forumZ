@@ -169,10 +169,13 @@ export const DELETE_COMMENT = gql`
   }
 `;
 
+
+
 export const DELETE_REPLY = gql`
-  mutation deleteReply($commentId: ID!, $replyID: ID!) {
-    deleteReply(commentId: $commentId, replyID: $replyID) {
-      _id
-    }
+mutation deleteReply($replyId: ID!, $commentId: ID!) {
+  deleteReply(replyId: $replyId, commentId: $commentId) {
+    _id
   }
+}
+
 `;

@@ -27,16 +27,17 @@ const ReplyList = ({commentId}) => {
     return (
         <div>
             <h3>Replies</h3>
-            {replies.map((reply) => (
+            {replies.map((reply) => {
+            
+                return (
                 <div key={reply._id}>
                     <p>{reply.text}</p>
                     {/* <p>Created by: {reply.createdBy.username}</p> */}
                     {/* <deleteReply commentId={commentId} replyId={reply._id}  />
                      */}
-                     <div>{commentId} {reply._id}  </div>
                      <ReplyDelete commentId={commentId} replyId={reply._id} />
                 </div>
-            ))}
+            )})}
         </div>
     );
 } ;

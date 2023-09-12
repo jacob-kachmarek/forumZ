@@ -47,7 +47,7 @@ export default function ReplyForm({commentId}) {
         <div>
             <h4>Add a Reply!</h4>
             <form onSubmit={handleFormSubmit}>
-                <label>Title</label>
+                <label>Reply</label>
                 <input 
                     type="text"
                     name="text"

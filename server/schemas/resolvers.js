@@ -220,10 +220,29 @@ const resolvers = {
             return post;
         },
         deleteComment: async (parent, { commentId }, context) => {
-            const comment = await Comment.findByIdAndDelete(
-                { _id: commentId }
-            );
-            return comment;
+            try {
+                // Find the comment to delete
+                const comment = await Comment.findById(commentId);
+
+                // Check if the comment exists
+                if (!comment) {
+                    throw new Error('Comment not found');
+                }
+                // Delete the comment
+                await comment.deleteOne(
+                    { _id: commentId },
+                    { new: true }
+                );
+
+                // Remove the reference to the comment from the associated post
+                await Post.findByIdAndUpdate(comment.post, {
+                    $pull: { comments: commentId },
+                });
+
+                return comment;
+            } catch (error) {
+                throw new Error(`Error deleting comment: ${error.message}`);
+            }
         },
         deleteReply: async (parent, { commentId, replyID }, context) => {
             const comment = await Comment.findOneAndUpdate(

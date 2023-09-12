@@ -1,4 +1,4 @@
-const { User, Comment, Forum, Post } = require('../models');
+const { User, Comment, Forum, Post, Reply } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth')
 
 const resolvers = {
@@ -102,11 +102,14 @@ const resolvers = {
             )
             return comment;
         },
-        addReply: async (parent, { text, commentId }, context) => {
-            const reply = await Comment.findOneAndUpdate(
+        addReply: async (parent, { text, userID, commentId }, context) => {
+            const reply = await Reply.create({
+                text,
+                createdBy: userID
+            });
+            await Comment.findOneAndUpdate(
                 { _id: commentId },
-                { $push: { replies: { text } } },
-                { new: true }
+                { $addToSet: { replies: reply._id } }
             )
             return reply;
         },
@@ -244,8 +247,8 @@ const resolvers = {
                 throw new Error(`Error deleting comment: ${error.message}`);
             }
         },
-        deleteReply: async (parent, {replyId, commentId  }, context) => {
-            console.log("REPLY ID", replyId,"COMMENT ID", commentId)
+        deleteReply: async (parent, { replyId, commentId }, context) => {
+            console.log("REPLY ID", replyId, "COMMENT ID", commentId)
             const comment = await Comment.findOneAndUpdate(
                 { _id: commentId },
                 { $pull: { replies: { _id: replyId } } },

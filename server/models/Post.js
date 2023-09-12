@@ -27,11 +27,11 @@ const postSchema = new Schema({
     comments: [{
         type: Schema.Types.ObjectId,
         ref: "Comment",
-        get: (timestamp) => formatDate(timestamp)
     }],
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        get: (timestamp) => formatDate(timestamp)
     }
 });
 

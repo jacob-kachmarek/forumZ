@@ -122,7 +122,7 @@ const resolvers = {
                 return null;
             }
             const forum = await Forum.findOneAndUpdate(
-                { _id: forumID },
+                { _id: forumId },
                 update,
                 { new: true }
             );

@@ -91,7 +91,7 @@ function CommentList({postId}) {
                                 <ReplyList replies={comment.replies} commentId={comment._id}/>
                             </div>
                         )}
-                <ReplyForm commentId={comment._id} />
+                        <ReplyForm commentId={comment._id} />
                     </div>
                 ))}
             </div>

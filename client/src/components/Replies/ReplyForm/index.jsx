@@ -4,15 +4,10 @@ import { useMutation } from "@apollo/client";
 import Auth from '../../../utils/auth';
 import { useParams } from "react-router-dom";
 
-
-
-
-
 export default function ReplyForm({commentId}) {
     const { postId } = useParams();
     const [text, setText] = useState('');
     const [addReply, { error }] = useMutation(ADD_REPLY);
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === 'text') {
@@ -35,14 +30,12 @@ export default function ReplyForm({commentId}) {
                 },
             });
             console.log(data, text, Auth.getProfile().data._id );
-            
         } catch (err) {
             console.log(err);
         } 
         window.location.reload();   
         setText("");
     }
-
     return (
         <div>
             <h4>Add a Reply!</h4>

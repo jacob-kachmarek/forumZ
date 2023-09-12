@@ -1,12 +1,6 @@
-
-import { useQuery } from "@apollo/client";
-import { GET_REPLIES } from "../../../utils/queries";
-import { useParams } from 'react-router-dom';
 import ReplyDelete from "../ReplyDelete";
 
-
 const ReplyList = ({replies, commentId}) => {
-
     return (
         <div>
             <h3>Replies</h3>

@@ -1,8 +1,5 @@
 import { useMutation } from "@apollo/client";
 import { DELETE_REPLY } from "../../../utils/mutations";
-import { GET_REPLIES } from "../../../utils/queries";
-
-
 
 
 export default function ReplyDelete ({commentId, replyId}){
@@ -26,14 +23,8 @@ export default function ReplyDelete ({commentId, replyId}){
     }
     window.location.reload()
 }
-
     return(
-        
-        <>
         <button onClick={handleDeleteReply}>Delete</button>
-        </>
-
-
     )
 }
 

@@ -230,12 +230,15 @@ const resolvers = {
                 }
 
                 // Check if the user making the request is the owner of the comment (or has the necessary permissions)
-                if (comment.createdBy.toString() !== context.user.id) {
-                    throw new Error('You do not have permission to delete this comment');
-                }
+                // if (comment.createdBy.toString() !== context.user.id) {
+                //     throw new Error('You do not have permission to delete this comment');
+                // }
 
                 // Delete the comment
-                await comment.remove();
+                await comment.deleteOne(
+                    { _id: commentId },
+                    { new: true }
+                );
 
                 // Remove the reference to the comment from the associated post
                 await Post.findByIdAndUpdate(comment.post, {

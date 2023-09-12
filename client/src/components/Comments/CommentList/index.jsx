@@ -39,10 +39,8 @@ function CommentList() {
                 const commentUserId = data.getCommentsByPost[0].comments.find(
                     (comment) => comment._id === commentId
                 ).createdBy._id;
-                    console.log("data:", data.getCommentsByPost[0].comments.find(
-                        (comment) => comment._id === commentId
-                    ))
-                    console.log("commentUserId: ", commentUserId)
+                console.log("data:", data.getCommentsByPost[0].comments.find((comment) => comment._id === commentId))
+                console.log("commentUserId: ", commentUserId)
                 if (Auth.getUserID() === commentUserId) {
                     console.log("Auth.getUserID(): ", Auth.getUserID())
                     // If the comment belongs to the signed-in user, delete it

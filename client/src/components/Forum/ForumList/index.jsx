@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import { GET_FORUMS } from '../../../utils/queries';
 import { Link } from 'react-router-dom'; 
 import ForumDelete from '../ForumDelete';
+import ForumUpdate from '../ForumUpdate';
 import Auth from '../../../utils/auth';
 
 const cardStyle = {
@@ -55,7 +56,10 @@ function ForumList() {
                     <div style={descriptionStyle}>Created At: {forum.createdAt}</div>
                     <div style={descriptionStyle}>Created By: {forum.createdBy.username}</div>
                     {(USERID() === forum.createdBy._id) ?  
-                    <ForumDelete forumId={forum._id} /> 
+                        <>
+                        <ForumDelete forumId={forum._id} /> 
+                        <ForumUpdate forumId={forum._id}/>
+                        </>
                     : null}
 
                 </div>

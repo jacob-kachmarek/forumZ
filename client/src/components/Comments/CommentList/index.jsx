@@ -56,17 +56,3 @@ function CommentList() {
 }
 
 export default CommentList;
-
-// else return (
-//     <div>
-//         <h2>Comments</h2>
-//         {console.log(data.getCommentsByPost[0].comments)}
-//         {data.getCommentsByPost[0].comments.map(comment => (
-//             <div key={comment._id}>
-//                 <h3>{comment.text}</h3>
-//                 <p>Posted By: {comment.createdBy.username}</p> 
-//                 <p>Likes: {comment.likes}</p>
-//             </div>
-//             ))}
-//         </div>
-// )

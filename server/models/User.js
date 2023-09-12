@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-import formatDate from '../utils/formatDate';
+const formatDate = require('../utils/formatDate');
 
 const { Schema, model } = mongoose;
 const bcrypt = require('bcrypt');

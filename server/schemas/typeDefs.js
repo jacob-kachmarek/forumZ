@@ -70,7 +70,7 @@ type Query {
     deleteForum(forumId: ID!): Forum
     deletePost(postId: ID!): Post
     deleteComment(commentId: ID!): Comment
-    deleteReply(replyID:ID!, commentId: ID!): Reply
+    deleteReply( replyId: ID!, commentId: ID!): Reply
  }
 `
 module.exports = typeDefs;

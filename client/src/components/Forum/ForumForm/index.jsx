@@ -19,10 +19,9 @@ export default function ForumForm() {
         }
       };
 
-    const handleFormSubmit = async (event) => {
-        event.preventDefault();
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
         try {
-            console.log(title, description, Auth.getProfile().data._id )
             const { data } = await addForum({
                 variables: {
                   title,

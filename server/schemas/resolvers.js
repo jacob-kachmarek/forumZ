@@ -122,7 +122,7 @@ const resolvers = {
                 return null;
             }
             const forum = await Forum.findOneAndUpdate(
-                { _id: forumID },
+                { _id: forumId },
                 update,
                 { new: true }
             );
@@ -244,10 +244,11 @@ const resolvers = {
                 throw new Error(`Error deleting comment: ${error.message}`);
             }
         },
-        deleteReply: async (parent, { commentId, replyID }, context) => {
+        deleteReply: async (parent, {replyId, commentId  }, context) => {
+            console.log("REPLY ID", replyId,"COMMENT ID", commentId)
             const comment = await Comment.findOneAndUpdate(
                 { _id: commentId },
-                { $pull: { replies: { _id: replyID } } },
+                { $pull: { replies: { _id: replyId } } },
                 { new: true }
             );
             return comment;

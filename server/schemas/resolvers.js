@@ -232,6 +232,15 @@ const resolvers = {
                 throw new Error(`Error liking the comment: ${error.message}`);
             }
         },
+        async likePost(_, { postId }) {
+            const post = await Post.findById(postId);
+            if (!post) {
+              throw new Error('Post not found');
+            }
+            post.likes += 1;
+            await post.save();
+            return post;
+          },
         updateReply: async (parent, { text, replyID, commentId }, context) => {
             if (text.length === 0) {
                 return null;

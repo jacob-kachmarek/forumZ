@@ -1,5 +1,7 @@
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Auth from '../../utils/auth';
+import ForumSearchBar from './ForumSearchBar';
 import './navbar.css';
 
 export default function Navbar() {
@@ -9,19 +11,21 @@ export default function Navbar() {
       e.preventDefault();
       Auth.logout();
       location.reload();
-
    };
-   return (
 
+   return (
       <nav className='navbar'>
          <div className='container'>
-         {(Auth.loggedIn()) && (
-            <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', fontWeight: 'bold',}}>
-            <span style={{ fontSize: '14px', fontWeight: '300',}}>Welcome back,</span> {Auth.getProfile().data.username}</p>
-         )}
+            {Auth.loggedIn() && (
+               <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', fontWeight: 'bold', }}>
+                  <span style={{ fontSize: '14px', fontWeight: '300', }}>Welcome back,</span> {Auth.getProfile().data.username}
+               </p>
+            )}
             <Link to='/' className='logo'>
                forumZ
             </Link>
+
+            <ForumSearchBar />
 
             <ul className='nav-links'>
                {Auth.loggedIn() ? (
@@ -46,9 +50,6 @@ export default function Navbar() {
                )}
             </ul>
          </div>
-      </nav >
+      </nav>
    );
 }
-
-
-// Auth.getProfile().data.username

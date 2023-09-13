@@ -38,7 +38,16 @@ const resolvers = {
                 throw new Error('Comment not found');
             }
             return comment.replies;
-        }
+        },
+        searchForums: async (_, { searchTerm }) => {
+            const regex = new RegExp(searchTerm, 'i');  // 'i' makes it case insensitive
+            return await Forum.find({
+                $or: [
+                    { title: { $regex: regex } },
+                    { description: { $regex: regex } },
+                ],
+            });
+        },
     },
     Mutation: {
         login: async (parent, { username, password }) => {
@@ -244,7 +253,7 @@ const resolvers = {
             } catch (error) {
                 throw new Error(`Error deleting comment: ${error.message}`);
             }
-        
+
         },
         likeReply: async (parent, { replyId }, context) => {
             // Check if the user is authenticated

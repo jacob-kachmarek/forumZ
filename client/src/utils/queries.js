@@ -196,3 +196,13 @@ query GetRepliesByComment($commentId: ID!) {
   }
 }
 `;
+
+export const SEARCH_FORUMS = gql`
+  query searchForums($searchTerm: String!) {
+    searchForums(searchTerm: $searchTerm) {
+      _id
+      title
+      description
+    }
+  }
+`;

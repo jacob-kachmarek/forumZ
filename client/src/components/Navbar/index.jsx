@@ -30,10 +30,10 @@ export default function Navbar() {
       <nav className='navbar'>
          <div className='container'>
             {Auth.loggedIn() && (
-               <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', fontWeight: 'bold' }}>
-                  <span style={{ fontSize: '14px', fontWeight: '300' }}>Welcome back,</span>
+               <p style={{fontSize: '18px', fontWeight: 'bold' }}>
+                  <span style={{ fontSize: '13px', fontWeight: '300' }}>Welcome back,</span>
                   {' '}
-                  <Link to="/profile">{Auth.getProfile().data.username}</Link>
+                  <Link style={{fontSize: '20px', color: '#c394ee'}} to="/profile">{Auth.getProfile().data.username}</Link>
                </p>
             )}
             <Link to='/' className='logo' onClick={reloadPage}>

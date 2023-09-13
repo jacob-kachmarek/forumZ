@@ -87,7 +87,6 @@ export default function PostUpdate({ postId }) {
       )}
       {showForm && (
         <form onSubmit={handleUpdatePost}>
-          <label htmlFor="title">New Title</label>
           <input 
             type="text"
             id="title"
@@ -96,7 +95,6 @@ export default function PostUpdate({ postId }) {
             placeholder="New title"
             onChange={handleChange}
           />
-          <label htmlFor="description">New Description</label>
           <textarea
             id="description"
             name="description"
@@ -117,7 +115,7 @@ export default function PostUpdate({ postId }) {
           ) : image ? (
             <Image cloudName="forumZupload" publicId={image} width="300" crop="scale" />
           ) : null }
-          <button type="submit">Submit Update</button>
+          <button type="submit">Update</button>
         </form>
       )}
       { error && <p>{error.message}</p> }

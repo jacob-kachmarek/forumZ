@@ -18,7 +18,7 @@ export default function Forum() {
 
     return (
         <>
-            <div style={{padding: '10px', margin: '20px', backgroundColor: '#f0f0f0', borderRadius: '5px', color: '#852cde', border: '4px solid black'}}>
+            <div style={{padding: '10px', margin: '30px', backgroundColor: '#f0f0f0', borderRadius: '5px', color: '#852cde', border: '4px solid black'}}>
                 <h1>{data.getSingleForum.title}</h1>
                 <p style={{width: '50%', marginTop: '20px', lineHeight: '22px', color: 'black'}}>{data.getSingleForum.description}</p>
             </div>

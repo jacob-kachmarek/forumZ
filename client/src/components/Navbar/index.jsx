@@ -50,13 +50,15 @@ export default function Navbar() {
                      </button>
                   </li>
                ) : (
-                  <>
+                  <> 
+                     
                      <li>
                         <Link className={currentPage === '/login' ? 'activeLink' : 'inactiveLink'} to='/login'>
                            Login
                         </Link>
                      </li>
-                     <li>
+                     
+                     <li style={{marginLeft: '80px'}}>
                         <Link className={currentPage === '/signup' ? 'activeLink' : 'inactiveLink'} to='/signup'>
                            Signup
                         </Link>

@@ -3,9 +3,6 @@ import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 
 
-
-
-
 export default function ForumDelete({forumId}){
     const [UpdateForum, {error}] = useMutation(UPDATE_FORUM);
     const [showForm, setShowForm] = useState(false);
@@ -31,8 +28,7 @@ export default function ForumDelete({forumId}){
                     forumId
                 }
             })
-            
-
+        
             setDescription('');
             setTitle('');
             setShowForm(false);
@@ -55,7 +51,7 @@ export default function ForumDelete({forumId}){
                     transition: 'background-color 0.3s ease',
                     boxShadow: 'none',
                     marginBottom: '5px'
-                }} onClick={() => setShowForm(true)}>Update</button>
+                }} onClick={() => setShowForm(true)}>update</button>
             ) }
             {showForm ? (
                 <form onSubmit={handleUpdateForum}>
@@ -72,15 +68,9 @@ export default function ForumDelete({forumId}){
                         placeholder='new description'
                         onChange={handleChange}
                     />
-                    <button type='submit'>submit update</button>
+                    <button type='submit'>update</button>
                 </form>
             ) : null}
         </div>
     );
-    
 }
-
-
-// click the button,
-// then render a form
-// then handle that update

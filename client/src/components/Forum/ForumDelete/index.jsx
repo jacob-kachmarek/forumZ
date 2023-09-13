@@ -31,7 +31,7 @@ export default function ForumDelete({forumId}){
             }}
             onClick={handleDeleteForum}
             >
-            Delete
+            delete
             </button>
     );
 }

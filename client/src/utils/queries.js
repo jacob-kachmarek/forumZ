@@ -172,19 +172,25 @@ query GetCommentsByPost($postId: ID!) {
 `;
 
 export const GET_REPLIES = gql`
-query GetRepliesByComment($postId: ID!) {
-  getRepliesByComment(postId: $postId) {
+query GetRepliesByComment($commentId: ID!) {
+  getRepliesByComment(commentId: $commentId) {
     _id
-    comments {
+    text
+    likes
+    createdAt
+    createdBy {
       _id
-      replies {
+      username
+    }
+    replies {
+      text
+      _id
+      likes
+      createdAt
+      createdBy {
         _id
-        text
-        likes
+        username
         createdAt
-        createdBy {
-          username
-        }
       }
     }
   }

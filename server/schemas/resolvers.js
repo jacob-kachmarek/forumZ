@@ -1,6 +1,5 @@
-const { User, Comment, Forum, Post } = require('../models');
+const { User, Comment, Forum, Post, Reply } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth')
-
 const resolvers = {
     Query: {
         getSingleUser: async (parent, args, context) => {
@@ -14,7 +13,6 @@ const resolvers = {
                 .populate({ path: 'forums', populate: { path: 'posts', populate: { path: 'comments' } } })
                 .populate({ path: 'posts', populate: { path: 'comments' } })
                 .populate({ path: 'comments' })
-
         },
         getSingleForum: async (parent, { forumId }, context) => {
             return Forum.findOne({ _id: forumId }).populate('createdBy');
@@ -28,28 +26,31 @@ const resolvers = {
         getCommentsByPost: async (parent, { postId }) => {
             return await Post.find({ _id: postId }).populate({ path: 'comments', populate: { path: 'createdBy' } }).populate('createdBy');
         },
-        getRepliesByComment: async (parent, { postId }) => {
-            return await Post.find({ _id: postId }).populate({ path: 'comments', populate: { path: 'replies', populate: { path: 'createdBy' } } }).populate('createdBy');
-        }
-
-
+        getRepliesByComment: async (parent, { commentId }) => {
+            const comment = await Comment.findById(commentId)
+              .populate({
+                path: 'replies',
+                populate: { path: 'createdBy' }
+              })
+              .populate('createdBy');
+            // Verify that the comment exists before proceeding
+            if (!comment) {
+              throw new Error('Comment not found');
+            }
+            return comment.replies;
+          }
     },
     Mutation: {
         login: async (parent, { username, password }) => {
             const user = await User.findOne({ username });
-
             if (!user) {
                 throw AuthenticationError;
             }
-
             const correctPw = await user.isCorrectPassword(password);
-
             if (!correctPw) {
                 throw AuthenticationError;
             }
-
             const token = signToken(user);
-
             return { token, user };
         },
         addUser: async (parent, { username, password }, context) => {
@@ -102,11 +103,15 @@ const resolvers = {
             )
             return comment;
         },
-        addReply: async (parent, { text, commentId }, context) => {
-            const reply = await Comment.findOneAndUpdate(
+        addReply: async (parent, { text, userID, commentId }, context) => {
+            const reply = await Reply.create({
+                text,
+                userID,
+                createdBy: userID
+            });
+            await Comment.findOneAndUpdate(
                 { _id: commentId },
-                { $push: { replies: { text } } },
-                { new: true }
+                { $addToSet: { replies: reply._id } }
             )
             return reply;
         },
@@ -126,7 +131,6 @@ const resolvers = {
                 update,
                 { new: true }
             );
-
             return forum;
         },
         updatePost: async (parent, { title, description, postId }, context) => {
@@ -137,7 +141,6 @@ const resolvers = {
             if (description) {
                 update.description = description;
             }
-
             if (Object.keys(update).length === 0) {
                 return null;
             }
@@ -146,7 +149,6 @@ const resolvers = {
                 update,
                 { new: true }
             );
-
             return post;
         },
         updateComment: async (parent, { text, commentId }, context) => {
@@ -165,7 +167,6 @@ const resolvers = {
             if (!context.user) {
                 throw new AuthenticationError('You must be logged in to like a comment.');
             }
-
             try {
                 // Find the comment by its _id and increment the likes field
                 const updatedComment = await Comment.findOneAndUpdate(
@@ -173,11 +174,9 @@ const resolvers = {
                     { $inc: { likes: 1 } },
                     { new: true } // Return the updated comment
                 );
-
                 if (!updatedComment) {
                     throw new Error('Comment not found');
                 }
-
                 return updatedComment;
             } catch (error) {
                 throw new Error(`Error liking the comment: ${error.message}`);
@@ -204,7 +203,6 @@ const resolvers = {
                 updatedComment,
                 { new: true }
             );
-
             return result;
         },
         deleteForum: async (parent, { forumId }, context) => {
@@ -223,7 +221,6 @@ const resolvers = {
             try {
                 // Find the comment to delete
                 const comment = await Comment.findById(commentId);
-
                 // Check if the comment exists
                 if (!comment) {
                     throw new Error('Comment not found');
@@ -233,19 +230,17 @@ const resolvers = {
                     { _id: commentId },
                     { new: true }
                 );
-
                 // Remove the reference to the comment from the associated post
                 await Post.findByIdAndUpdate(comment.post, {
                     $pull: { comments: commentId },
                 });
-
                 return comment;
             } catch (error) {
                 throw new Error(`Error deleting comment: ${error.message}`);
             }
         },
-        deleteReply: async (parent, {replyId, commentId  }, context) => {
-            console.log("REPLY ID", replyId,"COMMENT ID", commentId)
+        deleteReply: async (parent, { replyId, commentId }, context) => {
+            console.log("REPLY ID", replyId, "COMMENT ID", commentId)
             const comment = await Comment.findOneAndUpdate(
                 { _id: commentId },
                 { $pull: { replies: { _id: replyId } } },
@@ -255,5 +250,4 @@ const resolvers = {
         }
     }
 }
-
 module.exports = resolvers;

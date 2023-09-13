@@ -83,8 +83,8 @@ export const ADD_COMMENT = gql`
 `;
 
 export const ADD_REPLY = gql`
-  mutation addReply($text: String!, $commentId: ID!) {
-    addReply(text: $text, commentId: $commentId) {
+  mutation addReply($text: String!, $commentId: ID!, $userID: ID!) {
+    addReply(text: $text, commentId: $commentId, userID: $userID) {
       _id
       text
       createdBy {

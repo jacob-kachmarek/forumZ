@@ -222,3 +222,59 @@ query searchPosts($forumId: ID!, $searchTerm: String!) {
   }
 }
 `;
+
+export const GET_USER_CONTENT = gql`
+query Query($username: String!) {
+  getSingleUser(username: $username) {
+    _id
+    username
+    createdAt
+    forums {
+      _id
+      createdAt
+      description
+      createdBy {
+        username
+        createdAt
+        _id
+      }
+    }
+    posts {
+      _id
+      createdAt
+      description
+      image
+      likes
+      title
+      createdBy {
+        _id
+        createdAt
+        username
+      }
+
+    }
+    comments {
+      _id
+      createdAt
+      likes
+      text
+      createdBy {
+        _id
+        username
+        createdAt
+      }
+      replies {
+        _id
+        createdAt
+        likes
+        text
+        createdBy {
+          _id
+          username
+          createdAt
+        }
+      }
+    }
+  }
+}
+`;

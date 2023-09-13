@@ -15,7 +15,7 @@ export default function Navbar() {
    const reloadPage = () => {
       history.push('/');  // Navigate to '/'
       window.location.reload();  // Then reload
-    };
+   };
 
    const handleLogout = (e) => {
       e.preventDefault();
@@ -28,8 +28,10 @@ export default function Navbar() {
       <nav className='navbar'>
          <div className='container'>
             {Auth.loggedIn() && (
-               <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', fontWeight: 'bold', }}>
-                  <span style={{ fontSize: '14px', fontWeight: '300', }}>Welcome back,</span> {Auth.getProfile().data.username}
+               <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', fontWeight: 'bold' }}>
+                  <span style={{ fontSize: '14px', fontWeight: '300' }}>Welcome back,</span>
+                  {' '}
+                  <Link to="/profile">{Auth.getProfile().data.username}</Link>
                </p>
             )}
             <Link to='/' className='logo' onClick={reloadPage}>

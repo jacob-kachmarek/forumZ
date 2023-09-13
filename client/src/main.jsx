@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import ErrorPage from './pages/ErrorPage';
 import Forum from './pages/Forum.jsx';
 import Post from './pages/Post.jsx';
+import Profile from './pages/Profile';
 import Comment from './components/Comments/CommentList'
 import Reply from './components/Replies/ReplyList'
 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <Signup />
+      },
+      {
+        path: '/profile',
+        element: <Profile/>
       },
       {
         path: '/forum/:forumId',

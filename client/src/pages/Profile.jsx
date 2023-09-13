@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom'; // Import Link from React Router
 import { GET_USER_CONTENT } from '../utils/queries';
 import Auth from '../utils/auth';
+import './Profile.css';
 
 // Define the getMediaType function
 const getMediaType = (url) => {
@@ -36,7 +37,7 @@ function Profile() {
     const user = data.getSingleUser;
 
     return (
-        <div>
+        <div className='profile-container'>
             <h2>User Profile: {user.username}</h2>
             <p>Joined at: {user.createdAt}</p>
 

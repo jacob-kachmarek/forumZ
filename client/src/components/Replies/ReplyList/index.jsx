@@ -31,15 +31,12 @@ const ReplyList = ({ commentId }) => {
   if (error) return `Error: ${error.message}`;
 
   const handleLikeReply = async (replyId) => {
-    console.log("Like Button clicked for reply with ID:", replyId);
     if (Auth.loggedIn() && !likedReplies.includes(replyId)) {
       try {
         await likeReply({ variables: { replyId } });
         const updatedLikedReplies = [...likedReplies, replyId];
         setLikedReplies(updatedLikedReplies);
-        console.log("updatedLikedReplies:", updatedLikedReplies)
         updateLikedReplyInLocalStorage(updatedLikedReplies);
-        console.log("Updated LikedReplies:", likedReplies);
       } catch (error) {
         console.error("Error liking reply:", error);
       }
@@ -60,8 +57,8 @@ const ReplyList = ({ commentId }) => {
             <div>
               <button
                 style={{ border: 'none', padding: '0' }}
-                onClick={() => handleLikeReply(reply._id)} // Corrected this line
-                disabled={likedReplies.includes(reply._id)} // Corrected this line
+                onClick={() => handleLikeReply(reply._id)} 
+                disabled={likedReplies.includes(reply._id)} 
               >
                 👍
               </button>

@@ -5,13 +5,10 @@ import { GET_SINGLE_FORUM } from "../utils/queries";
 import PostForm from '../components/Posts/PostForm/index.jsx';
 import {useState} from 'react';
 import Auth from '../utils/auth.js';
-import PostSearchBar from '../components/Navbar/PostSearchBar';
-import { useSearch } from '../contexts/SearchContext';
 
 export default function Forum() {
     const [show, setShow] = useState(false);
     const { forumId } = useParams();
-    const { searchTerm } = useSearch();
 
     const { loading, error, data } = useQuery(GET_SINGLE_FORUM, {
         variables: { forumId },
@@ -29,7 +26,7 @@ export default function Forum() {
                 <p style={{width: '50%', marginTop: '20px', lineHeight: '22px', color: 'black'}}>{data.getSingleForum.description}</p>
             </div>
             <PostForm forumId={forumId} /> 
-            <PostList forumId={forumId} searchTerm={searchTerm} />
+            <PostList forumId={forumId} />
 
         </>
     );

@@ -6,8 +6,6 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
-import { SearchProvider } from './contexts/SearchContext'
-
 import Navbar from './components/Navbar';
 
 const httpLink = createHttpLink({
@@ -34,7 +32,6 @@ function App() {
     <ApolloProvider client={client}>
         <Navbar />
         <Outlet />
-        <SearchProvider />
     </ApolloProvider>
     
   );

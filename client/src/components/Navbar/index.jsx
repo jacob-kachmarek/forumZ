@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Auth from '../../utils/auth';
 import ForumSearchBar from './ForumSearchBar';
-import PostSearchBar from './PostSearchBar';
 import './navbar.css';
 
 export default function Navbar() {
@@ -24,6 +23,9 @@ export default function Navbar() {
    };
 
 
+    // Check if we are at home page ("/")
+    const isHome = window.location.pathname === '/';
+
    return (
       <nav className='navbar'>
          <div className='container'>
@@ -38,7 +40,7 @@ export default function Navbar() {
                forumZ
             </Link>
 
-            {isForumPage ? <PostSearchBar /> : (currentPage === '/' ? <ForumSearchBar /> : null)}
+            {currentPage === '/' && <ForumSearchBar />}
 
             <ul className='nav-links'>
                {Auth.loggedIn() ? (

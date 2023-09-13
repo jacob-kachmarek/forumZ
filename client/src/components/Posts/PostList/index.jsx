@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import PostDelete from '../PostDelete';
 import Auth from '../../../utils/auth';
 import PostUpdate from '../PostUpdate';
-import PostSearchBar from '../../Navbar/PostSearchBar';
 
 function PostList({ searchTerm }) {
   const { forumId } = useParams();

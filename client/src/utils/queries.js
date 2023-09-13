@@ -231,6 +231,7 @@ query Query($username: String!) {
     createdAt
     forums {
       _id
+      title
       createdAt
       description
       createdBy {

@@ -2,15 +2,14 @@
 .navbar {
   background-color: #000000;
   padding: 20px 0;
+
 }
 
 .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
 }
 
 .logo {
@@ -27,10 +26,6 @@
 .nav-links {
   list-style: none;
   display: flex;
-}
-
-.nav-links li {
-  margin-right: 40px;
 }
 
 .activeLink {

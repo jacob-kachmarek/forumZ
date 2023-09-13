@@ -7,7 +7,7 @@ import Auth from '../../../utils/auth';
 
 const cardStyle = {
     border: '4px solid #000000',
-    boxShadow: '7px 7px 5px black',
+    boxShadow: '10px 10px 10px black',
     marginBottom: '20px',
     display: 'flex',
     justifyContent: 'space-between',
@@ -30,8 +30,8 @@ const descriptionStyle = {
 const buttonDiv = {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-end', // Align buttons to the right
-  };
+    alignItems: 'flex-end',
+};
   
 
 function ForumList() {
@@ -55,9 +55,9 @@ function ForumList() {
                     <div style={cardStyle}>
                         <div>
                             <div style={titleStyle}>
-                            <Link style={{textDecoration: 'none', color: '#852cde'}} to={`/forum/${forum._id}`}>
-                                <h2>{forum.title}</h2>
-                            </Link>
+                                <Link style={{textDecoration: 'none', color: '#852cde'}} to={`/forum/${forum._id}`}>
+                                    <h2>{forum.title}</h2>
+                                </Link>
                             </div>
                             <div style={descriptionStyle}>{forum.description}</div>
                         </div>
@@ -82,3 +82,5 @@ function ForumList() {
 }
 
 export default ForumList;
+
+

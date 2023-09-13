@@ -38,36 +38,43 @@ export default function ReplyForm({commentId}) {
         setText("");
         setShowForm(false);
     }
-    return (
-        <div>
-            {!showForm && (
-                <button  style={{
-                    // backgroundColor: 'blue',
-                    // color: 'white',
-                    // border: 'none',
-                    // borderRadius: '4px',
-                    // padding: '10px 10px',
-                    // fontSize: '12px',
-                    // cursor: 'pointer',
-                    // transition: 'background-color 0.3s ease',
-                    // boxShadow: 'none',
-                    // marginBottom: '5px'
-                }} onClick={() => setShowForm(true)}>Reply</button>
-            ) }
-            {showForm ? (
-            <form onSubmit={handleFormSubmit}>
-                <label>Reply</label>
-                <input 
-                    type="text"
-                    name="text"
-                    value={text}
-                    onChange={handleChange}
-                />
-                <button type="submit">
-                    add
-                </button>
-            </form>
-            ) : null}
-        </div>
-    )
+
+    if (Auth.loggedIn()) {
+        return (
+            <div>
+                {!showForm && (
+                    <button  style={{
+                        // backgroundColor: 'blue',
+                        // color: 'white',
+                        // border: 'none',
+                        // borderRadius: '4px',
+                        // padding: '10px 10px',
+                        // fontSize: '12px',
+                        // cursor: 'pointer',
+                        // transition: 'background-color 0.3s ease',
+                        // boxShadow: 'none',
+                        // marginBottom: '5px'
+                    }} onClick={() => setShowForm(true)}>Reply</button>
+                ) }
+                {showForm ? (
+                <form onSubmit={handleFormSubmit}>
+                    <label>Reply</label>
+                    <input 
+                        type="text"
+                        name="text"
+                        value={text}
+                        onChange={handleChange}
+                    />
+                    <button type="submit">
+                        add
+                    </button>
+                </form>
+                ) : null}
+            </div>
+        )
+    } else {
+        return (
+            <div></div>
+        )
+    }
 }

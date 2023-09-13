@@ -40,7 +40,7 @@ const resolvers = {
             return comment.replies;
         },
         searchForums: async (_, { searchTerm }) => {
-            const regex = new RegExp(searchTerm, 'i');  // 'i' makes it case insensitive
+            const regex = new RegExp(searchTerm, 'i');
             return await Forum.find({
                 $or: [
                     { title: { $regex: regex } },
@@ -67,6 +67,22 @@ const resolvers = {
 
             return filteredPosts;
         },
+        getSinglePost: async (parent, { postId }, context) => {
+            try {
+              // Find the Post by postId and populate createdBy (if needed)
+              const post = await Post.findOne({ _id: postId }).populate('createdBy');
+      
+              if (!post) {
+                throw new Error('Post not found');
+              }
+      
+              return post;
+            } catch (error) {
+              // Handle any errors or exceptions
+              throw new Error(`Error fetching single post: ${error.message}`);
+            }
+          },
+          
     },
     Mutation: {
         login: async (parent, { username, password }) => {

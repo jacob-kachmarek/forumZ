@@ -7,6 +7,35 @@ import PostDelete from '../PostDelete';
 import Auth from '../../../utils/auth';
 import PostUpdate from '../PostUpdate';
 
+const cardStyle = {
+  border: '4px solid #000000',
+  boxShadow: '10px 10px 10px black',
+  marginBottom: '20px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  padding: '14px',
+  borderRadius: '5px',
+  backgroundColor: '#f0f0f0',
+};
+
+const titleStyle = {
+  fontSize: '16px',
+  fontWeight: 'bold',
+  marginBottom: '5px',
+};
+const descriptionStyle = {
+  fontSize: '18px',
+  color: '#333333',
+  marginTop: '8px',
+  fontWeight: '200'
+};
+const buttonDiv = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+};
+
+
 function PostList({ searchTerm }) {
   const { forumId } = useParams();
   const [posts, setPosts] = useState([]);
@@ -61,33 +90,47 @@ function PostList({ searchTerm }) {
         ) : (
           posts.map(post => (
             <div key={post._id}>
-              <Link to={`/forum/${forumId}/post/${post._id}`}>
-                <h2>{post.title}</h2>
-              </Link>
-              <p>{post.description}</p>
-              <p>By: {post.createdBy.username}</p>
-              <p>Likes: {post.likes}</p>
-              <p>Posted on: {post.createdAt}</p>
-              {
-                post.image && getMediaType(post.image) === 'image' && (
-                  <img src={`${post.image}?format=auto`} alt={post.title} width="300"/>
-                )
-              }
-              {
-                post.image && getMediaType(post.image) === 'video' && (
-                  <video width="300" controls>
+              <div style={cardStyle}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', }}>
+
+                  {post.image && getMediaType(post.image) === 'image' && (
+                    <img style={{ width: '100px', height: '100px', marginRight: '20px' }} src={`${post.image}?format=auto`} alt={post.title} width="300" />
+                  )}
+                  {post.image && getMediaType(post.image) === 'video' && (
+                  <video style={{ width: '100px', height: '100px', marginRight: '20px' }} width="300" controls>
                     <source src={post.image} type="video/mp4" />
                     Your browser does not support the video tag.
-                  </video>
-                )
-              }
-              {/* Conditionally render the delete button */}
-              { Auth.loggedIn() && Auth.getUserID() === post.createdBy._id && (
-                  <>
-                    <PostDelete postId={post._id} /> 
-                    <PostUpdate postId={post._id} />
-                  </>
-              )}
+                  </video> )}
+                  
+
+                  <div style={titleStyle}>
+                    <Link style={{ textDecoration: 'none', color: '#852cde' }} to={`/forum/${forumId}/post/${post._id}`}>
+                      <h2>{post.title}</h2>
+                    </Link>
+                  <p style={descriptionStyle}>{post.description}</p>
+                  </div>
+                </div>
+
+            </div>
+
+              
+                <div style={buttonDiv}>
+
+                  {Auth.loggedIn() && Auth.getUserID() === post.createdBy._id && (
+                      <>
+                        <PostDelete postId={post._id} /> 
+                        <PostUpdate postId={post._id} />
+                      </>
+                  )}
+                  <div style={{color: 'grey', fontSize: '16px',}}>Made by: {post.createdBy.username}</div>
+                  <div style={{color: 'grey', fontSize: '16px',}}>{post.createdAt}</div>
+                  <div style={{color: 'grey', fontSize: '16px',}}>Likes: {post.likes}</div>
+                  
+                </div>
+                
+                  
+              </div>
             </div>
           ))
         )}

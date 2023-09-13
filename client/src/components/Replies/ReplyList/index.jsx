@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { GET_REPLIES } from '../../../utils/queries';
 import ReplyDelete from "../ReplyDelete";
+import Auth from '../../../utils/auth'
 
 
 
@@ -10,6 +11,8 @@ const ReplyList = ({ commentId }) => {
     });
     if (loading) return 'Loading...';
     if (error) return `Error: ${error.message}`;
+    const loggedInUserId = Auth.loggedIn() ? Auth.getProfile().data._id : <></>;
+
     return (
       <div>
         {data.getRepliesByComment.map((reply) => (
@@ -18,8 +21,9 @@ const ReplyList = ({ commentId }) => {
             <p>Likes: {reply.likes}</p>
             <p>Created At: {reply.createdAt}</p>
             <p>Created By: {reply.createdBy.username}</p>
-            <ReplyDelete commentId={commentId} replyId={reply._id} />
-            
+            {loggedInUserId === reply.createdBy._id && (
+              <ReplyDelete commentId={commentId} replyId={reply._id} />
+            )}
           </div>
         ))}
       </div>

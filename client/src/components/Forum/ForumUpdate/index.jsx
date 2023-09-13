@@ -60,19 +60,17 @@ export default function ForumDelete({forumId}){
             ) }
             {showForm ? (
                 <form onSubmit={handleUpdateForum}>
-                    <label>What's the new title?</label>
                     <input 
                         type="text" 
                         name="title"
                         value={title}
-                        placeholder='title goes here'
+                        placeholder='new title'
                         onChange={handleChange}
                     />
-                    <label>What's the new description</label>
                     <textarea 
                         name="description"
                         value={description}
-                        placeholder='description goes here'
+                        placeholder='new description'
                         onChange={handleChange}
                     />
                     <button type='submit'>submit update</button>

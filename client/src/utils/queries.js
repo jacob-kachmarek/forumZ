@@ -223,6 +223,24 @@ query searchPosts($forumId: ID!, $searchTerm: String!) {
 }
 `;
 
+export const GET_POST = gql`
+query GetSinglePost($postId: ID!) {
+  getSinglePost(postId: $postId) {
+    _id
+    createdAt
+    createdBy {
+      _id
+      username
+    }
+    description
+    image
+    likes
+    title
+  }
+}
+`;
+
+
 export const GET_USER_CONTENT = gql`
 query Query($username: String!) {
   getSingleUser(username: $username) {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_POST } from '../../../utils/mutations';
-import { GET_FORUM_POSTS } from '../../../utils/queries';  // Import this query for refetch
+import { GET_FORUM_POSTS } from '../../../utils/queries';
 import Auth from '../../../utils/auth';
 import './PostForm.css';
 import { Image } from 'cloudinary-react';

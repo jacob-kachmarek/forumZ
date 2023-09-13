@@ -52,6 +52,7 @@ type Query {
     getForums: [Forum]
     getPostsByForum(forumId: ID!): [Forum]
     getCommentsByPost(postId: ID!): [Post]
+    getSinglePost(postId: ID!): Post
     getSingleForum(forumId: ID!): Forum
     getRepliesByComment(commentId: ID!):[Comment]
     searchForums(searchTerm: String!): [Forum]

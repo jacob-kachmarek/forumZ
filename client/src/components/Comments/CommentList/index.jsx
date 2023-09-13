@@ -96,5 +96,4 @@ function CommentList({ postId }) {
         </div>
     );
 }
-
 export default CommentList;

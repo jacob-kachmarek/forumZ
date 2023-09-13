@@ -15,9 +15,10 @@ export default function Navbar() {
 
       <nav className='navbar'>
          <div className='container'>
-         <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', fontWeight: 'bold',}}>
-         <span style={{ fontSize: '16px', fontWeight: '300',}}>Welcome back,</span> {Auth.getProfile().data.username}</p>
-
+         {(Auth.loggedIn()) && (
+            <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', fontWeight: 'bold',}}>
+            <span style={{ fontSize: '16px', fontWeight: '300',}}>Welcome back,</span> {Auth.getProfile().data.username}</p>
+         )}
             <Link to='/' className='logo'>
                forumZ
             </Link>

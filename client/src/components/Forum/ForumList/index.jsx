@@ -6,11 +6,12 @@ import ForumUpdate from '../ForumUpdate';
 import Auth from '../../../utils/auth';
 
 const cardStyle = {
-    border: '3px solid #000000',
+    border: '4px solid #000000',
+    boxShadow: '7px 7px 5px black',
     marginBottom: '20px',
     display: 'flex',
-    flexDirection: 'column',
-    padding: '10px',
+    justifyContent: 'space-between',
+    padding: '14px',
     borderRadius: '5px',
     backgroundColor: '#f0f0f0',
 };
@@ -22,9 +23,16 @@ const titleStyle = {
 };
 
 const descriptionStyle = {
-    fontSize: '14px',
+    fontSize: '18px',
     color: '#333333',
+    marginTop: '8px'
 };
+const buttonDiv = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end', // Align buttons to the right
+  };
+  
 
 function ForumList() {
     const { data, loading, error } = useQuery(GET_FORUMS);
@@ -45,25 +53,29 @@ function ForumList() {
             {data.getForums.map(forum => (
                 <div key={forum._id}>
                     <div style={cardStyle}>
+                        <div>
+                            <div style={titleStyle}>
+                            <Link style={{textDecoration: 'none', color: '#852cde'}} to={`/forum/${forum._id}`}>
+                                <h2>{forum.title}</h2>
+                            </Link>
+                            </div>
+                            <div style={descriptionStyle}>{forum.description}</div>
+                        </div>
+                        <div>
+                            <div style={buttonDiv}>
+                                {(USERID() === forum.createdBy._id) ?  
+                                    <>
+                                    <ForumDelete forumId={forum._id} /> 
+                                    <ForumUpdate forumId={forum._id}/>
+                                    </>
+                                : <></>}
+                                <div style={{color: 'grey', fontSize: '16px',}}>Made by: {forum.createdBy.username}</div>
+                                <div style={{color: 'grey', fontSize: '16px',}} >{forum.createdAt}</div>
+                            </div>
+                        </div>
 
-                    <div style={titleStyle}>
-                    <Link to={`/forum/${forum._id}`}>
-                        <h2>{forum.title}</h2>
-                    </Link>
                     </div>
-
-                    <div style={descriptionStyle}>{forum.description}</div>
-                    <div style={descriptionStyle}>Created At: {forum.createdAt}</div>
-                    <div style={descriptionStyle}>Created By: {forum.createdBy.username}</div>
-                    {(USERID() === forum.createdBy._id) ?  
-                        <>
-                        <ForumDelete forumId={forum._id} /> 
-                        <ForumUpdate forumId={forum._id}/>
-                        </>
-                    : null}
-
                 </div>
-            </div>
             ))}
         </>
     );

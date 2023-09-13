@@ -46,26 +46,27 @@ export default function ForumForm() {
             className='button'
             onClick={() => {setShow(true)}}
             >
-            Create New Forum!
+            create!
             </button>}
-            {(show) && <form onSubmit={handleFormSubmit}>
-                <input 
-                    type="text"
-                    name="title"
-                    value={title}
-                    placeholder='title'
-                    onChange={handleChange}
-                />
-                <textarea 
-                    name="description"
-                    value={description}
-                    placeholder='description'
-                    onChange={handleChange}        
-                ></textarea>
-                <button type="submit">
-                    create!
-                </button>
-            </form>}
+            {(show) && 
+                <form onSubmit={handleFormSubmit}>
+                    <input 
+                        type="text"
+                        name="title"
+                        value={title}
+                        placeholder='title'
+                        onChange={handleChange}
+                    />
+                    <textarea 
+                        name="description"
+                        value={description}
+                        placeholder='description'
+                        onChange={handleChange}        
+                    ></textarea>
+                    <button type="submit">
+                        create!
+                    </button>
+                </form>}
             
         </>
 

@@ -24,7 +24,6 @@ export default function ForumDelete({forumId}){
     const handleUpdateForum = async (e) => {
         e.preventDefault();
         try{
-            alert(forumId);
             const { data } = await UpdateForum({
                 variables: {
                     title,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_POST } from '../../../utils/mutations';
 import { GET_FORUM_POSTS } from '../../../utils/queries';  // Import this query for refetch
@@ -10,6 +10,7 @@ export default function PostForm({ forumId }) {
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
+  const [show, setShow] = useState(false);
   
   // Add refetchQueries for automatic data refresh
   const [addPost, { error }] = useMutation(ADD_POST, {
@@ -62,16 +63,23 @@ export default function PostForm({ forumId }) {
     setTitle('');
     setDescription('');
     setImage(null);
+    setShow(false);
   };
 
   return (
-    <div>
+    <>
+    {(!Auth.loggedIn()) &&
+      <button onClick={()=> {window.location.assign('/signup')}}>create post!</button>
+    }
+
+    {(!show && Auth.loggedIn()) && 
+      <button onClick={() => {setShow(true)}}>create post!</button>
+    }
+    {(show) &&
       <form onSubmit={handleFormSubmit}>
-        <label>Title:</label>
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-        <label>Description:</label>
-        <textarea value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
-        <label>Media:</label>
+        <input type="text" placeholder='title' value={title} onChange={(e) => setTitle(e.target.value)} />
+        <textarea value={description} placeholder='description' onChange={(e) => setDescription(e.target.value)}></textarea>
+        <label>Media</label>
         <input type="file" onChange={handleMediaUpload} />
         
         {/* Media Preview */}
@@ -90,8 +98,9 @@ export default function PostForm({ forumId }) {
 
         <button type="submit">Add Post</button>
       </form>
+    }
       
       { error && <p>{error.message}</p> }
-    </div>
+    </>
   );
 }

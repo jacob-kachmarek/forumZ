@@ -38,18 +38,18 @@ const Signup = () => {
   };
 
   return (
-    <main>
-      <div>
+    <main style={{display: 'flex', justifyContent: 'center', marginTop: '60px', alignItems: 'center'}}>
+      <div style={{textAlign: 'center'}}>
         <div>
-          <h4>Sign Up</h4>
-          <div>
+          <h4 style={{marginBottom: '20px'}}>Sign Up</h4>
+          <div style={{display: 'flex', justifyContent: 'center'}}>
             {data ? (
               <p>
                 Success! You may now head{' '}
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-              <form onSubmit={handleFormSubmit}>
+              <form style={{marginRight: '0'}} onSubmit={handleFormSubmit}>
                 <input
                   placeholder="Your username"
                   name="username"

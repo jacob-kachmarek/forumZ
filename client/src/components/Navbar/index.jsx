@@ -17,7 +17,7 @@ export default function Navbar() {
          <div className='container'>
          {(Auth.loggedIn()) && (
             <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', fontWeight: 'bold',}}>
-            <span style={{ fontSize: '16px', fontWeight: '300',}}>Welcome back,</span> {Auth.getProfile().data.username}</p>
+            <span style={{ fontSize: '14px', fontWeight: '300',}}>Welcome back,</span> {Auth.getProfile().data.username}</p>
          )}
             <Link to='/' className='logo'>
                forumZ

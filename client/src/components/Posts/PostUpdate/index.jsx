@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { UPDATE_POST } from '../../../utils/mutations';
 import { Image } from 'cloudinary-react';
@@ -93,7 +93,7 @@ export default function PostUpdate({ postId }) {
             id="title"
             name="title"
             value={formData.title}
-            placeholder="Enter new title"
+            placeholder="New title"
             onChange={handleChange}
           />
           <label htmlFor="description">New Description</label>
@@ -101,7 +101,7 @@ export default function PostUpdate({ postId }) {
             id="description"
             name="description"
             value={formData.description}
-            placeholder="Enter new description"
+            placeholder="New description"
             onChange={handleChange}
           />
           <label htmlFor="image">New Media</label>

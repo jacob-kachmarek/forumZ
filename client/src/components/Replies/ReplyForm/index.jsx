@@ -1,13 +1,13 @@
 import { ADD_REPLY } from "../../../utils/mutations";
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import Auth from '../../../utils/auth';
-import { useParams } from "react-router-dom";
 
 export default function ReplyForm({commentId}) {
-    const { postId } = useParams();
+
     const [text, setText] = useState('');
-    const [addReply, { error }] = useMutation(ADD_REPLY);
+    const [addReply] = useMutation(ADD_REPLY);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === 'text') {
@@ -18,18 +18,18 @@ export default function ReplyForm({commentId}) {
 
         event.preventDefault();
         console.log("commentID", commentId)
-        console.log("POST ID",postId)
+        // console.log("POST ID",postId)
         console.log("USER ID", Auth.getProfile().data._id)
+
         try {
             const { data } = await addReply({
                 variables: {
                     text,
-                    postId: postId,
                     commentId: commentId,
                     userID: Auth.getProfile().data._id,
                 },
             });
-            console.log(data, text, Auth.getProfile().data._id );
+            console.log("data: ", data, text, Auth.getProfile().data._id );
         } catch (err) {
             console.log(err);
         } 

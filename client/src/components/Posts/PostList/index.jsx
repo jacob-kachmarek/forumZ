@@ -26,7 +26,8 @@ const titleStyle = {
 const descriptionStyle = {
   fontSize: '18px',
   color: '#333333',
-  marginTop: '8px'
+  marginTop: '8px',
+  fontWeight: '200'
 };
 const buttonDiv = {
   display: 'flex',
@@ -107,7 +108,7 @@ function PostList({ searchTerm }) {
                     <Link style={{ textDecoration: 'none', color: '#852cde' }} to={`/forum/${forumId}/post/${post._id}`}>
                       <h2>{post.title}</h2>
                     </Link>
-                  <div style={descriptionStyle}>{post.description}</div>
+                  <p style={descriptionStyle}>{post.description}</p>
                   </div>
                 </div>
 

@@ -196,3 +196,86 @@ query GetRepliesByComment($commentId: ID!) {
   }
 }
 `;
+
+export const SEARCH_FORUMS = gql`
+query searchForums($searchTerm: String!) {
+  searchForums(searchTerm: $searchTerm) {
+    _id
+    title
+    description
+  }
+}
+`;
+
+export const SEARCH_POSTS = gql`
+query searchPosts($forumId: ID!, $searchTerm: String!) {
+  searchPosts(forumId: $forumId, searchTerm: $searchTerm) {
+    _id
+    createdAt
+    createdBy {
+      username
+    }
+    description
+    image
+    likes
+    title
+  }
+}
+`;
+
+export const GET_USER_CONTENT = gql`
+query Query($username: String!) {
+  getSingleUser(username: $username) {
+    _id
+    username
+    createdAt
+    forums {
+      _id
+      title
+      createdAt
+      description
+      createdBy {
+        username
+        createdAt
+        _id
+      }
+    }
+    posts {
+      _id
+      createdAt
+      description
+      image
+      likes
+      title
+      createdBy {
+        _id
+        createdAt
+        username
+      }
+
+    }
+    comments {
+      _id
+      createdAt
+      likes
+      text
+      createdBy {
+        _id
+        username
+        createdAt
+      }
+      replies {
+        _id
+        createdAt
+        likes
+        text
+        createdBy {
+          _id
+          username
+          createdAt
+        }
+      }
+    }
+  }
+}
+`;

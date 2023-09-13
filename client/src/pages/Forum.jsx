@@ -6,7 +6,6 @@ import PostForm from '../components/Posts/PostForm/index.jsx';
 import {useState} from 'react';
 import Auth from '../utils/auth.js';
 
-
 export default function Forum() {
     const [show, setShow] = useState(false);
     const { forumId } = useParams();
@@ -28,6 +27,7 @@ export default function Forum() {
             </div>
             <PostForm forumId={forumId} /> 
             <PostList forumId={forumId} />
+
         </>
     );
 }

@@ -38,7 +38,35 @@ const resolvers = {
                 throw new Error('Comment not found');
             }
             return comment.replies;
-        }
+        },
+        searchForums: async (_, { searchTerm }) => {
+            const regex = new RegExp(searchTerm, 'i');  // 'i' makes it case insensitive
+            return await Forum.find({
+                $or: [
+                    { title: { $regex: regex } },
+                    { description: { $regex: regex } },
+                ],
+            });
+        },
+        searchPosts: async (parent, { forumId, searchTerm }) => {
+            // First get the forum to ensure it exists and to populate its posts
+            const forums = await Forum.find({ _id: forumId })
+                .populate({ path: 'posts', populate: { path: 'createdBy' } })
+                .populate('createdBy');
+
+            // If no forums are found, return an empty array
+            if (!forums.length) {
+                return [];
+            }
+
+            // Apply regex matching to filter posts
+            const regex = new RegExp(searchTerm, 'i');
+            const filteredPosts = forums[0].posts.filter((post) =>
+                regex.test(post.title) || regex.test(post.description)
+            );
+
+            return filteredPosts;
+        },
     },
     Mutation: {
         login: async (parent, { username, password }) => {
@@ -244,7 +272,7 @@ const resolvers = {
             } catch (error) {
                 throw new Error(`Error deleting comment: ${error.message}`);
             }
-        
+
         },
         likeReply: async (parent, { replyId }, context) => {
             // Check if the user is authenticated

@@ -1,7 +1,19 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
+import { Link } from 'react-router-dom'; // Import Link from React Router
 import { GET_USER_CONTENT } from '../utils/queries';
 import Auth from '../utils/auth';
+
+// Define the getMediaType function
+const getMediaType = (url) => {
+  if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png')) {
+    return 'image';
+  }
+  if (url.endsWith('.mp4')) {
+    return 'video';
+  }
+  return 'unknown';
+};
 
 function Profile() {
   // Check if the user is logged in
@@ -46,9 +58,24 @@ function Profile() {
         <ul>
           {user.posts.map((post) => (
             <li key={post._id}>
-              <p>Title: {post.title}</p>
+              <p>
+                Title: <Link to={`/forum/${post.forumId}/post/${post._id}`}>{post.title}</Link>
+              </p>
               <p>Description: {post.description}</p>
               <p>Likes: {post.likes}</p>
+              {post.image && (
+                <div>
+                  {getMediaType(post.image) === 'image' && (
+                    <img src={`${post.image}?format=auto`} alt={post.title} width="300" />
+                  )}
+                  {getMediaType(post.image) === 'video' && (
+                    <video width="300" controls>
+                      <source src={post.image} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  )}
+                </div>
+              )}
             </li>
           ))}
         </ul>
@@ -59,7 +86,9 @@ function Profile() {
         <ul>
           {user.comments.map((comment) => (
             <li key={comment._id}>
-              <p>Text: {comment.text}</p>
+              <p>
+                Text: <Link to={`/forum/${comment.forumId}/post/${comment.postId}`}>{comment.text}</Link>
+              </p>
               <p>Likes: {comment.likes}</p>
             </li>
           ))}

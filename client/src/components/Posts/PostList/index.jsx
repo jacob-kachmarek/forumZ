@@ -30,9 +30,8 @@ function PostList() {
 return (
   <>
     <div>
-      <h1>Posts in this Forum</h1>
       {data && data.getPostsByForum && data.getPostsByForum[0].posts.length === 0 ? (
-        <h2>This forum does not contain any posts yet...</h2>
+        <h3>No posts yet :/</h3>
       ) : (
         data.getPostsByForum[0].posts.map(post => (
           <div key={post._id}>

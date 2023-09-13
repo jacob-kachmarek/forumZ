@@ -46,7 +46,7 @@ export default function ForumForm() {
             className='button'
             onClick={() => {setShow(true)}}
             >
-            Create New Forum!
+            create!
             </button>}
             {(show) && 
                 <form onSubmit={handleFormSubmit}>

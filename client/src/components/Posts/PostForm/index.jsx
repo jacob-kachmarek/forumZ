@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_POST } from '../../../utils/mutations';
 import { GET_FORUM_POSTS } from '../../../utils/queries';  // Import this query for refetch
@@ -68,8 +68,12 @@ export default function PostForm({ forumId }) {
 
   return (
     <>
-    {(!show) && 
-      <button onClick={() => {setShow(true)}}>Create Post!</button>
+    {(!Auth.loggedIn()) &&
+      <button onClick={()=> {window.location.assign('/signup')}}>create post!</button>
+    }
+
+    {(!show && Auth.loggedIn()) && 
+      <button onClick={() => {setShow(true)}}>create post!</button>
     }
     {(show) &&
       <form onSubmit={handleFormSubmit}>

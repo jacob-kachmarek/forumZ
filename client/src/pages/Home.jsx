@@ -32,14 +32,15 @@ export default function Home() {
     else{
         return (
             <div>
-              <div style={{display: 'flex', justifyContent: 'space-around', padding: '30px', marginBottom: '20px'}}>
-                <div style={{marginLeft: '20px'}}>
-                    <ForumForm />
+                <h3 style={{padding: '40px'}}>Explore some forumZ or create a new one!</h3>
+                <div style={{display: 'flex', justifyContent: 'space-between', padding: '0px 30px 30px 30px', marginBottom: '20px'}}>
+                    <div style={{marginLeft: '20px'}}>
+                        <ForumForm />
+                    </div>
+                    <div style={{width: '70%', marginRight: '20px'}}>
+                        <ForumList />
+                    </div>
                 </div>
-                <div style={{width: '70%', marginRight: '20px'}}>
-                    <ForumList />
-                </div>
-              </div>
             </div>
         );
     }

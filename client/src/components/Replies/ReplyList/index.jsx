@@ -1,4 +1,5 @@
 import { useQuery, useMutation } from '@apollo/client';
+
 import { GET_REPLIES } from '../../../utils/queries';
 import ReplyDelete from "../ReplyDelete";
 import { useState } from 'react';
@@ -21,7 +22,10 @@ const ReplyList = ({ commentId }) => {
 
   const [likedReplies, setLikedReplies] = useState(getLikedRepliesFromLocalStorage());
 
-  const [likeReply] = useMutation(LIKE_REPLY);
+  //Refetching query to update likes instead of forcing window.reload
+  const [likeReply] = useMutation(LIKE_REPLY, {
+    refetchQueries: [{ query: GET_REPLIES, variables: { commentId } }],
+  });
 
   if (loading) return 'Loading...';
   if (error) return `Error: ${error.message}`;
@@ -33,7 +37,9 @@ const ReplyList = ({ commentId }) => {
         await likeReply({ variables: { replyId } });
         const updatedLikedReplies = [...likedReplies, replyId];
         setLikedReplies(updatedLikedReplies);
+        console.log("updatedLikedReplies:", updatedLikedReplies)
         updateLikedReplyInLocalStorage(updatedLikedReplies);
+        console.log("Updated LikedReplies:", likedReplies);
       } catch (error) {
         console.error("Error liking reply:", error);
       }
@@ -70,7 +76,4 @@ const ReplyList = ({ commentId }) => {
   );
 };
 export default ReplyList;
-
-
-
 

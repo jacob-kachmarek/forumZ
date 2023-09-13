@@ -19,4 +19,3 @@ export default function ForumDelete({forumId}){
         <button onClick={handleDeleteForum}>Delete</button>
     );
 }
-

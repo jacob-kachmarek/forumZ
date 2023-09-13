@@ -29,10 +29,19 @@ const resolvers = {
             return await Post.find({ _id: postId }).populate({ path: 'comments', populate: { path: 'createdBy' } }).populate('createdBy');
         },
         getRepliesByComment: async (parent, { commentId }) => {
-            return await Comment.find({ _id: commentId }).populate({ path: 'replies', populate: { path: 'createdBy' } }).populate('createdBy');
+            const comment = await Comment.findById(commentId)
+                .populate({
+                    path: 'replies',
+                    populate: { path: 'createdBy' }
+                })
+                .populate('createdBy');
+
+            // Verify that the comment exists before proceeding
+            if (!comment) {
+                throw new Error('Comment not found');
+            }
+            return comment.replies;
         }
-
-
     },
     Mutation: {
         login: async (parent, { username, password }) => {
@@ -133,13 +142,16 @@ const resolvers = {
 
             return forum;
         },
-        updatePost: async (parent, { title, description, postId }, context) => {
+        updatePost: async (parent, { title, description, image, postId }, context) => {
             const update = {};
             if (title) {
                 update.title = title;
             }
             if (description) {
                 update.description = description;
+            }
+            if (image) {
+                update.image = image;
             }
 
             if (Object.keys(update).length === 0) {

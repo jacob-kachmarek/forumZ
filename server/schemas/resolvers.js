@@ -28,17 +28,17 @@ const resolvers = {
         },
         getRepliesByComment: async (parent, { commentId }) => {
             const comment = await Comment.findById(commentId)
-              .populate({
-                path: 'replies',
-                populate: { path: 'createdBy' }
-              })
-              .populate('createdBy');
+                .populate({
+                    path: 'replies',
+                    populate: { path: 'createdBy' }
+                })
+                .populate('createdBy');
             // Verify that the comment exists before proceeding
             if (!comment) {
-              throw new Error('Comment not found');
+                throw new Error('Comment not found');
             }
             return comment.replies;
-          }
+        }
     },
     Mutation: {
         login: async (parent, { username, password }) => {
@@ -241,13 +241,23 @@ const resolvers = {
         },
         deleteReply: async (parent, { replyId, commentId }, context) => {
             console.log("REPLY ID", replyId, "COMMENT ID", commentId)
-            const comment = await Comment.findOneAndUpdate(
-                { _id: commentId },
-                { $pull: { replies: { _id: replyId } } },
-                { new: true }
-            );
-            return comment;
-        }
+            try{
+                const reply = await Reply.findById(replyId)
+                if (!reply) {
+                    throw new Error('Reply Not Found');
+                }
+                await reply.deleteOne(
+                    { _id: replyId },
+                    { new: true }
+                );
+                await Comment.findOneAndUpdate(reply.post, {
+                    $pull: { replies: replyId },
+                })
+                return reply;
+            } catch (error) {
+                throw new Error (`Error Deleting Reply: ${error.message}`)
+            }
+        }      
     }
 }
 module.exports = resolvers;

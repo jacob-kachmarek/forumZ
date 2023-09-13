@@ -83,11 +83,21 @@ export default function PostUpdate({ postId }) {
   return (
     <div>
       {!showForm && (
-        <button onClick={() => setShowForm(true)}>Update Post</button>
+        <button style={{
+          backgroundColor: 'blue',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          padding: '10px 10px',
+          fontSize: '12px',
+          cursor: 'pointer',
+          transition: 'background-color 0.3s ease',
+          boxShadow: 'none',
+          marginBottom: '5px'
+      }} onClick={() => setShowForm(true)}>update</button>
       )}
       {showForm && (
         <form onSubmit={handleUpdatePost}>
-          <label htmlFor="title">New Title</label>
           <input 
             type="text"
             id="title"
@@ -96,7 +106,6 @@ export default function PostUpdate({ postId }) {
             placeholder="New title"
             onChange={handleChange}
           />
-          <label htmlFor="description">New Description</label>
           <textarea
             id="description"
             name="description"
@@ -117,7 +126,7 @@ export default function PostUpdate({ postId }) {
           ) : image ? (
             <Image cloudName="forumZupload" publicId={image} width="300" crop="scale" />
           ) : null }
-          <button type="submit">Submit Update</button>
+          <button  type="submit">update</button>
         </form>
       )}
       { error && <p>{error.message}</p> }

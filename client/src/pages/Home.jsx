@@ -33,7 +33,7 @@ export default function Home() {
         return (
             <div>
                 <h3 style={{padding: '40px'}}>Explore some forumZ or create a new one!</h3>
-                <div style={{display: 'flex', justifyContent: 'space-between', padding: '0px 30px 30px 30px', marginBottom: '20px'}}>
+                <div style={{display: 'flex', justifyContent: 'space-around', padding: '0px 30px 30px 30px',}}>
                     <div style={{marginLeft: '20px'}}>
                         <ForumForm />
                     </div>

@@ -6,6 +6,7 @@ import Auth from '../../../utils/auth';
 export default function ReplyForm({commentId}) {
 
     const [text, setText] = useState('');
+    const [showForm, setShowForm] = useState(false);
     const [addReply] = useMutation(ADD_REPLY);
 
     const handleChange = (e) => {
@@ -35,22 +36,45 @@ export default function ReplyForm({commentId}) {
         } 
         window.location.reload();   
         setText("");
+        setShowForm(false);
     }
-    return (
-        <div>
-            <h4>Add a Reply!</h4>
-            <form onSubmit={handleFormSubmit}>
-                <label>Reply</label>
-                <input 
-                    type="text"
-                    name="text"
-                    value={text}
-                    onChange={handleChange}
-                />
-                <button type="submit">
-                    add
-                </button>
-            </form>
-        </div>
-    )
+
+    if (Auth.loggedIn()) {
+        return (
+            <div>
+                {!showForm && (
+                    <button  style={{
+                        // backgroundColor: 'blue',
+                        // color: 'white',
+                        // border: 'none',
+                        // borderRadius: '4px',
+                        // padding: '10px 10px',
+                        // fontSize: '12px',
+                        // cursor: 'pointer',
+                        // transition: 'background-color 0.3s ease',
+                        // boxShadow: 'none',
+                        // marginBottom: '5px'
+                    }} onClick={() => setShowForm(true)}>Reply</button>
+                ) }
+                {showForm ? (
+                <form onSubmit={handleFormSubmit}>
+                    <label>Reply</label>
+                    <input 
+                        type="text"
+                        name="text"
+                        value={text}
+                        onChange={handleChange}
+                    />
+                    <button type="submit">
+                        add
+                    </button>
+                </form>
+                ) : null}
+            </div>
+        )
+    } else {
+        return (
+            <div></div>
+        )
+    }
 }

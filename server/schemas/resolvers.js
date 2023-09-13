@@ -28,17 +28,17 @@ const resolvers = {
         },
         getRepliesByComment: async (parent, { commentId }) => {
             const comment = await Comment.findById(commentId)
-              .populate({
-                path: 'replies',
-                populate: { path: 'createdBy' }
-              })
-              .populate('createdBy');
+                .populate({
+                    path: 'replies',
+                    populate: { path: 'createdBy' }
+                })
+                .populate('createdBy');
             // Verify that the comment exists before proceeding
             if (!comment) {
-              throw new Error('Comment not found');
+                throw new Error('Comment not found');
             }
             return comment.replies;
-          }
+        }
     },
     Mutation: {
         login: async (parent, { username, password }) => {
@@ -133,7 +133,7 @@ const resolvers = {
             );
             return forum;
         },
-        updatePost: async (parent, { title, description, postId }, context) => {
+        updatePost: async (parent, { title, description, image, postId }, context) => {
             const update = {};
             if (title) {
                 update.title = title;
@@ -141,14 +141,20 @@ const resolvers = {
             if (description) {
                 update.description = description;
             }
+            if (image) {
+                update.image = image;
+            }
+
             if (Object.keys(update).length === 0) {
                 return null;
             }
+
             const post = await Post.findOneAndUpdate(
                 { _id: postId },
                 update,
                 { new: true }
             );
+
             return post;
         },
         updateComment: async (parent, { text, commentId }, context) => {
@@ -241,12 +247,22 @@ const resolvers = {
         },
         deleteReply: async (parent, { replyId, commentId }, context) => {
             console.log("REPLY ID", replyId, "COMMENT ID", commentId)
-            const comment = await Comment.findOneAndUpdate(
-                { _id: commentId },
-                { $pull: { replies: { _id: replyId } } },
-                { new: true }
-            );
-            return comment;
+            try {
+                const reply = await Reply.findById(replyId)
+                if (!reply) {
+                    throw new Error('Reply Not Found');
+                }
+                await reply.deleteOne(
+                    { _id: replyId },
+                    { new: true }
+                );
+                await Comment.findOneAndUpdate(reply.post, {
+                    $pull: { replies: replyId },
+                })
+                return reply;
+            } catch (error) {
+                throw new Error(`Error Deleting Reply: ${error.message}`)
+            }
         }
     }
 }

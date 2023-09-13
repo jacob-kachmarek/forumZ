@@ -4,7 +4,7 @@ import { GET_FORUM_POSTS } from '../../../utils/queries';
 import { Link } from 'react-router-dom';
 import PostDelete from '../PostDelete';
 import Auth from '../../../utils/auth';
-
+import PostUpdate from '../PostUpdate';
 
 function PostList() {
   const { forumId } = useParams();
@@ -58,7 +58,10 @@ return (
             }
             {/* Conditionally render the delete button */}
             { Auth.loggedIn() && Auth.getUserID() === post.createdBy._id && (
-              <PostDelete postId={post._id} />
+                                      <>
+                                      <PostDelete postId={post._id} /> 
+                                      <PostUpdate postId={post._id} />
+                                      </>
             )}
           </div>
         ))

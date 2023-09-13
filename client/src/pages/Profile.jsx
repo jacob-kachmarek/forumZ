@@ -37,14 +37,12 @@ function Profile() {
     const user = data.getSingleUser;
 
     return (
-        // <div style={{display:"flex", justifyContent:"space-around"}}>
         <div className='profile-container'>
             <div className='profile-header'>
                 <h2>User Profile: {user.username}</h2>
                 <p>Joined at: {user.createdAt}</p>
             </div>
-
-            <div className= 'sections-container'>
+            <div className='sections-container'>
                 <div className='forum-section'>
                     <h3>Forums ({user.forums.length}):</h3>
                     <ul>
@@ -54,7 +52,7 @@ function Profile() {
                                 <p>Description: {forum.description}</p>
                                 <p>Created by: {forum.createdBy.username}</p>
                                 <p>Created at: {forum.createdAt}</p>
-                                
+
                             </li>
                         ))}
                     </ul>
@@ -88,9 +86,6 @@ function Profile() {
                     </ul>
                 </div>
             </div>
-
-            {/* </div> */}
-
             <div className='comments-section'>
                 <h3>You have also posted {user.comments.length} comments! </h3>
             </div>

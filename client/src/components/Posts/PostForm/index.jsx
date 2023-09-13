@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_POST } from '../../../utils/mutations';
-import { GET_FORUM_POSTS } from '../../../utils/queries';  // Import this query for refetch
+import { GET_FORUM_POSTS } from '../../../utils/queries';
 import Auth from '../../../utils/auth';
+import './PostForm.css';
 import { Image } from 'cloudinary-react';
 
 export default function PostForm({ forumId }) {
@@ -59,7 +60,6 @@ export default function PostForm({ forumId }) {
       },
     });
 
-    // Reset form
     setTitle('');
     setDescription('');
     setImage(null);
@@ -69,11 +69,11 @@ export default function PostForm({ forumId }) {
   return (
     <>
     {(!Auth.loggedIn()) &&
-      <button onClick={()=> {window.location.assign('/signup')}}>create post!</button>
+      <button className='button' onClick={()=> {window.location.assign('/signup')}}>create post!</button>
     }
 
     {(!show && Auth.loggedIn()) && 
-      <button onClick={() => {setShow(true)}}>create post!</button>
+      <button className='button' onClick={() => {setShow(true)}}>create post!</button>
     }
     {(show) &&
       <form onSubmit={handleFormSubmit}>
@@ -96,7 +96,7 @@ export default function PostForm({ forumId }) {
           )
         ) : null }
 
-        <button type="submit">Add Post</button>
+        <button type="submit">create!</button>
       </form>
     }
       

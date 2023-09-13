@@ -2,16 +2,27 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Auth from '../../utils/auth';
 import ForumSearchBar from './ForumSearchBar';
+import PostSearchBar from './PostSearchBar';
 import './navbar.css';
 
 export default function Navbar() {
-   const currentPage = useLocation().pathname;
+   const location = useLocation();
+   const currentPage = location.pathname;
+
+   // Check if the current location starts with '/forum/' and not with '/forum/.../post/'
+   const isForumPage = currentPage.startsWith('/forum/') && !currentPage.includes('/post/');
+
+   const reloadPage = () => {
+      history.push('/');  // Navigate to '/'
+      window.location.reload();  // Then reload
+    };
 
    const handleLogout = (e) => {
       e.preventDefault();
       Auth.logout();
-      location.reload();
+      reloadPage();
    };
+
 
    return (
       <nav className='navbar'>
@@ -21,11 +32,11 @@ export default function Navbar() {
                   <span style={{ fontSize: '14px', fontWeight: '300', }}>Welcome back,</span> {Auth.getProfile().data.username}
                </p>
             )}
-            <Link to='/' className='logo'>
+            <Link to='/' className='logo' onClick={reloadPage}>
                forumZ
             </Link>
 
-            <ForumSearchBar />
+            {isForumPage ? <PostSearchBar /> : (currentPage === '/' ? <ForumSearchBar /> : null)}
 
             <ul className='nav-links'>
                {Auth.loggedIn() ? (

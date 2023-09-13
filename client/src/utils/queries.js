@@ -198,11 +198,27 @@ query GetRepliesByComment($commentId: ID!) {
 `;
 
 export const SEARCH_FORUMS = gql`
-  query searchForums($searchTerm: String!) {
-    searchForums(searchTerm: $searchTerm) {
-      _id
-      title
-      description
-    }
+query searchForums($searchTerm: String!) {
+  searchForums(searchTerm: $searchTerm) {
+    _id
+    title
+    description
   }
+}
+`;
+
+export const SEARCH_POSTS = gql`
+query searchPosts($forumId: ID!, $searchTerm: String!) {
+  searchPosts(forumId: $forumId, searchTerm: $searchTerm) {
+    _id
+    createdAt
+    createdBy {
+      username
+    }
+    description
+    image
+    likes
+    title
+  }
+}
 `;

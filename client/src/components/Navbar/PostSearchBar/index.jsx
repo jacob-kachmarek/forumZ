@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { useLazyQuery, useApolloClient } from '@apollo/client';
-import { SEARCH_FORUMS, GET_FORUMS } from '../../../utils/queries';
+import { SEARCH_POSTS, GET_FORUM_POSTS } from '../../../utils/queries';
 
-const ForumSearchBar = () => {
+const PostSearchBar = ({ forumId }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchForums, { loading, data }] = useLazyQuery(SEARCH_FORUMS);
+  const [searchPosts, { loading, data }] = useLazyQuery(SEARCH_POSTS);
   const client = useApolloClient();
 
   const handleSearch = () => {
-    searchForums({ variables: { searchTerm } });
+    searchPosts({ variables: { forumId, searchTerm } });
   };
 
-  // Write to the cache if searchForums return data
-  if (data?.searchForums) {
+  // Write to the cache if searchPosts returns data
+  if (data?.searchPosts) {
     client.writeQuery({
-      query: GET_FORUMS,
+      query: GET_FORUM_POSTS,
+      variables: { forumId }, 
       data: {
-        getForums: data.searchForums,
+        getPosts: data.searchPosts,
       },
     });
   }
@@ -27,7 +28,7 @@ const ForumSearchBar = () => {
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Search forums..."
+        placeholder="Search posts..."
       />
       <button onClick={handleSearch}>Search</button>
 
@@ -36,4 +37,4 @@ const ForumSearchBar = () => {
   );
 };
 
-export default ForumSearchBar;
+export default PostSearchBar;

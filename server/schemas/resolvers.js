@@ -48,6 +48,25 @@ const resolvers = {
                 ],
             });
         },
+        searchPosts: async (parent, { forumId, searchTerm }) => {
+            // First get the forum to ensure it exists and to populate its posts
+            const forums = await Forum.find({ _id: forumId })
+                .populate({ path: 'posts', populate: { path: 'createdBy' } })
+                .populate('createdBy');
+
+            // If no forums are found, return an empty array
+            if (!forums.length) {
+                return [];
+            }
+
+            // Apply regex matching to filter posts
+            const regex = new RegExp(searchTerm, 'i');
+            const filteredPosts = forums[0].posts.filter((post) =>
+                regex.test(post.title) || regex.test(post.description)
+            );
+
+            return filteredPosts;
+        },
     },
     Mutation: {
         login: async (parent, { username, password }) => {

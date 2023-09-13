@@ -113,6 +113,7 @@ export const UPDATE_POST = gql`
       _id
       title
       description
+      image
     }
   }
 `;
@@ -186,5 +187,4 @@ mutation deleteReply($replyId: ID!, $commentId: ID!) {
     _id
   }
 }
-
 `;

@@ -13,16 +13,7 @@ function CommentList({ postId }) {
         variables: { postId, orderBy: sortOrder },
     });
 
-    const getLikedCommentsFromLocalStorage = () => {
-        const likedCommentsJSON = localStorage.getItem('likedComments');
-        return likedCommentsJSON ? JSON.parse(likedCommentsJSON) : [];
-    };
-
-    const updateLikedCommentsInLocalStorage = (likedCommentsArray) => {
-        localStorage.setItem('likedComments', JSON.stringify(likedCommentsArray));
-    };
-
-    const [likedComments, setLikedComments] = useState(getLikedCommentsFromLocalStorage());
+    const [likedComments, setLikedComments] = useState();
 
     const [likeComment] = useMutation(LIKE_COMMENT);
     const [deleteComment] = useMutation(DELETE_COMMENT);
@@ -36,12 +27,10 @@ function CommentList({ postId }) {
     };
 
     const handleLikeClick = async (commentId) => {
-        if (Auth.loggedIn() && !likedComments.includes(commentId)) {
+        if (Auth.loggedIn()) {
             try {
                 await likeComment({ variables: { commentId } });
-                const updatedLikedComments = [...likedComments, commentId];
-                setLikedComments(updatedLikedComments);
-                updateLikedCommentsInLocalStorage(updatedLikedComments);
+                setLikedComments(likedComments);
             } catch (error) {
                 console.error("Error liking comment:", error);
             }
@@ -87,7 +76,6 @@ function CommentList({ postId }) {
                             <button
                                 style={{ border: 'none', padding: '0' }}
                                 onClick={() => handleLikeClick(comment._id)}
-                                disabled={likedComments.includes(comment._id)}
                             >
                                 👍
                             </button>

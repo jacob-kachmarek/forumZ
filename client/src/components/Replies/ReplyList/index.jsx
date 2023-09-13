@@ -1,6 +1,6 @@
-import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_REPLIES } from '../../../utils/queries';
+import ReplyDelete from "../ReplyDelete";
 
 
 
@@ -18,6 +18,7 @@ const ReplyList = ({ commentId }) => {
             <p>Likes: {reply.likes}</p>
             <p>Created At: {reply.createdAt}</p>
             <p>Created By: {reply.createdBy.username}</p>
+            <ReplyDelete commentId={commentId} replyId={reply._id} />
             
           </div>
         ))}

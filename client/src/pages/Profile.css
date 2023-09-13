@@ -5,3 +5,71 @@
     text-align: center;
 }
 
+.profile-header {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.card {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sections-container{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.forum-section{
+    flex: 1;
+    margin: 0 20px;
+}
+
+.post-section {
+    flex: 1;
+    margin: 0 20px;
+}
+
+.comment-section{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.forum-card{
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.forum-card {
+    border: 1px solid #ccc;
+    background-color: #852cde;
+}
+
+.post-card {
+    flex: 1;
+    background-color: #852cde;
+    color: white;
+    border: 1px solid white; /* Add a white border */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+ul{
+    list-style: none;
+}

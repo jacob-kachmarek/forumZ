@@ -137,6 +137,15 @@ export const LIKE_COMMENT = gql`
   }
 `;
 
+export const LIKE_REPLY = gql `
+mutation Mutation($replyId: ID!) {
+  likeReply(replyId: $replyId) {
+    _id
+    likes
+  }
+}
+`
+
 export const UPDATE_REPLY = gql`
   mutation updateReply($text: String, $replyID: ID!, $commentId: ID!) {
     updateReply(text: $text, replyID: $replyID, commentId: $commentId) {

@@ -1,8 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { DELETE_REPLY} from "../../../utils/mutations";
-import { GET_REPLIES } from "../../../utils/queries";
-import Auth from '../../../utils/auth';
 
+import Auth from '../../../utils/auth';
 
 export default function ReplyDelete ({commentId, replyId}){
     console.log('commentID', commentId)
@@ -19,7 +18,7 @@ export default function ReplyDelete ({commentId, replyId}){
                 replyId, 
                  commentId
             },
-            refetchQueries: [{query: GET_REPLIES, variables:{commentId}}],
+           
         });
     } catch (err) {
         console.log(err);
@@ -27,7 +26,7 @@ export default function ReplyDelete ({commentId, replyId}){
     window.location.reload()
 }}
     return(
-        <button onClick={handleDeleteReply}>Delete</button>
+        <button onClick={handleDeleteReply}>🗑️</button>
     )
     
 }

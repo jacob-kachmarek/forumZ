@@ -244,6 +244,27 @@ const resolvers = {
             } catch (error) {
                 throw new Error(`Error deleting comment: ${error.message}`);
             }
+        
+        },
+        likeReply: async (parent, { replyId }, context) => {
+            // Check if the user is authenticated
+            if (!context.user) {
+                throw new AuthenticationError('You must be logged in to like a reply.');
+            }
+            try {
+                // Find the comment by its _id and increment the likes field
+                const updatedReply = await Reply.findOneAndUpdate(
+                    { _id: replyId },
+                    { $inc: { likes: 1 } },
+                    { new: true } // Return the updated comment
+                );
+                if (!updatedReply) {
+                    throw new Error('Reply not found');
+                }
+                return updatedReply;
+            } catch (error) {
+                throw new Error(`Error liking the reply: ${error.message}`);
+            }
         },
         deleteReply: async (parent, { replyId, commentId }, context) => {
             console.log("REPLY ID", replyId, "COMMENT ID", commentId)

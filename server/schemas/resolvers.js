@@ -254,7 +254,7 @@ const resolvers = {
             try {
                 // Find the comment by its _id and increment the likes field
                 const updatedReply = await Reply.findOneAndUpdate(
-                    { _id: commentId },
+                    { _id: replyId },
                     { $inc: { likes: 1 } },
                     { new: true } // Return the updated comment
                 );

@@ -8,6 +8,7 @@ export default function ForumForm() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [addForum, { error }] = useMutation(ADD_FORUM);
+    const [show, setShow] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -40,27 +41,32 @@ export default function ForumForm() {
 
     return (
         <>  
-            <h4>Create a forum!</h4>
-            <form onSubmit={handleFormSubmit}>
-                <label>Title</label>
+            {(!show) && 
+            <button
+            className='button'
+            onClick={() => {setShow(true)}}
+            >
+            Create New Forum!
+            </button>}
+            {(show) && <form onSubmit={handleFormSubmit}>
                 <input 
                     type="text"
                     name="title"
                     value={title}
-                    placeholder='ie: Cats'
+                    placeholder='title'
                     onChange={handleChange}
                 />
-                <label>Description</label>
                 <textarea 
                     name="description"
                     value={description}
-                    placeholder='ie: Forum for sharing cat posts!'
+                    placeholder='description'
                     onChange={handleChange}        
                 ></textarea>
                 <button type="submit">
-                    create
+                    create!
                 </button>
-            </form>
+            </form>}
+            
         </>
 
     );

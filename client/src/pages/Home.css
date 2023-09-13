@@ -3,12 +3,12 @@
     font-weight: bold;
     margin-bottom: 10px;
 }
-
-
 .para{
     font-size: 18px;
     line-height: 1.5;
     margin-bottom: 20px;
+    margin-top: 10px;
+    width: 50%;
 }
 .button{
     background-color: #ffffff;
@@ -26,3 +26,10 @@
 .button:hover{
     box-shadow: none;
 }
+
+@media (max-width: 900px) {
+    .para{
+        width: 90%;
+    }
+}
+  

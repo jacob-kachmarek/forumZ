@@ -3,23 +3,20 @@ import Auth from '../utils/auth';
 import './Home.css';
 import ForumForm from '../components/Forum/ForumForm';
 
-
-
-
 export default function Home() {
     if (!Auth.loggedIn()){
         return (
           <div>
-              <div style={{padding: '30px'}}>
+              <div style={{padding: '40px',marginBottom: '30px'}}>
                   <h1 >Join The Conversation</h1>
-                  <p className='para'>The all-encompassing Reddit-like platform where you can search for existing forumZ or create your own community!</p>
+                  <p className='para'>The all encompassing Reddit-like platform where you can explore different forumZ, make a post with an embedded video or picture, comment on others' posts and even reply to comments!</p>
                   <button
                   className='button'
                   onClick={() => {
-                      window.location.assign('/signup');
+                      window.location.assign('/login');
                   }}
                   >
-                  Create
+                  Create!
                   </button>
               </div>
 
@@ -32,15 +29,10 @@ export default function Home() {
         );
     }
 
-    else{       //logged In = true
+    else{
         return (
             <div>
-              <div style={{padding: '30px'}}>
-                <p>welcome back,</p>
-                <h1 style={{position: 'relative', left:'90px'}}>{Auth.getProfile().data.username}</h1>
-              </div>
-
-              <div style={{display: 'flex', justifyContent: 'space-around'}}>
+              <div style={{display: 'flex', justifyContent: 'space-around', padding: '30px', marginBottom: '20px'}}>
                 <div style={{marginLeft: '20px'}}>
                     <ForumForm />
                 </div>

@@ -30,14 +30,15 @@ const ForumSearchBar = () => {
     }
 
     return (
-        <div>
+        <div style={{display: 'flex', }}>
             <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search forums..."
+                placeholder="search forumZ..."
+                style={{marginBottom: '0px'}}
             />
-            <button onClick={handleSearch}>Search</button>
+            <button style={{padding: '5px', marginLeft: '5px', backgroundColor: '#c394ee'}} onClick={handleSearch}>🔍</button>
 
             {loading && <p>Loading...</p>}
         </div>

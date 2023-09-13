@@ -30,10 +30,10 @@ export default function Navbar() {
       <nav className='navbar'>
          <div className='container'>
             {Auth.loggedIn() && (
-               <p style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', fontWeight: 'bold' }}>
-                  <span style={{ fontSize: '14px', fontWeight: '300' }}>Welcome back,</span>
+               <p style={{fontSize: '18px', fontWeight: 'bold' }}>
+                  <span style={{ fontSize: '13px', fontWeight: '300' }}>Welcome back,</span>
                   {' '}
-                  <Link to="/profile">{Auth.getProfile().data.username}</Link>
+                  <Link style={{fontSize: '20px', color: '#c394ee'}} to="/profile">{Auth.getProfile().data.username}</Link>
                </p>
             )}
             <Link to='/' className='logo' onClick={reloadPage}>
@@ -50,13 +50,15 @@ export default function Navbar() {
                      </button>
                   </li>
                ) : (
-                  <>
+                  <> 
+                     
                      <li>
                         <Link className={currentPage === '/login' ? 'activeLink' : 'inactiveLink'} to='/login'>
                            Login
                         </Link>
                      </li>
-                     <li>
+                     
+                     <li style={{marginLeft: '80px'}}>
                         <Link className={currentPage === '/signup' ? 'activeLink' : 'inactiveLink'} to='/signup'>
                            Signup
                         </Link>

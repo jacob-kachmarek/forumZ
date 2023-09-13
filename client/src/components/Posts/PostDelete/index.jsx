@@ -17,8 +17,21 @@ export default function PostDelete({ postId }) {
   };
 
   return (
-    <button onClick={handleDeletePost} style={{ border: 'none', padding: '0', color: 'red' }}>
-      🗑️
+    <button 
+        onClick={handleDeletePost} 
+        style={{
+          backgroundColor: '#ff3b30',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          padding: '10px 10px',
+          fontSize: '12px',
+          cursor: 'pointer',
+          transition: 'background-color 0.3s ease',
+          boxShadow: 'none',
+          marginBottom: '5px'
+      }}>
+      delete
     </button>
   );
 }

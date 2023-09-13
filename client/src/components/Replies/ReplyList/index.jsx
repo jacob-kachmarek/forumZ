@@ -27,6 +27,7 @@ const ReplyList = ({ commentId }) => {
   if (error) return `Error: ${error.message}`;
 
   const handleLikeReply = async (replyId) => {
+    console.log("Like Button clicked for reply with ID:", replyId);
     if (Auth.loggedIn() && !likedReplies.includes(replyId)) {
       try {
         await likeReply({ variables: { replyId } });

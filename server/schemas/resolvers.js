@@ -105,6 +105,7 @@ const resolvers = {
         addReply: async (parent, { text, userID, commentId }, context) => {
             const reply = await Reply.create({
                 text,
+                userID,
                 createdBy: userID
             });
             await Comment.findOneAndUpdate(

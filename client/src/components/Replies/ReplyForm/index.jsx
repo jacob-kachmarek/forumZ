@@ -1,23 +1,12 @@
 import { ADD_REPLY } from "../../../utils/mutations";
-import { GET_COMMENTS} from "../../../utils/queries"
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import Auth from '../../../utils/auth';
-// import { useParams } from "react-router-dom";
 
-export default function ReplyForm() {
-    // const { postId } = useParams();
-    const { loading, error, data } = useQuery(GET_COMMENTS, {
-        variables: { commentId: commentId },
-        
-    });
+export default function ReplyForm({commentId}) {
+
     const [text, setText] = useState('');
     const [addReply] = useMutation(ADD_REPLY);
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
-    const commentId = data.comment._id;
-    console.log(commentId);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -36,7 +25,7 @@ export default function ReplyForm() {
             const { data } = await addReply({
                 variables: {
                     text,
-                    commentId,
+                    commentId: commentId,
                     userID: Auth.getProfile().data._id,
                 },
             });
@@ -44,7 +33,7 @@ export default function ReplyForm() {
         } catch (err) {
             console.log(err);
         } 
-        // window.location.reload();   
+        window.location.reload();   
         setText("");
     }
     return (

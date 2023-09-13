@@ -5,6 +5,7 @@ const ReplyList = ({replies, commentId}) => {
         <div>
             <h3>Replies</h3>
             {replies.map((reply) => {
+                console.log("replies", replies);
                 return (
                 <div key={reply._id}>
                     <p>{reply.text}</p>

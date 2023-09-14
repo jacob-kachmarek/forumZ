@@ -5,6 +5,7 @@ import { GET_FORUM_POSTS } from '../../../utils/queries';
 import Auth from '../../../utils/auth';
 import './PostForm.css';
 import { Image } from 'cloudinary-react';
+import Swal from 'sweetalert2';
 
 export default function PostForm({ forumId }) {
   const [title, setTitle] = useState('');
@@ -59,6 +60,28 @@ export default function PostForm({ forumId }) {
         forumId,
       },
     });
+    let timerInterval
+    Swal.fire({
+      title: 'Success!',
+      html: ' <b></b> ',
+      timer: 1000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+        const b = Swal.getHtmlContainer().querySelector('b')
+        timerInterval = setInterval(() => {
+          b.textContent = Swal.getTimerLeft()
+        }, 100)
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer')
+      }
+    })
 
     setTitle('');
     setDescription('');
@@ -87,9 +110,9 @@ export default function PostForm({ forumId }) {
           <p>Loading...</p>
         ) : image ? (
           image.endsWith('.jpg') || image.endsWith('.png') || image.endsWith('.jpeg') ? (
-            <Image cloudName="forumZupload" publicId={image} width="300" crop="scale" />
+            <Image cloudName="forumZupload" publicId={image} width="200vw" crop="scale" />
           ) : (
-            <video width="300" controls>
+            <video width="200vw" controls>
               <source src={image} type="video/mp4" />
               Your browser does not support the video tag.
             </video>

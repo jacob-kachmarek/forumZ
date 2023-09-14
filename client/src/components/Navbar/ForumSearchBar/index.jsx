@@ -38,7 +38,7 @@ const ForumSearchBar = () => {
                 placeholder="search forumZ..."
                 style={{marginBottom: '0px'}}
             />
-            <button style={{padding: '5px', marginLeft: '5px', backgroundColor: '#c394ee'}} onClick={handleSearch}>🔍</button>
+            <button style={{padding: '5px', marginLeft: '5px', backgroundColor: '#ff7979'}} onClick={handleSearch}>🔍</button>
 
             {loading && <p>Loading...</p>}
         </div>

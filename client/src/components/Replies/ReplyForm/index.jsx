@@ -1,6 +1,6 @@
 import { ADD_REPLY } from "../../../utils/mutations";
 import { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import Auth from '../../../utils/auth';
 
 export default function ReplyForm({commentId}) {
@@ -44,29 +44,29 @@ export default function ReplyForm({commentId}) {
             <div>
                 {!showForm && (
                     <button  style={{
-                        // backgroundColor: 'blue',
-                        // color: 'white',
-                        // border: 'none',
-                        // borderRadius: '4px',
-                        // padding: '10px 10px',
-                        // fontSize: '12px',
-                        // cursor: 'pointer',
-                        // transition: 'background-color 0.3s ease',
-                        // boxShadow: 'none',
-                        // marginBottom: '5px'
+                        padding: '0px',
+                        backgroundColor: '#f0f0f0',
+                        fontWeight: 'less',
+                        color: 'grey',
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                        marginBottom: '20px',
+                        borderBottom: '2px solid grey',
+                        borderRadius: '0px',
+                        paddingBottom: '1px'
                     }} onClick={() => setShowForm(true)}>Reply</button>
                 ) }
                 {showForm ? (
-                <form onSubmit={handleFormSubmit}>
-                    <label>Reply</label>
+                <form style={{border: '2px solid black'}} onSubmit={handleFormSubmit}>
                     <input 
                         type="text"
+                        placeholder="nice comment!"
                         name="text"
                         value={text}
                         onChange={handleChange}
                     />
                     <button type="submit">
-                        add
+                        reply
                     </button>
                 </form>
                 ) : null}

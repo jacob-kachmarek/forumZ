@@ -188,3 +188,12 @@ mutation deleteReply($replyId: ID!, $commentId: ID!) {
   }
 }
 `;
+
+export const LIKE_POST = gql`
+  mutation likePost($postId: ID!) {
+    likePost(postId: $postId) {
+      _id
+      likes
+    }
+  }
+`;

@@ -66,6 +66,7 @@ type Query {
     addComment(text: String!, userID: ID!, postId: ID!): Comment
     likeComment(commentId: ID!): Comment
     likeReply(replyId: ID!): Reply
+    likePost(postId: ID!): Post
     addReply(text: String! userID: ID! commentId: ID!): Reply
     updateForum(title: String, description: String, forumId: ID!): Forum
     updatePost(title: String, description: String, image: String, postId: ID!): Post

@@ -8,12 +8,11 @@ import ReplyForm from '../../Replies/ReplyForm';
 
 function CommentList({ postId }) {
     const [sortOrder, setSortOrder] = useState("likes_DESC");
-
     const { loading, error, data } = useQuery(GET_COMMENTS, {
         variables: { postId, orderBy: sortOrder },
     });
 
-    const [likedComments, setLikedComments] = useState();
+    const [likedComments, setLikedComments] = useState({});
 
     const [likeComment] = useMutation(LIKE_COMMENT);
     const [deleteComment] = useMutation(DELETE_COMMENT);
@@ -28,11 +27,16 @@ function CommentList({ postId }) {
 
     const handleLikeClick = async (commentId) => {
         if (Auth.loggedIn()) {
-            try {
-                await likeComment({ variables: { commentId } });
-                setLikedComments(likedComments);
-            } catch (error) {
-                console.error("Error liking comment:", error);
+            // Updated: Add check for if the comment is already liked
+            if (!likedComments[commentId]) {
+                try {
+                    await likeComment({ variables: { commentId } });
+
+                    // Updated: Mark the comment as liked
+                    setLikedComments({ ...likedComments, [commentId]: true });
+                } catch (error) {
+                    console.error("Error liking comment:", error);
+                }
             }
         }
     };
@@ -72,12 +76,14 @@ function CommentList({ postId }) {
                     <p style={{fontSize: '18px', clear: 'both'}}>{comment.text}</p>
                     {Auth.loggedIn() && (
                         <button
-                            style={{ border: 'none', padding: '5px', color: 'white', backgroundColor: 'white'}}
-                            onClick={() => handleLikeClick(comment._id)}
-                        >
-                            ❤️
-                        </button>
-                    )}
+                        style={{ border: 'none', padding: '5px', color: 'white', backgroundColor: 'white' }}
+                        onClick={() => handleLikeClick(comment._id)}
+                        
+                        disabled={likedComments[comment._id]}
+                    >
+                        ❤️
+                    </button>
+                )}
                     <div style={{float: 'right'}}>
                         <p style={{color: 'grey'}}>- {comment.createdBy.username}</p>
                         <p style={{color: 'grey'}}>{comment.likes} likes</p>
@@ -96,7 +102,7 @@ function CommentList({ postId }) {
                             <ReplyList replies={comment.replies} commentId={comment._id} />
                         </>
                     )}
-                    {/* <ReplyForm commentId={comment._id} /> */}
+                    <ReplyForm commentId={comment._id} />
                 </div>
             ))}
         </div>

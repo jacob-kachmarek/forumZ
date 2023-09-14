@@ -57,10 +57,10 @@ export default function ReplyForm({commentId}) {
                     }} onClick={() => setShowForm(true)}>Reply</button>
                 ) }
                 {showForm ? (
-                <form onSubmit={handleFormSubmit}>
-                    <label>Reply</label>
+                <form style={{border: '2px solid black'}} onSubmit={handleFormSubmit}>
                     <input 
                         type="text"
+                        placeholder="nice comment!"
                         name="text"
                         value={text}
                         onChange={handleChange}

@@ -26,7 +26,7 @@ export default function Post() {
             <>
                 <div style={{display: 'flex', justifyContent: 'center'}}>
 
-                    <div style={{ padding: '10px', margin: '40px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px',
+                    <div style={{ padding: '20px', margin: '40px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px',
                     color: '#852cde', border: '3px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%'  }}> 
 
                         <div>
@@ -35,12 +35,11 @@ export default function Post() {
                             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
                                 <p style={{color: 'grey', fontSize: '16px',}}>Made by: {post.createdBy ? post.createdBy.username : 'Unknown'}</p>
                                 <p style={{color: 'grey', fontSize: '16px',}}>{post.createdAt}</p>
-                                <p style={{color: 'grey', fontSize: '16px',}}>{post.likes} likes</p>
                             </div>
 
                         </div>
 
-                        <div>
+                        <div style={{color: 'black'}}>
                             <CommentList postId={postId} />
                             <CommentForm postId={postId} />
                         </div>
@@ -62,7 +61,7 @@ export default function Post() {
         <>
             <div style={{display: 'flex', justifyContent: 'center'}}>
 
-                <div style={{ padding: '10px', margin: '40px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px',
+                <div style={{ padding: '20px', margin: '40px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px',
                     color: '#852cde', border: '3px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%'  }}> 
                     <div>
                         <h1 style={{marginBottom: '10px', marginTop: '10px'}}>{post.title}</h1>
@@ -89,11 +88,10 @@ export default function Post() {
                         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
                             <p style={{color: 'grey', fontSize: '16px',}}>Made by: {post.createdBy ? post.createdBy.username : 'Unknown'}</p>
                             <p style={{color: 'grey', fontSize: '16px',}}>{post.createdAt}</p>
-                            <p style={{color: 'grey', fontSize: '16px',}}>{post.likes} likes</p>
                         </div>
                     </div>
 
-                    <div>
+                    <div style={{color: 'black'}}>
                         <CommentList postId={postId} />
                         <CommentForm postId={postId} />
                     </div>

@@ -53,11 +53,11 @@ export default function CommentForm() {
                 }} onClick={() => setShowForm(true)}>Comment</button>
             ) }
             {showForm ? (
-                <form onSubmit={handleFormSubmit}>
-                    <label>Comment</label>
+                <form style={{border: '2px solid black'}} onSubmit={handleFormSubmit}>
                     <input 
                         type="text"
                         name="text"
+                        placeholder='what a cool post!'
                         value={text}
                         onChange={handleChange}
                     />
@@ -71,7 +71,7 @@ export default function CommentForm() {
     } else {
         return (
             <div>
-                <p>Please<a href='/login'>login</a> to add comments!</p>
+                <p>Please <a href='/login'>login</a> to add comments or like posts!</p>
             </div>
         )
     }

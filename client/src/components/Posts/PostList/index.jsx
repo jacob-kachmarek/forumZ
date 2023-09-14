@@ -125,7 +125,6 @@ function PostList({ searchTerm }) {
                   )}
                   <div style={{color: 'grey', fontSize: '16px',}}>Made by: {post.createdBy.username}</div>
                   <div style={{color: 'grey', fontSize: '16px',}}>{post.createdAt}</div>
-                  <div style={{color: 'grey', fontSize: '16px',}}>Likes: {post.likes}</div>
                   
                 </div>
                 

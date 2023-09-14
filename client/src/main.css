@@ -3,9 +3,10 @@
   padding: 0;
   font-family: Arial, Helvetica, sans-serif !important;
   letter-spacing: 1px;
+  zoom: 0.99
 }
 body {
-  background: linear-gradient(112deg, #852cde, #c394ee);
+  background: linear-gradient(112deg, #852cde, #ff7979);
   height: 100vh;
   overflow: auto;
   color: white;

@@ -64,33 +64,39 @@ function CommentList({ postId }) {
 
     return (
         <div>
-            <h2>Comments</h2>
-            <button onClick={toggleSortingOrder}>Toggle Sorting Order</button>
+            <h4 style={{borderBottom: '2px solid black', paddingBottom: '10px'}}>Comments</h4>
+
+            <button style={{float: 'right'}} onClick={toggleSortingOrder}>order by likes</button>
             {sortedComments.map((comment) => (
                 <div key={comment._id}>
-                    <h3>{comment.text}</h3>
-                    <p>Posted By: {comment.createdBy.username}</p>
-                    <p>Likes: {comment.likes}</p>
+                    <p style={{fontSize: '18px', clear: 'both'}}>{comment.text}</p>
                     {Auth.loggedIn() && (
-                        <div>
-                            <button
-                                style={{ border: 'none', padding: '0' }}
-                                onClick={() => handleLikeClick(comment._id)}
-                            >
-                                👍
-                            </button>
+                        <button
+                            style={{ border: 'none', padding: '5px', color: 'white', backgroundColor: 'white'}}
+                            onClick={() => handleLikeClick(comment._id)}
+                        >
+                            ❤️
+                        </button>
+                    )}
+                    <div style={{float: 'right'}}>
+                        <p style={{color: 'grey'}}>- {comment.createdBy.username}</p>
+                        <p style={{color: 'grey'}}>{comment.likes} likes</p>
+                    </div>
+                    <ReplyList replies={comment.replies} commentId={comment._id} />
+                    {Auth.loggedIn() && (
+                        <>
                             {Auth.getUserID() === comment.createdBy._id && (
                                 <button
-                                    style={{ border: 'none', padding: '0', color: 'red' }}
+                                    style={{ border: 'none', padding: '5px', color: 'white', backgroundColor: 'red' }}
                                     onClick={() => handleDeleteClick(comment._id)}
                                 >
-                                    🗑️
+                                    delete
                                 </button>
                             )}
                             <ReplyList replies={comment.replies} commentId={comment._id} />
-                        </div>
+                        </>
                     )}
-                    <ReplyForm commentId={comment._id} />
+                    {/* <ReplyForm commentId={comment._id} /> */}
                 </div>
             ))}
         </div>

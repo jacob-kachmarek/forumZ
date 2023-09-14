@@ -40,24 +40,15 @@ export default function CommentForm() {
             <div>
                 {!showForm && (
                 <button  style={{
-                    // backgroundColor: 'blue',
-                    // color: 'white',
-                    // border: 'none',
-                    // borderRadius: '4px',
-                    // padding: '10px 10px',
-                    // fontSize: '12px',
-                    // cursor: 'pointer',
-                    // transition: 'background-color 0.3s ease',
-                    // boxShadow: 'none',
-                    // marginBottom: '5px'
-                }} onClick={() => setShowForm(true)}>Comment</button>
+                    marginTop: '40px'
+                }} onClick={() => setShowForm(true)}>comment</button>
             ) }
             {showForm ? (
-                <form onSubmit={handleFormSubmit}>
-                    <label>Comment</label>
+                <form style={{border: '2px solid black'}} onSubmit={handleFormSubmit}>
                     <input 
                         type="text"
                         name="text"
+                        placeholder='what a cool post!'
                         value={text}
                         onChange={handleChange}
                     />
@@ -70,8 +61,8 @@ export default function CommentForm() {
         )
     } else {
         return (
-            <div>
-                <p>Please<a href='/login'>login</a> to add comments!</p>
+            <div style={{marginTop: '50px'}}>
+                <p style={{fontSize: '14px'}}>Please <a href='/login'>login</a> to add comments or like posts!</p>
             </div>
         )
     }

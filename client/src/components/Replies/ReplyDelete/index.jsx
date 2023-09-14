@@ -26,7 +26,7 @@ export default function ReplyDelete ({commentId, replyId}){
     window.location.reload()
 }}
     return(
-        <button onClick={handleDeleteReply}>🗑️</button>
+        <button style={{ border: 'none', padding: '5px', color: 'white', backgroundColor: 'red' }} onClick={handleDeleteReply}>delete</button>
     )
     
 }

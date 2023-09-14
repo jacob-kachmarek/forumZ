@@ -30,7 +30,7 @@
 
 .activeLink {
   text-decoration: none;
-  color: #c394ee;
+  color: #ff7979;
   font-size: 18px;
   font-weight:600;
 }
@@ -48,7 +48,7 @@
 }
 
 .logout-button {
-  background-color: #c394ee;
+  background-color: #ff7979;
   color: white;
   padding: 10px 20px;
   border: none;

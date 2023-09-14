@@ -70,8 +70,8 @@ export default function CommentForm() {
         )
     } else {
         return (
-            <div>
-                <p>Please <a href='/login'>login</a> to add comments or like posts!</p>
+            <div style={{marginTop: '50px'}}>
+                <p style={{fontSize: '14px'}}>Please <a href='/login'>login</a> to add comments or like posts!</p>
             </div>
         )
     }

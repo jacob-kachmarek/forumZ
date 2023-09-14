@@ -74,6 +74,7 @@ function CommentList({ postId }) {
                         <p style={{color: 'grey'}}>- {comment.createdBy.username}</p>
                         <p style={{color: 'grey'}}>{comment.likes} likes</p>
                     </div>
+                    <ReplyList replies={comment.replies} commentId={comment._id} />
                     {Auth.loggedIn() && (
                         <>
                             <button
@@ -93,7 +94,7 @@ function CommentList({ postId }) {
                             <ReplyList replies={comment.replies} commentId={comment._id} />
                         </>
                     )}
-                    <ReplyForm commentId={comment._id} />
+                    {/* <ReplyForm commentId={comment._id} /> */}
                 </div>
             ))}
         </div>

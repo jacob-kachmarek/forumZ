@@ -33,7 +33,7 @@ export default function Navbar() {
                <p style={{fontSize: '18px', fontWeight: 'bold' }}>
                   <span style={{ fontSize: '13px', fontWeight: '300' }}>Welcome back,</span>
                   {' '}
-                  <Link style={{fontSize: '20px', color: '#c394ee'}} to="/profile">{Auth.getProfile().data.username}</Link>
+                  <Link style={{fontSize: '20px', color: '#ff7979'}} to="/profile">{Auth.getProfile().data.username}</Link>
                </p>
             )}
             <Link to='/' className='logo' onClick={reloadPage}>

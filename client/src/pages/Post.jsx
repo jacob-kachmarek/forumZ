@@ -30,8 +30,8 @@ export default function Post() {
                     color: '#852cde', border: '3px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%'  }}> 
 
                         <div>
-                            <h1 style={{marginBottom: '10px',}}>{post.title}</h1>
-                            <p style={{ width: '90%',lineHeight: '22px', color: 'black' }}>{post.description}</p>
+                            <h1 style={{marginBottom: '10px', marginTop: '0px'}}>{post.title}</h1>
+                            <p style={{ width: '90%',lineHeight: '22px', color: 'black', fontSize: '19px' }}>{post.description}</p>
                             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
                                 <p style={{color: 'grey', fontSize: '16px',}}>Made by: {post.createdBy ? post.createdBy.username : 'Unknown'}</p>
                                 <p style={{color: 'grey', fontSize: '16px',}}>{post.createdAt}</p>
@@ -59,12 +59,12 @@ export default function Post() {
 
     return (
         <>
-            <div style={{display: 'flex', justifyContent: 'center'}}>
+            <div style={{display: 'flex', justifyContent: 'center',}}>
 
                 <div style={{ padding: '20px', margin: '40px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px',
                     color: '#852cde', border: '3px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%'  }}> 
                     <div>
-                        <h1 style={{marginBottom: '10px', marginTop: '10px'}}>{post.title}</h1>
+                        <h1 style={{marginBottom: '10px', marginTop: '0px'}}>{post.title}</h1>
                         {isImage ? (
                                 <img
                                     src={post.image}
@@ -84,7 +84,7 @@ export default function Post() {
                             ) : (
                                 <p>Unsupported video format</p>
                             )}
-                        <p style={{ width: '90%',lineHeight: '22px', color: 'black' }}>{post.description}</p>
+                        <p style={{ width: '90%',lineHeight: '22px', color: 'black', fontSize: '19px' }}>{post.description}</p>
                         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
                             <p style={{color: 'grey', fontSize: '16px',}}>Made by: {post.createdBy ? post.createdBy.username : 'Unknown'}</p>
                             <p style={{color: 'grey', fontSize: '16px',}}>{post.createdAt}</p>

@@ -48,19 +48,21 @@ const ReplyList = ({ commentId }) => {
   return (
     <div>
       {data.getRepliesByComment.map((reply) => (
-        <div key={reply._id}>
-          <p>{reply.text}</p>
-          <p>Likes: {reply.likes}</p>
-          <p>Created At: {reply.createdAt}</p>
-          <p>Created By: {reply.createdBy.username}</p>
+        <div style={{marginLeft: '60px', paddingTop: '4px', width: 'fit-content', paddingLeft: '10px', borderLeft: '2px solid black', marginBottom: '20px'}} key={reply._id}>
+          <p style={{fontSize: '16px'}}>{reply.text}</p>
+          <div style={{marginLeft: '40px'}}>
+            <p style={{color: 'grey', fontSize: '10px'}}>{reply.likes} likes</p>
+            <p style={{color: 'grey', fontSize: '10px'}}>- {reply.createdBy.username}</p>
+            <p style={{color: 'grey', fontSize: '10px'}}>{reply.createdAt}</p>
+          </div>
           {Auth.loggedIn() && (
             <div>
               <button
-                style={{ border: 'none', padding: '0' }}
+                style={{fontSize: '10px', border: 'none', padding: '5px', color: 'white', backgroundColor: 'white', marginLeft: '40px'}}
                 onClick={() => handleLikeReply(reply._id)} 
                 disabled={likedReplies.includes(reply._id)} 
               >
-                👍
+                ❤️
               </button>
               {loggedInUserId === reply.createdBy._id && (
                 <ReplyDelete commentId={commentId} replyId={reply._id} />

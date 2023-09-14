@@ -113,19 +113,6 @@ export default function PostUpdate({ postId }) {
             placeholder="New description"
             onChange={handleChange}
           />
-          <label htmlFor="image">New Media</label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            onChange={handleMediaUpload}
-          />
-          {/* Media Preview */}
-          { imageLoading ? (
-            <p>Loading...</p>
-          ) : image ? (
-            <Image cloudName="forumZupload" publicId={image} width="300" crop="scale" />
-          ) : null }
           <button  type="submit">update</button>
         </form>
       )}

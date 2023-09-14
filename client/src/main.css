@@ -1,13 +1,29 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif !important;
   letter-spacing: 1px;
   zoom: 0.99
 }
+
 body {
   background: linear-gradient(112deg, #852cde, #ff7979);
   height: 100vh;
   overflow: auto;
   color: white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Albert Sans', sans-serif !important;
+}
+
+body,
+p,
+span,
+div {
+  font-family: 'Barlow', sans-serif !important;
 }

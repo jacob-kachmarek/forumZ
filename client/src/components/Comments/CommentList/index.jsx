@@ -75,20 +75,15 @@ function CommentList({ postId }) {
                 <div key={comment._id}>
                     <p style={{fontSize: '18px', clear: 'both'}}>{comment.text}</p>
                     {Auth.loggedIn() && (
-                        <button
-                        style={{ border: 'none', padding: '5px', color: 'white', backgroundColor: 'white' }}
-                        onClick={() => handleLikeClick(comment._id)}
-                        
-                        disabled={likedComments[comment._id]}
-                    >
-                        ❤️
-                    </button>
-                )}
-                    <div style={{float: 'right'}}>
-                        <p style={{color: 'grey'}}>- {comment.createdBy.username}</p>
-                        <p style={{color: 'grey'}}>{comment.likes} likes</p>
-                    </div>
-                    <ReplyList replies={comment.replies} commentId={comment._id} />
+                            <button
+                            style={{ border: 'none', padding: '5px', color: 'white', backgroundColor: 'white' }}
+                            onClick={() => handleLikeClick(comment._id)}
+                            
+                            disabled={likedComments[comment._id]}
+                        >
+                            ❤️
+                        </button>
+                    )}
                     {Auth.loggedIn() && (
                         <>
                             {Auth.getUserID() === comment.createdBy._id && (
@@ -99,9 +94,13 @@ function CommentList({ postId }) {
                                     delete
                                 </button>
                             )}
-                            <ReplyList replies={comment.replies} commentId={comment._id} />
                         </>
                     )}
+                    <div style={{float: 'right'}}>
+                        <p style={{color: 'grey'}}>- {comment.createdBy.username}</p>
+                        <p style={{color: 'grey'}}>{comment.likes} likes</p>
+                    </div>
+                    <ReplyList replies={comment.replies} commentId={comment._id} />
                     <ReplyForm commentId={comment._id} />
                 </div>
             ))}

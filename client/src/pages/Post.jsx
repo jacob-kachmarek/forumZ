@@ -54,7 +54,7 @@ export default function Post() {
 
 
     // Check if the image URL is for an image or an mp4 video
-    const isImage = post.image.match(/\.(jpeg|jpg|gif|png)$/) !== null;
+    const isImage = post.image.match(/\.(jpeg|jpg|gif|png|webp)$/) !== null;
     const isMp4Video = post.image.toLowerCase().endsWith('.mp4');
 
     return (
@@ -82,7 +82,7 @@ export default function Post() {
                                     Your browser does not support the video tag.
                                 </video>
                             ) : (
-                                <p>Unsupported video format</p>
+                                <p></p>
                             )}
                         <p style={{ width: '90%',lineHeight: '22px', color: 'black', fontSize: '19px' }}>{post.description}</p>
                         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'end'}}>

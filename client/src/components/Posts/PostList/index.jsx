@@ -142,19 +142,12 @@ return (
                     onClick={() => handleLikePost(post._id)}
                     disabled={likedPosts.includes(post._id)}
                   >
-                    👍
+                    ❤️
                   </button>
                 )}
 
               
                 <div style={buttonDiv}>
-
-                  {Auth.loggedIn() && Auth.getUserID() === post.createdBy._id && (
-                      <>
-                        <PostDelete postId={post._id} /> 
-                        <PostUpdate postId={post._id} />
-                      </>
-                  )}
                   <div style={{color: 'grey', fontSize: '16px',}}>Made by: {post.createdBy.username}</div>
                   <div style={{color: 'grey', fontSize: '16px',}}>{post.createdAt}</div>
                   <div style={{color: 'grey', fontSize: '16px',}}>{post.likes} likes</div>

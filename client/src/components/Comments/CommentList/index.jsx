@@ -70,6 +70,14 @@ function CommentList({ postId }) {
             {sortedComments.map((comment) => (
                 <div key={comment._id}>
                     <p style={{fontSize: '18px', clear: 'both'}}>{comment.text}</p>
+                    {Auth.loggedIn() && (
+                        <button
+                            style={{ border: 'none', padding: '5px', color: 'white', backgroundColor: 'white'}}
+                            onClick={() => handleLikeClick(comment._id)}
+                        >
+                            ❤️
+                        </button>
+                    )}
                     <div style={{float: 'right'}}>
                         <p style={{color: 'grey'}}>- {comment.createdBy.username}</p>
                         <p style={{color: 'grey'}}>{comment.likes} likes</p>
@@ -77,12 +85,6 @@ function CommentList({ postId }) {
                     <ReplyList replies={comment.replies} commentId={comment._id} />
                     {Auth.loggedIn() && (
                         <>
-                            <button
-                                style={{ border: 'none', padding: '5px', color: 'white', backgroundColor: 'white'}}
-                                onClick={() => handleLikeClick(comment._id)}
-                            >
-                                ❤️
-                            </button>
                             {Auth.getUserID() === comment.createdBy._id && (
                                 <button
                                     style={{ border: 'none', padding: '5px', color: 'white', backgroundColor: 'red' }}

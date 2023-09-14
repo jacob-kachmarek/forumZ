@@ -8,8 +8,8 @@ export default function Home() {
         return (
           <div>
               <div style={{padding: '40px',marginBottom: '0px'}}>
-                  <h1 >Join The Conversation</h1>
-                  <p className='para'>The all encompassing Reddit-like platform where you can explore different forumZ, make a post with an embedded video or picture, comment on others' posts and even reply to comments!</p>
+                  <h1 >Join the Conversation</h1>
+                  <p className='para'>The all encompassing Reddit-like platform where you can explore different forumZ, make a post with an embedded video or picture and interact with others' posts with likes, replies, or comments!</p>
                   <button
                   className='button'
                   onClick={() => {

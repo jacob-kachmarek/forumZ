@@ -42,7 +42,7 @@ const Login = (props) => {
     <main style={{display: 'flex', justifyContent: 'center', marginTop: '60px', alignItems: 'center'}}>
       <div style={{textAlign: 'center'}}>
         <div>
-          <h4 style={{marginBottom: '20px'}}>Login</h4>
+          <h2 style={{marginBottom: '20px'}}>Login</h2>
           <div>
             {data ? (
               <p>
@@ -50,7 +50,7 @@ const Login = (props) => {
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-              <form style={{marginRight: '0'}} onSubmit={handleFormSubmit}>
+              <form style={{marginRight: '0', border: '4px solid black', boxShadow: '10px 10px 10px black'}} onSubmit={handleFormSubmit}>
                 <input
                   className="form-input"
                   placeholder="Your username"

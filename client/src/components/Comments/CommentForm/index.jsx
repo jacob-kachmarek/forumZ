@@ -40,17 +40,8 @@ export default function CommentForm() {
             <div>
                 {!showForm && (
                 <button  style={{
-                    // backgroundColor: 'blue',
-                    // color: 'white',
-                    // border: 'none',
-                    // borderRadius: '4px',
-                    // padding: '10px 10px',
-                    // fontSize: '12px',
-                    // cursor: 'pointer',
-                    // transition: 'background-color 0.3s ease',
-                    // boxShadow: 'none',
-                    // marginBottom: '5px'
-                }} onClick={() => setShowForm(true)}>Comment</button>
+                    marginTop: '40px'
+                }} onClick={() => setShowForm(true)}>comment</button>
             ) }
             {showForm ? (
                 <form style={{border: '2px solid black'}} onSubmit={handleFormSubmit}>

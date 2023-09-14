@@ -27,7 +27,7 @@ export default function Post() {
                 <div style={{display: 'flex', justifyContent: 'center'}}>
 
                     <div style={{ padding: '20px', margin: '40px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px',
-                    color: '#852cde', border: '3px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%'  }}> 
+                    color: '#852cde', border: '4px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%'  }}> 
 
                         <div>
                             <h1 style={{marginBottom: '10px', marginTop: '0px'}}>{post.title}</h1>
@@ -62,7 +62,7 @@ export default function Post() {
             <div style={{display: 'flex', justifyContent: 'center',}}>
 
                 <div style={{ padding: '20px', margin: '40px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px',
-                    color: '#852cde', border: '3px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%'  }}> 
+                    color: '#852cde', border: '4px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%', boxShadow: '10px 10px 10px black'  }}> 
                     <div>
                         <h1 style={{marginBottom: '10px', marginTop: '0px'}}>{post.title}</h1>
                         {isImage ? (

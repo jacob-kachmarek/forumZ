@@ -54,7 +54,7 @@ export default function Post() {
 
 
     // Check if the image URL is for an image or an mp4 video
-    const isImage = post.image.match(/\.(jpeg|jpg|gif|png|webp)$/) !== null;
+    const isImage = post.image.match(/\.(jpeg|jpg|gif|png|webp)$/i) !== null;
     const isMp4Video = post.image.toLowerCase().endsWith('.mp4');
 
     return (

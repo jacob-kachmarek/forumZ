@@ -19,12 +19,12 @@ export default function PostForm({ forumId }) {
     refetchQueries: [{ query: GET_FORUM_POSTS, variables: { forumId } }],
   });
 
-  const supportedFileTypes = ['image/jpg', 'image/jpeg', 'image/png', 'video/mp4', 'image/webp'];
+  const supportedFileTypes = ['image/jpg', 'image/jpeg', 'image/png', 'video/mp4', 'image/webp', 'image/gif'];
 
   const handleMediaUpload = async (e) => {
     const file = e.target.files[0];
     if (!supportedFileTypes.includes(file.type)) {
-      alert("File type not supported. Please upload a JPG, JPEG, PNG, Webp, or MP4 file.");
+      alert("File type not supported. Please upload a JPG, JPEG, PNG, Webp, Gif, or MP4 file.");
       return;
     }
 
@@ -109,7 +109,7 @@ export default function PostForm({ forumId }) {
         { imageLoading ? (
           <p>Loading...</p>
         ) : image ? (
-          image.endsWith('.jpg') || image.endsWith('.png') || image.endsWith('.jpeg') || image.endsWith('.webp') ? (
+          image.endsWith('.jpg') || image.endsWith('.png') || image.endsWith('.jpeg') || image.endsWith('.webp') || image.endsWith('.gif') ? (
             <Image cloudName="forumZupload" publicId={image} width="200vw" crop="scale" />
           ) : (
             <video width="200vw" controls>

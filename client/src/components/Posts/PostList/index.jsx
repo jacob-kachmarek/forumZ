@@ -88,7 +88,7 @@ function PostList({ searchTerm }) {
   }
 
   const getMediaType = (url) => {
-    if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png')) {
+    if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png') || url.endsWith('.gif') || url.endsWith('.webp')) {
       return 'image';
     }
     if (url.endsWith('.mp4')) {

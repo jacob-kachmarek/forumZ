@@ -92,7 +92,7 @@ function PostList({ searchTerm }) {
             <div key={post._id}>
               <div style={cardStyle}>
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', }}>
+                <div style={{ display: 'flex', }}>
 
                   {post.image && getMediaType(post.image) === 'image' && (
                     <img style={{ width: '100px', height: '100px', marginRight: '20px' }} src={`${post.image}?format=auto`} alt={post.title} width="300" />

@@ -106,7 +106,7 @@ export default function PostForm({ forumId }) {
         <form onSubmit={handleFormSubmit}>
           <input type="text" placeholder='title' value={title} onChange={(e) => setTitle(e.target.value)} />
           <textarea value={description} placeholder='description' onChange={(e) => setDescription(e.target.value)}></textarea>
-          <label>Media</label>
+          <label>Media (optional)</label>
           <input type="file" onChange={handleMediaUpload} />
 
           {/* Media Preview */}

@@ -36,6 +36,12 @@ const buttonDiv = {
   alignItems: 'flex-end',
 };
 
+const MAX_DESCRIPTION_LENGTH = 500;
+
+function truncateText(text, maxLength) {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength) + "...";
+}
 
 function PostList({ searchTerm }) {
   const { forumId } = useParams();
@@ -126,7 +132,7 @@ function PostList({ searchTerm }) {
                       </Link>
                       <p
                         style={descriptionStyle}
-                        dangerouslySetInnerHTML={{ __html: post.description }}
+                        dangerouslySetInnerHTML={{ __html: truncateText(post.description, MAX_DESCRIPTION_LENGTH) }}
                       ></p>
                     </div>
                   </div>

@@ -36,6 +36,12 @@ const buttonDiv = {
   alignItems: 'flex-end',
 };
 
+const MAX_DESCRIPTION_LENGTH = 500;
+
+function truncateText(text, maxLength) {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength) + "...";
+}
 
 function PostList({ searchTerm }) {
   const { forumId } = useParams();
@@ -99,70 +105,73 @@ function PostList({ searchTerm }) {
 
   console.log('Rendering posts:', posts); // Debugging
 
-return (
-  <>
-    <div>
-      {posts.length === 0 ? (
-        <h3>No posts yet :/</h3>
-      ) : (
-        posts.map(post => (
-          <div key={post._id}>
-            <div style={cardStyle}>
-              <div>
-                <div style={{ display: 'flex', }}>
+  return (
+    <>
+      <div>
+        {posts.length === 0 ? (
+          <h3>No posts yet :/</h3>
+        ) : (
+          posts.map(post => (
+            <div key={post._id}>
+              <div style={cardStyle}>
+                <div>
+                  <div style={{ display: 'flex', }}>
 
-                  {post.image && getMediaType(post.image) === 'image' && (
-                    <img style={{ width: '100px', height: '100px', marginRight: '20px' }} src={`${post.image}?format=auto`} alt={post.title} width="300" />
-                  )}
-                  {post.image && getMediaType(post.image) === 'video' && (
-                    <video style={{ width: '100px', height: '100px', marginRight: '20px' }} width="300" controls>
-                      <source src={post.image} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>)}
+                    {post.image && getMediaType(post.image) === 'image' && (
+                      <img style={{ width: '100px', height: '100px', marginRight: '20px' }} src={`${post.image}?format=auto`} alt={post.title} width="300" />
+                    )}
+                    {post.image && getMediaType(post.image) === 'video' && (
+                      <video style={{ width: '100px', height: '100px', marginRight: '20px' }} width="300" controls>
+                        <source src={post.image} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>)}
 
-                  <div style={titleStyle}>
-                    <Link style={{ textDecoration: 'none', color: '#852cde' }} to={`/forum/${forumId}/post/${post._id}`}>
-                      <h2>{post.title}</h2>
-                    </Link>
-                    <p style={descriptionStyle}>{post.description}</p>
+                    <div style={titleStyle}>
+                      <Link style={{ textDecoration: 'none', color: '#852cde' }} to={`/forum/${forumId}/post/${post._id}`}>
+                        <h2>{post.title}</h2>
+                      </Link>
+                      <p
+                        style={descriptionStyle}
+                        dangerouslySetInnerHTML={{ __html: truncateText(post.description, MAX_DESCRIPTION_LENGTH) }}
+                      ></p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div style={buttonDiv}>
-                {Auth.loggedIn() && Auth.getUserID() === post.createdBy._id && (
-                  <>
-                    <PostDelete postId={post._id} />
-                    <PostUpdate postId={post._id} />
-                  </>
-                )}
-                {/* New like button */}
-                {Auth.loggedIn() && (
-                  <button
-                    onClick={() => handleLikePost(post._id)}
-                    disabled={likedPosts.includes(post._id)}
-                  >
-                    ❤️
-                  </button>
-                )}
-
-              
                 <div style={buttonDiv}>
-                  <div style={{color: 'grey', fontSize: '16px',}}>Made by: {post.createdBy.username}</div>
-                  <div style={{color: 'grey', fontSize: '16px',}}>{post.createdAt}</div>
-                  <div style={{color: 'grey', fontSize: '16px',}}>{post.likes} likes</div>
-                  
+                  {Auth.loggedIn() && Auth.getUserID() === post.createdBy._id && (
+                    <>
+                      <PostDelete postId={post._id} />
+                      <PostUpdate postId={post._id} />
+                    </>
+                  )}
+                  {/* New like button */}
+                  {Auth.loggedIn() && (
+                    <button
+                      onClick={() => handleLikePost(post._id)}
+                      disabled={likedPosts.includes(post._id)}
+                    >
+                      ❤️
+                    </button>
+                  )}
+
+
+                  <div style={buttonDiv}>
+                    <div style={{ color: 'grey', fontSize: '16px', }}>Made by: {post.createdBy.username}</div>
+                    <div style={{ color: 'grey', fontSize: '16px', }}>{post.createdAt}</div>
+                    <div style={{ color: 'grey', fontSize: '16px', }}>{post.likes} likes</div>
+
+                  </div>
+
+
                 </div>
-                
-                  
               </div>
             </div>
-          </div>
-        ))
-      )}
-    </div>
-  </>
-);
+          ))
+        )}
+      </div>
+    </>
+  );
 }
 
 export default PostList;

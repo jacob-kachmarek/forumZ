@@ -19,27 +19,37 @@ export default function Post() {
 
     console.log("data:", data);
 
-    const post = data.getSinglePost; 
+    const post = data.getSinglePost;
 
     if (post.image == null) {
         return (
             <>
-                <div style={{display: 'flex', justifyContent: 'center'}}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
 
-                    <div style={{ padding: '20px', margin: '40px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px',
-                    color: '#852cde', border: '4px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%'  }}> 
+                    <div style={{
+                        padding: '20px', margin: '40px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px',
+                        color: '#852cde', border: '4px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%'
+                    }}>
 
                         <div>
-                            <h1 style={{marginBottom: '10px', marginTop: '0px'}}>{post.title}</h1>
-                            <p style={{ width: '90%',lineHeight: '22px', color: 'black', fontSize: '19px' }}>{post.description}</p>
-                            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
-                                <p style={{color: 'grey', fontSize: '16px',}}>Made by: {post.createdBy ? post.createdBy.username : 'Unknown'}</p>
-                                <p style={{color: 'grey', fontSize: '16px',}}>{post.createdAt}</p>
+                            <h1 style={{ marginBottom: '10px', marginTop: '0px' }}>{post.title}</h1>
+                            <p
+                                style={{
+                                    width: '90%',
+                                    lineHeight: '22px',
+                                    color: 'black',
+                                    fontSize: '19px',
+                                }}
+                                dangerouslySetInnerHTML={{ __html: post.description }}
+                            ></p>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
+                                <p style={{ color: 'grey', fontSize: '16px', }}>Made by: {post.createdBy ? post.createdBy.username : 'Unknown'}</p>
+                                <p style={{ color: 'grey', fontSize: '16px', }}>{post.createdAt}</p>
                             </div>
 
                         </div>
 
-                        <div style={{color: 'black'}}>
+                        <div style={{ color: 'black' }}>
                             <CommentList postId={postId} />
                             <CommentForm postId={postId} />
                         </div>
@@ -59,45 +69,51 @@ export default function Post() {
 
     return (
         <>
-            <div style={{display: 'flex', justifyContent: 'center',}}>
+            <div style={{ display: 'flex', justifyContent: 'center', }}>
 
-                <div style={{ padding: '20px', margin: '40px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px',
-                    color: '#852cde', border: '4px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%', boxShadow: '10px 10px 10px black'  }}> 
+                <div style={{
+                    padding: '20px', margin: '40px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px',
+                    color: '#852cde', border: '4px solid black', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '80%', boxShadow: '10px 10px 10px black'
+                }}>
                     <div>
-                        <h1 style={{marginBottom: '10px', marginTop: '0px'}}>{post.title}</h1>
+                        <h1 style={{ marginBottom: '10px', marginTop: '0px' }}>{post.title}</h1>
                         {isImage ? (
-                                <img
-                                    src={post.image}
-                                    alt="Post Image"
-                                    style={{ width: '40%', height: 'auto', marginBottom: '20px' }}
-                                />
-                            ) : isMp4Video ? (
-                                <video
-                                    width="100%"
-                                    height="auto"
-                                    controls
-                                    style={{ width: '40%', height: 'auto' }}
-                                >
-                                    <source src={post.image} type="video/mp4" />
-                                    Your browser does not support the video tag.
-                                </video>
-                            ) : (
-                                <p></p>
-                            )}
-                        <p style={{ width: '90%',lineHeight: '22px', color: 'black', fontSize: '19px' }}>{post.description}</p>
-                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'end'}}>
-                            <p style={{color: 'grey', fontSize: '16px',}}>Made by: {post.createdBy ? post.createdBy.username : 'Unknown'}</p>
-                            <p style={{color: 'grey', fontSize: '16px',}}>{post.createdAt}</p>
+                            <img
+                                src={post.image}
+                                alt="Post Image"
+                                style={{ width: '40%', height: 'auto', marginBottom: '20px' }}
+                            />
+                        ) : isMp4Video ? (
+                            <video
+                                width="100%"
+                                height="auto"
+                                controls
+                                style={{ width: '40%', height: 'auto' }}
+                            >
+                                <source src={post.image} type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        ) : (
+                            <p></p>
+                        )}
+                        <p
+                            style={{ width: '90%', lineHeight: '22px', color: 'black', fontSize: '19px' }}
+                            dangerouslySetInnerHTML={{ __html: post.description }}
+                        ></p>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
+                            <p style={{ color: 'grey', fontSize: '16px', }}>Made by: {post.createdBy ? post.createdBy.username : 'Unknown'}</p>
+                            <p style={{ color: 'grey', fontSize: '16px', }}>{post.createdAt}</p>
                         </div>
                     </div>
 
-                    <div style={{color: 'black'}}>
+                    <div style={{ color: 'black' }}>
                         <CommentList postId={postId} />
                         <CommentForm postId={postId} />
                     </div>
 
 
-                    
+
                 </div>
 
             </div>

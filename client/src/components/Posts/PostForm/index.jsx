@@ -13,7 +13,7 @@ export default function PostForm({ forumId }) {
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
   const [show, setShow] = useState(false);
-  
+
   // Add refetchQueries for automatic data refresh
   const [addPost, { error }] = useMutation(ADD_POST, {
     refetchQueries: [{ query: GET_FORUM_POSTS, variables: { forumId } }],
@@ -51,14 +51,18 @@ export default function PostForm({ forumId }) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    // Replace line breaks with <br> tags in the description
+    const formattedDescription = description.replace(/\n/g, '<br>');
+
     await addPost({
       variables: {
         title,
-        description,
+        description: formattedDescription,
         image,
         userID: Auth.getProfile().data._id,
         forumId,
-      },
+      }
     });
     let timerInterval
     Swal.fire({
@@ -91,39 +95,39 @@ export default function PostForm({ forumId }) {
 
   return (
     <>
-    {(!Auth.loggedIn()) &&
-      <button className='button' onClick={()=> {window.location.assign('/signup')}}>create post!</button>
-    }
+      {(!Auth.loggedIn()) &&
+        <button className='button' onClick={() => { window.location.assign('/signup') }}>create post!</button>
+      }
 
-    {(!show && Auth.loggedIn()) && 
-      <button className='button' onClick={() => {setShow(true)}}>create post!</button>
-    }
-    {(show) &&
-      <form onSubmit={handleFormSubmit}>
-        <input type="text" placeholder='title' value={title} onChange={(e) => setTitle(e.target.value)} />
-        <textarea value={description} placeholder='description' onChange={(e) => setDescription(e.target.value)}></textarea>
-        <label>Media</label>
-        <input type="file" onChange={handleMediaUpload} />
-        
-        {/* Media Preview */}
-        { imageLoading ? (
-          <p>Loading...</p>
-        ) : image ? (
-          image.endsWith('.jpg') || image.endsWith('.png') || image.endsWith('.jpeg') || image.endsWith('.webp') || image.endsWith('.gif') ? (
-            <Image cloudName="forumZupload" publicId={image} width="200vw" crop="scale" />
-          ) : (
-            <video width="200vw" controls>
-              <source src={image} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          )
-        ) : null }
+      {(!show && Auth.loggedIn()) &&
+        <button className='button' onClick={() => { setShow(true) }}>create post!</button>
+      }
+      {(show) &&
+        <form onSubmit={handleFormSubmit}>
+          <input type="text" placeholder='title' value={title} onChange={(e) => setTitle(e.target.value)} />
+          <textarea value={description} placeholder='description' onChange={(e) => setDescription(e.target.value)}></textarea>
+          <label>Media (optional)</label>
+          <input type="file" onChange={handleMediaUpload} />
 
-        <button type="submit">create!</button>
-      </form>
-    }
-      
-      { error && <p>{error.message}</p> }
+          {/* Media Preview */}
+          {imageLoading ? (
+            <p>Loading...</p>
+          ) : image ? (
+            image.endsWith('.jpg') || image.endsWith('.png') || image.endsWith('.jpeg') || image.endsWith('.webp') || image.endsWith('.gif') ? (
+              <Image cloudName="forumZupload" publicId={image} width="200vw" crop="scale" />
+            ) : (
+              <video width="200vw" controls>
+                <source src={image} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            )
+          ) : null}
+
+          <button type="submit">create!</button>
+        </form>
+      }
+
+      {error && <p>{error.message}</p>}
     </>
   );
 }

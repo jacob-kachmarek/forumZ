@@ -36,7 +36,7 @@ const buttonDiv = {
   alignItems: 'flex-end',
 };
 
-const MAX_DESCRIPTION_LENGTH = 500;
+const MAX_DESCRIPTION_LENGTH = 270;
 
 function truncateText(text, maxLength) {
   if (text.length <= maxLength) return text;

@@ -3,8 +3,21 @@
 
 # forumZ
 
+[deployed link here!](https://forumz-090c0b5b4bff.herokuapp.com/)
+
 ## Description
-forumZ is a community driven forum sharing platform inspired by reddit. Here you can create your own forumZ, add posts to those forums and interact with other users via comments and replies. Feel free to create your own account and start exploring! You can visit the deployed link [here.](https://forumz-090c0b5b4bff.herokuapp.com/)
+forumZ is a community driven forum sharing platform inspired by Reddit. Here you can create your own forumZ, add posts to those forums and interact with other users via comments and replies. Feel free to create your own account and start exploring!
+
+Here are the technologies we used to make this application possible:
+- Express
+- React
+- Apollo GraphQL (an alternative to RESTful APIs)
+- MongoDB with Mongoose
+- JWT (javascript web tokens)
+- Bcrypt (for password hashing)
+- Cloudinary (for media uploads)
+- SweetAlerts2
+- CSS
 
 ## Table of Contents
 - [Installation](#installation)
@@ -15,16 +28,17 @@ forumZ is a community driven forum sharing platform inspired by reddit. Here you
 - [Questions](#questions)
 
 ## Installation
-npm i for all dependencies
-- Express
-- React
-- Vite
-- JWT 
-- Bcrypt
-- Graphql
-- Mongoose
-- Nodemon
-- Cloudinary
+To install our project on your local computer, you must follow these steps chronologically:
+<br>
+<br>
+1: clone the repo to your computer
+<br>
+2: run `npm install` in the root directory of the cloned repo to install the required dependencies
+<br>
+3: run `npm run develop` in the root directory
+<br>
+4: That's it! the cloned project should now be running on your local machine at PORT 3000
+
 
 ## Usage
 Login to create account
@@ -55,11 +69,7 @@ This application is covered under the MIT license.
 - Ross Fahan: [Github](https://github.com/RossFahan) [LinkedIn](https://www.linkedin.com/in/rossfahan/)
 - Thomas Munzar: [Github](https://github.com/ThomasMunzar) [LinkedIn](https://www.linkedin.com/in/thomas-munzar-659b51250/)
 
-## Tests
-N/A
 
 ## Questions
-For questions about the project, you can reach us via:
-- GitHub
-- Email: forumZquestions@gmail.com
+For questions about the project, you can reach us via email (provided above)
     
